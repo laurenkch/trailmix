@@ -1,10 +1,12 @@
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import handleError from './../utils';
+import { useOutletContext } from 'react-router-dom';
+import handleError from './../util';
 import Cookies from 'js-cookie';
 
 function Register() {
+
+    const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
 
         const INITIAL_STATE = {
             username: '',
@@ -27,7 +29,7 @@ function Register() {
         )
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (state.password1 === state.password2) {
@@ -50,20 +52,19 @@ function Register() {
             } else {
                 const data = await response.json();
                 Cookies.set("Authorization", `Token ${data.key}`);
-                // setAuth(true);
-                // navigate('/');
+                setAuth(true);
+                navigate('/');
             }
         } else {
             alert('passwords must match');
         }
     }
-    }
 
 
         return (
             <div>
-                <Form>
-                    <Form.Label hmtlFor='username'>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Label htmlFor='username'>
                         Username
                     </Form.Label>
                     <Form.Control
@@ -74,7 +75,7 @@ function Register() {
                         value={state.username}
                         onChange={handleInput}
                     />
-                    <Form.Label hmtlFor='email'>
+                    <Form.Label htmlFor='email'>
                         Email
                     </Form.Label>
                     <Form.Control
@@ -84,7 +85,7 @@ function Register() {
                         value={state.email}
                         onChange={handleInput}
                     />
-                    <Form.Label hmtlFor='password'>
+                    <Form.Label htmlFor='password'>
                         Password
                     </Form.Label>
                     <Form.Control
@@ -94,8 +95,9 @@ function Register() {
                         name='password1'
                         value={state.password1}
                         onChange={handleInput}
+                        type='password'
                     />
-                    <Form.Label hmtlFor='password'>
+                    <Form.Label htmlFor='password'>
                         Password
                     </Form.Label>
                     <Form.Control
@@ -105,12 +107,13 @@ function Register() {
                         name='password2'
                         value={state.password2}
                         onChange={handleInput}
+                        type='password'
                         
                     />
-                    <button type='submit'>Sign in</button>
+                    <button type='submit'>Register</button>
                 </Form>
 
-                <Link >Login to existing account</Link>
+                <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">Login to exisiting account</button>
             </div>
         )
     }

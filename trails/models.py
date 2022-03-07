@@ -1,34 +1,43 @@
 from django.conf import settings
 from django.db import models
 
-class Trail(models.Model):
-    name = models.CharField(max_length=255)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
-    elevation = models.IntegerField()
-    length = models.IntegerField()
-    fee = models.IntegerField(null=True)
-    address = models.CharField(max_length=255, null = True)
-    park_code = models.CharField(max_length=4, null=True)
-    hours = models.CharField(max_length = 255)
-    activities = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Park(models.Model):
+    park_name = models.CharField(max_length=255)
+    latitude = models.DecimalField(max_digits=8, decimal_places=6)
+    longitude = models.DecimalField(max_digits=8, decimal_places=6)
 
-    EASY = 'Easy'
-    MODERATE = 'Moderate'
-    DIFFICULT = 'Difficult'
-
-    DIFFICULTY_CHOICES = [
-        (EASY, 'Easy'),
-        (MODERATE, 'Moderate'),
-        (DIFFICULT, 'Difficult'),
-    ]
-
-    difficulty = models.CharField(max_length=255, choices=DIFFICULTY_CHOICES)
+    fee = models.CharField(max_length=255,null=True)
+    park_code = models.CharField(max_length=4, null=True, blank=True)
+    hours = models.CharField(max_length=255)
+    activities = models.CharField(max_length=255, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return self.title
+        return self.park_name
+
+class Trail(models.Model):
+    park = models.ForeignKey(Park, on_delete = models.CASCADE, null=True)
+    trail_name = models.CharField(max_length=255)
+    elevation_gain = models.IntegerField(blank=True, null=True)
+    length = models.DecimalField(max_digits=8, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    description = models.TextField(null=True, blank=True)
+
+    OUT_AND_BACK = 'oab'
+    LOOP = 'loop'
+    TRAIL_SEGMENT ='seg'
+
+    TRAIL_TYPE_CHOICES = [
+        (OUT_AND_BACK,'oab'),
+        (LOOP,'loop'),
+        (TRAIL_SEGMENT,'seg')
+    ]
+
+    trail_type = models.CharField(max_length=255, choices=TRAIL_TYPE_CHOICES, null=True, blank=True)
+
+    def __str__(self):
+        return self.trail_name
 
 class TrailImage(models.Model):
     trail = models.ForeignKey(Trail, related_name='images', on_delete=models.CASCADE)
@@ -37,56 +46,26 @@ class TrailImage(models.Model):
 class UserFeedack(models.Model):
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     badges = models.TextField(blank=True)
-    # DOG_FRIENDLY = 'DF'
-    # NO_PETS_ALLOWED = 'NPA'
-    # MUDDY = 'Muddy'
-    # ROCKY = 'Rocky'
-    # STEEP = 'Steep'
-    # LIMITED_PARKING = 'LP'
-    # AMPLE_PARKING = 'AP'
-    # CLEAN_BATHROOMS = 'CB'
-    # NO_BATHROOMS = 'NB'
-    # DIRTY_BATHROOMS = 'DB'
-    # RIVER_CROSSING = 'RC'
-    # NO_CELL_SERVICE = 'NCS'
-    # STRONG_CELL_SERVICE = 'SCS'
-    # WEAK_CELL_SERVICE = 'WCS'
-    # KID_FRIENDLY = 'KF'
-    # SHADED = 'Shaded'
-    # RIVER_CROSSING = 'RC'
+    dog_friendly = models.BooleanField(default = False, blank=False)
+    no_pets_allowed = models.BooleanField(default=False, blank=False)
+    muddy = models.BooleanField(default=False, blank=False)
+    rocky = models.BooleanField(default=False, blank=False)
+    steep = models.BooleanField(default=False, blank=False)
+    shaded = models.BooleanField(default=False, blank=False)
+    river_crossing = models.BooleanField(default=False, blank=False)
+    limited_parking = models.BooleanField(default=False, blank=False)
+    ample_parking = models.BooleanField(default=False, blank=False)
+    clean_bathrooms = models.BooleanField(default=False, blank=False)
+    no_bathrooms = models.BooleanField(default=False, blank=False)
+    dirty_bathrooms = models.BooleanField(default=False, blank=False)
+    no_cell_service = models.BooleanField(default=False, blank=False)
+    strong_cell_signal = models.BooleanField(default=False, blank=False)
+    weak_cell_signal = models.BooleanField(default=False, blank=False)
+    kid_friendly = models.BooleanField(default=False, blank=False)
+    paved = models.BooleanField(default=False, blank=False)
+    wheelchair_accessible = models.BooleanField(default=False, blank=False)
 
-
-    # BADGES_CHOICES = [
-    #     (DOG_FRIENDLY, 'DF'),
-    #     (NO_PETS_ALLOWED, 'NPA')
-    #     (MUDDY, 'Muddy')
-    #     (ROCKY, 'Rocky')
-    #     (STEEP, 'Steep')
-    #     (LIMITED_PARKING, 'LP'),
-    #     (AMPLE_PARKING, 'AP'),
-    #     (CLEAN_BATHROOMS, 'CB'),
-    #     (NO_BATHROOMS, 'NB'),
-    #     (DIRTY_BATHROOMS, 'DB'),
-    #     (RIVER_CROSSING, 'RC'),
-    #     (NO_CELL_SERVICE, 'NCS'),
-    #     (STRONG_CELL_SERVICE, 'SCS'),
-    #     (WEAK_CELL_SERVICE, 'WCS'),
-    #     (KID_FRIENDLY, 'KF'),
-    #     (SHADED, 'Shaded'),
-    #     (RIVER_CROSSING, 'RC'),
-    # ]
-
-    EASY = 'Easy'
-    MODERATE = 'Moderate'
-    DIFFICULT = 'Difficult'
-
-    DIFFICULTY_CHOICES = [
-        (EASY, 'Easy'),
-        (MODERATE, 'Moderate'),
-        (DIFFICULT, 'Difficult'),
-    ]
-
-    difficulty = models.CharField(max_length=255, choices=DIFFICULTY_CHOICES, blank=True)
+    difficulty = models.IntegerField(null=True, blank=True)
 
 
 class Trip(models.Model):

@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
-import { handleError } from './utility';
+import handleError from './../util';
 
-function Header() {
+function Header({ auth, setAuth, navigate, admin, setAdmin }) {
 
     const handleLogout = async e => {
         e.preventDefault();
@@ -23,15 +23,48 @@ function Header() {
             throw new Error("Network response not ok");
         } else {
             Cookies.remove("Authorization");
-            //         setAuth(false);
-            //         setSuperUser(false);
-            //     }
-            //     navigate('/');
-            // }
-        }
+                    setAuth(false);
+                    setAdmin(false);
+                }
+                navigate('/');
+            }
 
             return (
-                <div>header</div>
+                <nav>
+                    <ul>
+                        <div className='nav-links'>
+                            <li>
+                                <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
+                            </li>
+                            {/* {auth && !admin &&
+                                <li>
+                                    <NavLink className='btn toggle-btn' to='/profile'>
+                                        Profile
+                                    </NavLink>
+                                </li>
+                            } */}
+                            {admin &&
+                                <li>
+                                    <NavLink className='btn toggle-btn' to='/admin'>
+                                        Trails
+                                    </NavLink>
+                                </li>
+                            }
+                        </div>
+                        <div className='login-logout-button'>
+                            {auth ?
+                                <li>
+                                    <button type='button' className='btn toggle-btn' onClick={handleLogout} value={'logout'}>
+                                        Logout
+                                    </button>
+                                </li> :
+                                <li>
+                                    <NavLink to='login'>Login</NavLink>
+                                </li>
+                            }
+                        </div>
+                    </ul>
+                </nav>
             )
         }
     

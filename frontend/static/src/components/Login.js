@@ -1,9 +1,13 @@
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import handleError from './../utils';
+import { Link, useOutletContext } from 'react-router-dom';
+import handleError from './../util';
+import Cookies from 'js-cookie';
 
 function Login() {
+    
+    const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
+
     
     const INITIAL_STATE = {
         username: '',
@@ -24,7 +28,7 @@ function Login() {
         )
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const options = {
@@ -45,20 +49,19 @@ function Login() {
         } else {
             const data = await response.json();
             Cookies.set("Authorization", `Token ${data.key}`);
-        //     if (data.is_superuser) {
-        //         setSuperUser(true);
-        //     }
-        //     setAuth(true);
+                if (data.is_superuser) {
+                    setAdmin(true);
+                }
+                setAuth(true);
 
-        // }
-        // navigate('/');
-    }
-
+            }
+            navigate('/');
+        }
 
     return (
         <div>
-            <Form>
-                <Form.Label hmtlFor='username'>
+            <Form onSubmit={handleSubmit}>
+                <Form.Label htmlFor='username'>
                     Username
                 </Form.Label>
                 <Form.Control
@@ -69,10 +72,11 @@ function Login() {
                     value={state.username}
                     onChange={handleInput}
                 />
-                <Form.Label hmtlFor='password'>
+                <Form.Label htmlFor='password'>
                     Password
                 </Form.Label>
                 <Form.Control
+                    type='password'
                     id='password'
                     required
                     autoComplete="off"
@@ -83,7 +87,7 @@ function Login() {
                 <button type='submit'>Sign in</button>
             </Form>
 
-            <Link >Register account</Link>
+            <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
         </div>
     )
 }

@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Trail, TrailImage, UserFeedack, Trip, Park
+
+admin.site.register(Trail)
+admin.site.register(TrailImage)
+admin.site.register(UserFeedack)
+admin.site.register(Trip)
+admin.site.register(Park)
