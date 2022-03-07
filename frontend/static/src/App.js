@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import Cookies from 'js-cookie';
 import handleError from './util';
+import NPS_API_KEY from './NPS.js';
 
 function App() {
 
@@ -46,7 +46,38 @@ function App() {
 
 
   }
-    getWeather();
+  getWeather();
+  
+  const getNationalParkAlerts = async () => {
+
+    const BASE_URL = 'https://developer.nps.gov/api/v1/';
+    const SC_PARKS = 'parks?stateCode=sc';
+    const ALERTS = 'alerts?parkCode=chpi';
+    const SC_NATIONAL_PARK_CODES = [
+      'chpi', 'cong','cowp','fosu','kimo','nisi','ovvi','reer'
+    ]
+
+    let parkCode = '';
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-Api-Key': `${NPS_API_KEY}`
+      }
+    };
+
+    const response = await fetch(`${BASE_URL}${ALERTS}`, options).catch(
+      handleError
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response not ok");
+    } else {
+      const data = await response.json();
+      console.log(data);
+    }
+  }
+    getNationalParkAlerts();
     
   return (
     <div className="App">
