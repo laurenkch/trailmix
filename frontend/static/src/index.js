@@ -15,7 +15,7 @@ ReactDOM.render(
         <Route path='/' element={<App />} >
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
-          <Route path='admin' element={<Admin />} />
+          <Route path='administrator' element={<Admin />} />
           <Route path='*' element={
             <main style={{ padding: '1 rem' }}>
               <p>There's nothing here!</p>
