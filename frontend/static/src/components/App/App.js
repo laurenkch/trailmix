@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import Login from './../Login';
 import Register from './../Register';
 import { Outlet, useNavigate, } from 'react-router-dom';
-import handleError from './../../util';
+import { handleError } from './../../util';
 
 function App() {
 

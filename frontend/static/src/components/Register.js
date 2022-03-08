@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import handleError from './../util';
+import { handleError, handleInput } from './../util';
 import Cookies from 'js-cookie';
 
 function Register() {
@@ -17,17 +17,17 @@ function Register() {
 
     const [state, setState] = useState(INITIAL_STATE)
     
-    const handleInput = (e) => {
+    // const handleInput = (e) => {
 
-        const { name, value } = e.target
-        setState((prevState) => (
-            {
-                ...prevState,
-                [name]: value,
-            })
+    //     const { name, value } = e.target
+    //     setState((prevState) => (
+    //         {
+    //             ...prevState,
+    //             [name]: value,
+    //         })
 
-        )
-    }
+    //     )
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,7 +73,7 @@ function Register() {
                         autoComplete="off"
                         name='username'
                         value={state.username}
-                        onChange={handleInput}
+                        onChange={(e) => handleInput(e, setState)}
                     />
                     <Form.Label htmlFor='email'>
                         Email
@@ -83,30 +83,30 @@ function Register() {
                         required
                         name='email'
                         value={state.email}
-                        onChange={handleInput}
+                        onChange={(e) => handleInput(e, setState)}
                     />
-                    <Form.Label htmlFor='password'>
+                    <Form.Label htmlFor='password1'>
                         Password
                     </Form.Label>
                     <Form.Control
-                        id='password'
+                        id='password1'
                         required
                         autoComplete="off"
                         name='password1'
                         value={state.password1}
-                        onChange={handleInput}
+                        onChange={(e) => handleInput(e, setState)}
                         type='password'
                     />
-                    <Form.Label htmlFor='password'>
+                    <Form.Label htmlFor='password2'>
                         Password
                     </Form.Label>
                     <Form.Control
-                        id='password'
+                        id='password2'
                         required
                         autoComplete="off"
                         name='password2'
                         value={state.password2}
-                        onChange={handleInput}
+                        onChange={(e) => handleInput(e, setState)}
                         type='password'
                         
                     />

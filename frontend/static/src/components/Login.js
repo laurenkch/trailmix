@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
-import handleError from './../util';
+import { handleError, handleInput } from './../util';
 import Cookies from 'js-cookie';
 
 function Login() {
@@ -17,16 +17,16 @@ function Login() {
 
     const [state, setState] = useState(INITIAL_STATE);
 
-    const handleInput = (e) => {
+    // const handleInput = (e) => {
 
-        const {name, value} = e.target
-        setState((prevState) => (
-            {...prevState, 
-            [name]:value,
-        })
+    //     const {name, value} = e.target
+    //     setState((prevState) => (
+    //         {...prevState, 
+    //         [name]:value,
+    //     })
 
-        )
-    }
+    //     )
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +70,7 @@ function Login() {
                     autoComplete="off"
                     name='username'
                     value={state.username}
-                    onChange={handleInput}
+                    onChange={(e) => handleInput(e, setState)}
                 />
                 <Form.Label htmlFor='password'>
                     Password
@@ -82,7 +82,7 @@ function Login() {
                     autoComplete="off"
                     name='password'
                     value={state.password}
-                    onChange={handleInput}
+                    onChange={(e) => handleInput(e, setState)}
                 />
                 <button type='submit'>Sign in</button>
             </Form>

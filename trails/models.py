@@ -6,11 +6,11 @@ class Park(models.Model):
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
 
-    fee = models.CharField(max_length=255,null=True)
+    fee = models.CharField(max_length=255,null=True, blank=True)
     park_code = models.CharField(max_length=4, null=True, blank=True)
-    hours = models.CharField(max_length=255)
+    hours = models.CharField(max_length=255, null=True, blank=True)
     activities = models.CharField(max_length=255, null=True, blank=True)
-    address = models.CharField(max_length=255, null=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.park_name
@@ -45,7 +45,6 @@ class TrailImage(models.Model):
 
 class UserFeedack(models.Model):
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
-    badges = models.TextField(blank=True)
     dog_friendly = models.BooleanField(default = False, blank=False)
     no_pets_allowed = models.BooleanField(default=False, blank=False)
     muddy = models.BooleanField(default=False, blank=False)

@@ -1,5 +1,15 @@
-const handleError = (err) => {
+export const handleError = (err) => {
     console.warn(err);
 }
 
-export default handleError;
+export const handleInput = (e, setState) => {
+    const { name, value } = e.target
+
+    setState((prevState) => ({
+        ...prevState,
+        [name]: value,
+    }));
+};
+
+
+

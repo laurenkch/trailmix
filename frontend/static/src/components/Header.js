@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { NavLink } from 'react-router-dom';
-import handleError from './../util';
+import { handleError } from './../util';
 
 function Header({ auth, setAuth, navigate, admin, setAdmin }) {
 

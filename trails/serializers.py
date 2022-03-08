@@ -1,28 +1,38 @@
 from rest_framework import serializers
 
-from .models import Trail, Trip, UserFeedack, TrailImage
+from .models import Trail, Trip, UserFeedack, TrailImage, Park
+
+class ParkNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Park
+        fields = ['id', 'park_name']
 
 
-class TrailImageSerializer:
+class ParkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Park
+        fields = '__all__'
+
+class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrailImage
         fields = '__all__'
 
 
-class UserFeedbackSerializer:
+class UserFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserFeedack
         fields = '__all__'
 
-class TrailSerializer:
-    images = TrailImageSerializer(many=True, read_only=True)
+
+class TrailSerializer(serializers.ModelSerializer):
+    images = ImageSerializer
     class Meta:
         model = Trail
         fields = '__all__'
 
 
-
-class TripSerializer:
+class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = '__all__'

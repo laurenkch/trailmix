@@ -4,4 +4,5 @@ app_name = 'api'
 
 urlpatterns = [
     path('', include('accounts.urls')),
+    path('trails/', include('trails.urls', namespace='trails')),
 ]
