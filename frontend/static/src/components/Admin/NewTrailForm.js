@@ -1,10 +1,10 @@
 import NewParkForm from './NewParkForm';
-import ImageForm from './ImageForm';
+import ImageForm from './../ImageForm';
 
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, handleInput } from './../util';
+import { handleError, handleInput } from './../../util';
 
 function NewTrailForm({ parks, setParks }) {
 
@@ -36,9 +36,6 @@ function NewTrailForm({ parks, setParks }) {
             }))
         }
     };
-
-    // const trailTypeSelect = document.querySelector('.trail-type');
-    // console.log(trailTypeSelect)
 
     const submitNewTrail = async (e) => {
         e.preventDefault();
@@ -91,6 +88,8 @@ function NewTrailForm({ parks, setParks }) {
         setState(INITIAL_STATE);
         setPreview(null);
         setIsAddingImage(false);
+        setImage(null);
+
 
     };
 

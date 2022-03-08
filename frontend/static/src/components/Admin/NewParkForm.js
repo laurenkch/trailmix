@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { handleError, handleInput } from './../util';
+import { handleError, handleInput } from '../../util';
 import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
 

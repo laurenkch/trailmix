@@ -17,17 +17,6 @@ function Login() {
 
     const [state, setState] = useState(INITIAL_STATE);
 
-    // const handleInput = (e) => {
-
-    //     const {name, value} = e.target
-    //     setState((prevState) => (
-    //         {...prevState, 
-    //         [name]:value,
-    //     })
-
-    //     )
-    // }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 

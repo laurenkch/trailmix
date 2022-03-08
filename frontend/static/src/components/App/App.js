@@ -3,7 +3,7 @@ import Header from './../Header';
 import Cookies from 'js-cookie';
 import Login from './../Login';
 import Register from './../Register';
-import { Outlet, useNavigate, } from 'react-router-dom';
+import { Outlet, useNavigate} from 'react-router-dom';
 import { handleError } from './../../util';
 
 function App() {
@@ -42,8 +42,6 @@ function App() {
     return (
 
         <div className="App conatiner-fluid">
-
-
 
             <Header auth={auth} setAuth={setAuth} navigate={navigate} admin={admin} setAdmin={setAdmin} />
             <main>
