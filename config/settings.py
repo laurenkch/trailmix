@@ -168,16 +168,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #Site ID
-# https: // docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 SITE_ID = 1
 
 # Console backend
-# https: // docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# https: // docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/ref/settings/#std:setting-MEDIA_URL
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

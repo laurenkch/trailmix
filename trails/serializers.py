@@ -15,9 +15,10 @@ class ParkSerializer(serializers.ModelSerializer):
         depth = 1
 
 class ImageSerializer(serializers.ModelSerializer):
+    trail_id = serializers.ReadOnlyField(source='trail.id')
     class Meta:
         model = TrailImage
-        fields = '__all__'
+        fields = ['id', 'image','trail','trail_id']
 
 
 class UserFeedbackSerializer(serializers.ModelSerializer):

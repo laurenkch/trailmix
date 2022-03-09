@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from idna import IDNAError
 from rest_framework import generics
+from rest_framework import serializers
 
 from .models import Trail, UserFeedack, Trip, TrailImage, Park, TrailImage
 from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripSerializer, UserFeedbackSerializer, ImageSerializer, ParkSerializer
@@ -41,6 +43,23 @@ class ImageList(generics.ListCreateAPIView):
     serializer_class=ImageSerializer
 
     queryset = TrailImage.objects.all()
+
+class ImageList(generics.ListCreateAPIView):
+    serializer_class=ImageSerializer
+    queryset = TrailImage.objects.all()
+
+class ImageTrailList(generics.ListAPIView):
+    serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the images for the currently selected trail
+        """
+        url_id = self.kwargs['trailId']
+        if id is not None:
+            return TrailImage.objects.filter(trail_id=url_id)
+        else:
+            return TrailImage.objects.all()
     
 class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=ImageSerializer
