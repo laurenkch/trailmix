@@ -19,16 +19,18 @@ function AdminTrailDetail() {
     const [preview, setPreview] = useState(null);
     const [isAddingImage, setIsAddingImage] = useState(null);
 
-        const getParkList = async () => {
+    ///////////////////////////////////////////////// DATA FETCHING
 
-            const response = await fetch('/api/v1/trails/admin/parks/').catch(handleError);
-            if (!response.ok) {
-                throw new Error('Network response not ok');
-            } else {
-                const data = await response.json();
-                setParks(data);
-            }
+    const getParkList = async () => {
+
+        const response = await fetch('/api/v1/trails/admin/parks/').catch(handleError);
+        if (!response.ok) {
+            throw new Error('Network response not ok');
+        } else {
+            const data = await response.json();
+            setParks(data);
         }
+    }
     
     if (!parks) {
         getParkList();
@@ -44,8 +46,6 @@ function AdminTrailDetail() {
         };
 
         const response = await fetch(`/api/v1/trails/photos/trailId/${trail.id}/`, options).catch(handleError);
-
-        console.log(response);
 
         if (!response.ok) {
             throw new Error("Network response not ok");
@@ -82,6 +82,8 @@ function AdminTrailDetail() {
         getTrail();
 
     }, [params.trailId]);
+
+    ///////////////////////////////////////////////// EDIT TRAIL
 
     const editTrail = async (e) => {  
 
@@ -129,7 +131,64 @@ function AdminTrailDetail() {
 
     };
 
+///////////////////////////////////////////////// DELETE TRAIL
+
     const deleteTrail = async (e) => {
+
+        e.preventDefault();
+
+        console.log(state.id)
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            }
+        }
+
+        const response = await fetch(`/api/v1/trails/edit/${state.id}/`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error("Network response not ok");
+        }
+
+        setIsEditing(false);
+        navigate('/administrator')
+    };
+
+    ///////////////////////////////////////////////////ADD IMAGE
+
+    const addImage = async (e) => {
+        console.log('add')
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('trail', state.id)
+        formData.append('image', image);
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: formData,
+        }
+
+        const response = await fetch('/api/v1/trails/photos/', options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error("Network response not ok");
+        }
+        const data = await response.json();
+    
+        setImageList((prevlist) => [...prevlist, data])
+
+    setPreview(null);
+    setIsAddingImage(false);
+    setImage(null);
+    }
+
+///////////////////////////////////////////////// DELETE IMAGE
+    
+    const deleteImage = async e => {
         e.preventDefault();
 
         const options = {
@@ -139,16 +198,19 @@ function AdminTrailDetail() {
             }
         }
 
-        const response = await fetch(`/api/v1/trails/edit/park/${state.id}/`, options).catch(handleError);
+        const response = await fetch(`/api/v1/trails/photos/${e.target.value}/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error("Network response not ok");
         }
-        // const park = await response.json();
 
-        setIsEditing(false);
-        navigate('/administrator')
+        // eslint-disable-next-line
+        const newImageList = imagelist.filter((image)=> image.id != e.target.value)
+        setImageList(newImageList)
     };
+
+    ///////////////////////////////////////////////// HANDLE IMAGE FILE
+
 
     const previewImage = e => {
         const file = e.target.files[0];
@@ -161,26 +223,31 @@ function AdminTrailDetail() {
         reader.readAsDataURL(file);
     }
 
+///////////////////////////////////////////////// DISPLAY LOGIC
+
     if (!state||!parks||!imagelist) {
         return 'Loading...'
     };
 
-    console.log(imagelist);
-
     const imageHTML = imagelist.map((image) => (
-        <img src={image.image} alt='trail' key={image.id} />
+        <div key={image.id}>
+            <div>
+                <img src={image.image} alt='trail' />
+            </div>
+            <button type='button' value={image.id} onClick={deleteImage}>Delete Image</button>
+        </div>
     ));
 
     ////////////////////////////////////////////EDITING PARK ASSOCIATED WITH TRIAL
 
-        // const handleSelect = (e) => {
+    // at the moment, I'm skipping this as it would require more serializer steps to make work. 
+
+    // const handleSelect = (e) => {
     //     setState((prevState) => ({
     //         ...prevState,
     //         park: e.target.value,
     //     }))
     // };
-    
-    // at the moment, I'm skipping this as it would require more serializer steps to make work. 
 
     // console.log(parks);
     // console.log(state.park);
@@ -250,17 +317,6 @@ function AdminTrailDetail() {
                             <option value="loop">Loop</option>
                             <option value="seg">Point to point segment</option>
                         </select>
-                        {!isAddingImage &&
-                            <button type='button' onClick={() => setIsAddingImage(true)}>Add Image
-                            </button>
-                        }
-                        {isAddingImage &&
-                            <ImageForm
-                                previewImage={previewImage}
-
-                            />
-                        }
-                        {preview && isAddingImage && <div><img src={preview} alt='preview' /></div>}
                         <button type='submit'>Save</button>
                     </Form>
                 </div>
@@ -268,6 +324,21 @@ function AdminTrailDetail() {
             {!isEditing &&
                 <div>
                     <h2>{state.name}</h2>
+                    <button type='button' onClick={() => setIsEditing(true)}>Edit Trail</button>
+                    {!isAddingImage &&
+                        <button type='button' onClick={() => setIsAddingImage(true)}>Add Image
+                        </button>
+                    }
+                    {isAddingImage &&
+                        <Form onSubmit={addImage}>
+                        <ImageForm
+                            previewImage={previewImage}
+                        
+                            />
+                        <button type='submit'>Save</button>
+                        </Form>
+                    }
+                    {preview && isAddingImage && <div><img src={preview} alt='preview' /></div>}
                     <ul>
                         <li>{state.elevation_gain}ft</li>
                         <li>{state.length}miles</li>
@@ -278,7 +349,6 @@ function AdminTrailDetail() {
                         <li>{state.park.fee}</li>
                         <li>{state.park.hours}</li>
                     </ul>
-                    <button type='button' onClick={() => setIsEditing(true)}>Edit Trail</button>
                     <button type='button' onClick={deleteTrail}>Delete Trail</button>
                     {imageHTML}
                 </div>

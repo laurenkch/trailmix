@@ -8,11 +8,15 @@ function AdminParkDetail() {
 
     const params = useParams();
     const navigate = useNavigate();
+
     // eslint-disable-next-line
     const [parks, setParks, trails, setTrails] = useOutletContext();
 
     const [state, setState] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
+
+    ////////////////////////////////////////////////////LOAD PARK
+
 
     useEffect(() => {
 
@@ -30,12 +34,14 @@ function AdminParkDetail() {
                 throw new Error("Network response not ok");
             }
             const park = await response.json();
-            console.log(park);
             setState(park);
         };
         getPark();
 
     }, [params.parkId]);
+
+    ////////////////////////////////////////////////////EDIT PARK
+
 
     const editPark = async (e) => {
         e.preventDefault();
@@ -54,12 +60,12 @@ function AdminParkDetail() {
         if (!response.ok) {
             throw new Error("Network response not ok");
         }
-        const park = await response.json();
 
-        console.log(park);
         setIsEditing(false);
 
     };
+
+////////////////////////////////////////////////////DELETE PARK
 
     const deletePark = async (e) => {
         e.preventDefault();
@@ -69,19 +75,30 @@ function AdminParkDetail() {
             headers: {
                 'X-CSRFToken': Cookies.get('csrftoken'),
             }
-        }
+        };
 
         const response = await fetch(`/api/v1/trails/edit/park/${state.id}/`, options).catch(handleError);
 
         if (!response.ok) {
             throw new Error("Network response not ok");
         }
-        const park = await response.json();
 
-        console.log(park);
         setIsEditing(false);
+
+        // eslint-disable-next-line
+        const newParkList = parks.filter((park) => (park.id != state.id));
+        setParks(newParkList);
+
+        // eslint-disable-next-line
+        const newTrailList = trails.filter((trail) => (trail.park != state.id));
+        setTrails(newTrailList);
         navigate('/administrator')
+
     };
+
+    console.log(trails);
+    ////////////////////////////////////////////////////DISPLAY LOGIC
+
 
     if (!state) {
         return 'Loading...'
