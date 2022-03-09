@@ -11,19 +11,22 @@ import TrailForm from './components/Admin/TrailForm';
 import Home from './components/Home';
 import AdminParkDetail from './components/Admin/AdminParkDetail';
 import AdminTrailDetail from './components/Admin/AdminTrailDetail';
+import AdminList from './components/Admin/AdminList';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} >
+        <Route path='/' element={<App />}>
           <Route index element={< Home/>}/>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
-          <Route path='administrator' element={<Admin />}/>
-          <Route path='administrator/park/:parkId' element={<AdminParkDetail />}/>
-          <Route path='administrator/trail/:trailId' element={<AdminTrailDetail />} />
-          <Route path='addtrail' element={<TrailForm />} />
+          <Route path='administrator' element={<Admin />}>
+            <Route index element={<AdminList />} />
+            <Route path='park/:parkId' element={<AdminParkDetail />} />
+            <Route path='trail/:trailId' element={<AdminTrailDetail />} />
+            <Route path='addtrail' element={<TrailForm />} />
+          </Route>
           <Route path='*' element={
             <main style={{ padding: '1 rem' }}>
               <p>There's nothing here!</p>

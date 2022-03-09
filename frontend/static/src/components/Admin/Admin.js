@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { handleError } from '../../util';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 
 function Admin() {
@@ -34,38 +34,9 @@ function Admin() {
         getTrailList();
     }, []);
 
-    if (!parks || !trails) {
-        return 'Loading...'
-    };
-
-    const parksHTML = parks.map((park) => (
-                <Link
-                    style={{ display: "block", margin: "1rem 0" }}
-            to={`park/${park.id}`}
-                    key={park.id}
-                >
-                    {park.name}
-                </Link>
-    ))
-
-    const trailsHTML = trails.map((trail) => (
-        <Link
-            style={{ display: "block", margin: "1rem 0" }}
-            to={`trail/${trail.id}`}
-            key={trail.id}
-        >
-            {trail.name}
-        </Link>
-
-    ))
-
     return (
         <div>
-            Parks
-            {parksHTML}
-            Trails
-            {trailsHTML}
-
+            <Outlet context={[parks, setParks, trails, setTrails]}/>
         </div>
     )
 }

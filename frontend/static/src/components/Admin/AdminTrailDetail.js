@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { handleError, handleInput, TRAIL_TYPES } from './../../util';
 import Cookies from 'js-cookie';
@@ -8,11 +8,15 @@ function AdminTrailDetail() {
     const params = useParams();
     const navigate = useNavigate();
 
+    // eslint-disable-next-line
+    const [parks, setParks, trails, setTrails] = useOutletContext();
+
     const [state, setState] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     
     useEffect(() => {
 
+        console.log('traildetail');
         const getTrail = async () => {
             const options = {
                 method: 'GET',
@@ -158,7 +162,6 @@ function AdminTrailDetail() {
                         <button type='submit'>Save</button>
                     </Form>
                     </div> */}
-        }
             {!isEditing &&
                 <div>
                     <h2>{state.name}</h2>
@@ -172,12 +175,12 @@ function AdminTrailDetail() {
                         <li>{state.park.fee}</li>
                         <li>{state.park.hours}</li>
                     </ul>
-                    <button type='button' onClick={() => setIsEditing(true)}></button>
-                    <button type='button' onClick={deleteTrail}>Delete Park</button>
+                    <button type='button' onClick={() => setIsEditing(true)}>Edit Trail</button>
+                    <button type='button' onClick={deleteTrail}>Delete Trail</button>
                 </div>
             }
         </div>
     )
-}
+};
 
-export default AdminTrailDetail
+export default AdminTrailDetail;

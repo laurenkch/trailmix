@@ -45,7 +45,7 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                             } */}
                             {admin &&
                                 <li>
-                                    <NavLink className='btn toggle-btn' to='/addtrail'>
+                                    <NavLink className='btn toggle-btn' to='administrator/addtrail'>
                                         Add New Trail
                                     </NavLink>
                                 </li>

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { handleError, handleInput } from './../../util';
 import Cookies from 'js-cookie';
@@ -8,6 +8,8 @@ function AdminParkDetail() {
 
     const params = useParams();
     const navigate = useNavigate();
+    // eslint-disable-next-line
+    const [parks, setParks, trails, setTrails] = useOutletContext();
 
     const [state, setState] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);

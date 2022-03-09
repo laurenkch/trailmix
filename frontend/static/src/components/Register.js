@@ -6,6 +6,7 @@ import Cookies from 'js-cookie';
 
 function Register() {
 
+    // eslint-disable-next-line
     const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
 
         const INITIAL_STATE = {
