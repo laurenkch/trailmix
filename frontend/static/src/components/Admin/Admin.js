@@ -37,8 +37,6 @@ function Admin() {
     if (!parks || !trails) {
         return 'Loading...'
     };
-    console.log(parks);
-    console.log(trails);
 
     const parksHTML = parks.map((park) => (
                 <Link
@@ -46,7 +44,7 @@ function Admin() {
             to={`park/${park.id}`}
                     key={park.id}
                 >
-                    {park.park_name}
+                    {park.name}
                 </Link>
     ))
 
@@ -56,7 +54,7 @@ function Admin() {
             to={`trail/${trail.id}`}
             key={trail.id}
         >
-            {trail.trail_name}
+            {trail.name}
         </Link>
 
     ))

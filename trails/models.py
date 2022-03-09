@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 
 class Park(models.Model):
-    park_name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
 
@@ -13,11 +13,11 @@ class Park(models.Model):
     address = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.park_name
+        return self.name
 
 class Trail(models.Model):
-    park = models.ForeignKey(Park, on_delete = models.CASCADE, null=True)
-    trail_name = models.CharField(max_length=255)
+    park = models.ForeignKey(Park, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
     elevation_gain = models.IntegerField(blank=True, null=True)
     length = models.DecimalField(max_digits=8, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -37,7 +37,7 @@ class Trail(models.Model):
     trail_type = models.CharField(max_length=255, choices=TRAIL_TYPE_CHOICES, null=True, blank=True)
 
     def __str__(self):
-        return self.trail_name
+        return self.name
 
 class TrailImage(models.Model):
     trail = models.ForeignKey(Trail, related_name='images', on_delete=models.CASCADE)

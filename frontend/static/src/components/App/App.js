@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import Header from './../Header';
 import Cookies from 'js-cookie';
-import Login from './../Login';
-import Register from './../Register';
 import { Outlet, useNavigate} from 'react-router-dom';
 import { handleError } from './../../util';
 
@@ -16,13 +14,7 @@ function App() {
     useEffect(() => {
 
         const getAdminStatus = async () => {
-            const options = {
-                method: 'GET',
-                headers: {
-                    'X-CSRFToken': Cookies.get('csrftoken'),
-                }
-            };
-            const response = await fetch('rest-auth/user/', options).catch(handleError);
+            const response = await fetch('/rest-auth/user/').catch(handleError);
             if (!response.ok) {
                 throw new Error("Network response not ok");
             } else {

@@ -12,6 +12,7 @@ class ParkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Park
         fields = '__all__'
+        depth = 1
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,8 +26,17 @@ class UserFeedbackSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TrailSerializer(serializers.ModelSerializer):
+class DeepTrailSerializer(serializers.ModelSerializer):
     images = ImageSerializer
+    class Meta:
+        model = Trail
+        fields = '__all__'
+        depth = 1
+
+
+class ShallowTrailSerializer(serializers.ModelSerializer):
+    images = ImageSerializer
+
     class Meta:
         model = Trail
         fields = '__all__'

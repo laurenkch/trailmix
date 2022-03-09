@@ -4,10 +4,10 @@ import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
 
 
-function NewParkForm({ setParks, setIsAddingPark}) {
+function ParkForm({ setParks, setIsAddingPark}) {
 
     const INITIAL_STATE = {
-        park_name: '',
+        name: '',
         latitude: '',
         longitude: '',
         fee: '',
@@ -48,10 +48,10 @@ function NewParkForm({ setParks, setIsAddingPark}) {
                 <Form.Label htmlFor='park name'>Park Name</Form.Label>
                 <Form.Control
                     id='park name'
-                    name='park_name'
+                    name='name'
                     type='text'
                     onChange={(e) => handleInput(e, setState)}
-                    value={state.park_name}
+                    value={state.name}
                     required
                     autoComplete='off'
                 />
@@ -128,4 +128,4 @@ function NewParkForm({ setParks, setIsAddingPark}) {
     )
 }
 
-export default NewParkForm
+export default ParkForm

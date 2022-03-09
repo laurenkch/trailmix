@@ -11,5 +11,10 @@ export const handleInput = (e, setState) => {
     }));
 };
 
+export const TRAIL_TYPES = {
+    oab: 'Out and back',
+    loop: 'Loop',
+    seg: 'Trail segment',
+};
 
 

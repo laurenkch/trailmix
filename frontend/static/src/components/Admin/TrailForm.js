@@ -1,18 +1,36 @@
-import NewParkForm from './NewParkForm';
-import ImageForm from './../ImageForm';
+import ParkForm from './ParkForm';
+import ImageForm from '../ImageForm';
 
 import Form from 'react-bootstrap/Form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, handleInput } from './../../util';
+import { handleError, handleInput } from '../../util';
 
-function NewTrailForm({ parks, setParks }) {
+function TrailForm() {
+
+    const [parks, setParks] = useState(null);
+
+    useEffect(() => {
+
+        const getParkList = async () => {
+
+            const response = await fetch('/api/v1/trails/admin/parks/').catch(handleError);
+            if (!response.ok) {
+                throw new Error('Network response not ok');
+            } else {
+                const data = await response.json();
+                setParks(data);
+            }
+        }
+        getParkList();
+    }, []);
+
 
 
     const INITIAL_STATE = {
 
         park: '',
-        trail_name: '',
+        name: '',
         elevation_gain: '',
         length: 0,
         description: '',
@@ -32,12 +50,12 @@ function NewTrailForm({ parks, setParks }) {
         } else {
             setState((prevState) => ({
                 ...prevState,
-                trail_type: e.target.value,
+                park: e.target.value,
             }))
         }
     };
 
-    const submitNewTrail = async (e) => {
+    const submitTrail = async (e) => {
         e.preventDefault();
 
         const options = {
@@ -110,14 +128,13 @@ function NewTrailForm({ parks, setParks }) {
         )
     }
 
-    const parkOptionsHTML = parks.map((park) => (<option key={park.id} value='park.id'>{park.park_name}</option>))
-
+    const parkOptionsHTML = parks.map((park) => (<option key={park.id} value={park.id}>{park.name}</option>))
 
 
     return (
         <div>
-            {isAddingPark && <NewParkForm setParks={setParks} setIsAddingPark={setIsAddingPark}/>}
-            <Form onSubmit={submitNewTrail}>
+            {isAddingPark && <ParkForm setParks={setParks} setIsAddingPark={setIsAddingPark}/>}
+            <Form onSubmit={submitTrail}>
                 <select id="park" className="park-input" onChange={handleSelect}>
                     <option defaultValue>Select a park...</option>
                     {parkOptionsHTML}
@@ -127,10 +144,10 @@ function NewTrailForm({ parks, setParks }) {
                 <Form.Control
                     id='trail name'
                     type='text'
-                    name='trail_name'
+                    name='name'
                     autoComplete='off'
                     required
-                    value={state.trail_name}
+                    value={state.name}
                     onChange={(e) => handleInput(e, setState)}
                 />
                 <Form.Label htmlFor="elevation gain">Elevation Gain</Form.Label>
@@ -192,4 +209,4 @@ function NewTrailForm({ parks, setParks }) {
     
 }
 
-export default NewTrailForm;
+export default TrailForm;
