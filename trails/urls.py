@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import ParkListAdmin, TrailListAdmin, ImageList, TrailDetailAdmin, ParkDetailAdmin, ImageDetail, ImageTrailList, TrailListUser, ParkListUser, TrailDetailUser, ParkDetailUser, UserFeedback
+from .views import ParkListAdmin, TrailListAdmin, ImageList, TrailDetailAdmin, ParkDetailAdmin, ImageDetail, ImageTrailList, UserTrailList, UserParkList, UserTrailDetail, UserParkDetail, UserFeedback, UserTrailList
 
 app_name = 'trails'
 
@@ -18,10 +18,11 @@ urlpatterns = [
 
     #read only urls for trail info
 
-    path('', TrailListUser.as_view(), name='trails'),
-    path('parks/', ParkListUser.as_view(), name='parks'),
-    path('<int:pk>/', TrailDetailUser.as_view(), name='trail_detail'),
-    path('park/<int:pk>/', ParkDetailUser.as_view(), name='park_detail'),
+    path('', UserTrailList.as_view(), name='trails'),
+    path('parks/', UserParkList.as_view(), name='parks'),
+    path('park/<int:pk>/', UserParkDetail.as_view(), name='park'),
+    path('<int:pk>/', UserTrailDetail.as_view(), name='trail_detail'),
 
+    #user forms
     path('feedback/', UserFeedback.as_view(), name='trail_feedback'),
 ]

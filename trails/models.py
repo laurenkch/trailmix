@@ -16,7 +16,7 @@ class Park(models.Model):
         return self.name
 
 class Trail(models.Model):
-    park = models.ForeignKey(Park, on_delete=models.CASCADE)
+    park = models.ForeignKey(Park, related_name='trails', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     elevation_gain = models.IntegerField(blank=True, null=True)
     length = models.DecimalField(max_digits=8, decimal_places=2)

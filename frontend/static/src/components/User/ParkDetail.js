@@ -1,12 +1,13 @@
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError } from './../../util';
+import { handleError, TRAIL_TYPES } from './../../util';
+import Accordion from 'react-bootstrap/Accordion';
 
 function ParkDetail() {
 
     const params = useParams();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [state, setState] = useState(undefined);
 
@@ -38,6 +39,25 @@ function ParkDetail() {
     if (!state) {
         return 'Loading...'
     }
+
+    const trails = state.trails
+    console.log(trails);
+    state.trails.forEach((trail) => console.log(trail.id));
+
+    const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
+        <Accordion.Header>{trail.name}</Accordion.Header>
+        <Accordion.Body>
+            <ul>
+                <li>{trail.length}</li> 
+                <li>{trail.elevation_gain}</li> 
+                <li>{TRAIL_TYPES[trail.trail_type]}</li>
+                <Link to={`/trail/${trail.id}`}>See More</Link>
+                <Link to='/plan'>Plan your trip</Link>
+            </ul>
+        </Accordion.Body>
+    </Accordion.Item>)
+
+    console.log(state);
     
     return (
         <div>
@@ -51,6 +71,9 @@ function ParkDetail() {
                 <li>Park code:{state.parkcode}</li>
                 <li>Activities: {state.activities}</li>
             </ul>
+            <Accordion>
+                {trailHtml}
+            </Accordion>
         </div>
     )
 }

@@ -35,27 +35,27 @@ class TrailDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
     queryset=Trail.objects.all()
 
 
-class TrailListUser(generics.ListAPIView):
+class UserTrailList(generics.ListAPIView):
     serializer_class = DeepTrailSerializer
 
     queryset = Trail.objects.all()
 
-class TrailDetailUser(generics.RetrieveAPIView):
+class UserTrailDetail(generics.RetrieveAPIView):
     serializer_class = DeepTrailSerializer
     queryset = Trail.objects.all()
 
-class ParkListUser(generics.ListAPIView):
+class UserParkList(generics.ListAPIView):
     serializer_class = ParkSerializer
 
     queryset = Park.objects.all()
 
-class ParkDetailUser(generics.RetrieveAPIView):
+class UserParkDetail(generics.RetrieveAPIView):
     serializer_class = ParkSerializer
     queryset = Park.objects.all()
+
 
 class ImageList(generics.ListCreateAPIView):
     serializer_class=ImageSerializer
-
     queryset = TrailImage.objects.all()
 
 class ImageList(generics.ListCreateAPIView):

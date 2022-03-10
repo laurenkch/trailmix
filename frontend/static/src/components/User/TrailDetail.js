@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { handleError, TRAIL_TYPES, TRAIL_FEEDBACK } from './../../util';
 import Cookies from 'js-cookie';
@@ -9,6 +9,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 function TrailDetail() {
 
+    // eslint-disable-next-line
+    const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
+    
     const params = useParams();
 
     const [state, setState] = useState(null);
@@ -112,11 +115,16 @@ function TrailDetail() {
                 <li>{state.park.fee}</li>
                 <li>{state.park.hours}</li>
             </ul>
-            <button
+            {auth && <button
                 type='button' onClick={() => setModalShow(true)}
             >
                 How was the hike?
-            </button>
+            </button>}
+            {auth && <Link
+                to='/plan'
+            >
+                Plan a trip to {state.name}
+            </Link>}
             <Modal show={modalShow}>
                 <Modal.Header closeButton>Select any that apply</Modal.Header>
                 <Modal.Body>
