@@ -121,7 +121,7 @@ function TrailDetail() {
                 How was the hike?
             </button>}
             {auth && <Link
-                to='/plan'
+                to={`/plan/${state.id}`}
             >
                 Plan a trip to {state.name}
             </Link>}
@@ -138,8 +138,6 @@ function TrailDetail() {
                 </Form> 
                 </Modal.Body>
                 
-
-
                 <button type='button' onClick={() => setModalShow(false)}>Close</button>
 
             </Modal>

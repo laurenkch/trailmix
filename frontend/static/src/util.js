@@ -38,3 +38,41 @@ export const TRAIL_FEEDBACK = [
     'Paved',
     'Wheelchair accessible',
 ]
+
+
+export const getWeather = async (lat, long) => {
+
+    const USER_AGENT = '(https://trailmix-lkoch.herokuapp.com/, lkoch879@gmail.com)';
+    const BASE_URL = 'https://api.weather.gov/points/';
+
+    let data;
+    const options = {
+        method: 'GET',
+        headers: {
+            'User-Agent': USER_AGENT,
+        }
+    };
+
+    const response = await fetch(`${BASE_URL}${lat},${long}`, options).catch(
+        handleError
+    );
+
+    if (!response.ok) {
+        throw new Error("Network response not ok");
+    } else {
+        const data1 = await response.json();
+        const newURL = data1.properties.forecast
+
+        const response2 = await fetch(`${newURL}`, options).catch(
+            handleError
+        );
+
+        if (!response2.ok) {
+            throw new Error("Network response not ok");
+        } else {
+            data = await response2.json();
+        }
+    }
+    return data.properties.periods
+};
+

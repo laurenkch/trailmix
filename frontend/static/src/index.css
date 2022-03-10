@@ -1,3 +1,33 @@
+/*//////////////////////////////////////////GLOBALS*/
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+li {
+   text-indent: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+/* .btn-primary {
+  margin: 5px;
+  background-color: var(--red) !important;
+  border-radius: 2%;
+  border: 1px solid rgb(235	0	0	) !important; 
+} */
+
 
 body {
   margin: 0;
@@ -11,4 +41,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+/*///////////////////////////////////////////////// WEATHER */
+.horizontal-scroll-wrapper {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+.horizontal-scroll-wrapper > div {
+  margin: 5px;
+}
+
+.weather-image {
+  width: 200px;
+}
+
+
+/*///////////////////////////////////////////////// TRIP */
+
+.form {
+  max-width: 50%;
 }

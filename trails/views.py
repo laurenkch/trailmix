@@ -83,3 +83,29 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
 class UserFeedback(generics.CreateAPIView):
     serializer_class=UserFeedbackSerializer
     queryset= UserFeedback.objects.all()
+
+
+class TripList(generics.ListCreateAPIView):
+    serializer_class = TripSerializer
+
+    def get_queryset(self):
+        """
+        filters list to return trips associated with the current user
+        """
+        queryset = Trip.objects.filter(user=self.request.user)
+
+        return queryset
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class TripDetail(generics.RetrieveDestroyAPIView):
+    serializer_class = TripSerializer
+
+    def get_queryset(self):
+        """
+        filters list to return trips associated with the current user
+        """
+        queryset = Trip.objects.filter(user=self.request.user)
+
+        return queryset

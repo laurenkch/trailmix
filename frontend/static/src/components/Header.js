@@ -32,6 +32,7 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
             return (
                 <nav>
                     <ul>
+                        <h1>TrailMix</h1>
                         <div className='nav-links'>
                             <li>
                                 <NavLink className='btn toggle-btn' to='/'>Home</NavLink>

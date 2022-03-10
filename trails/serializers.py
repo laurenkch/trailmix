@@ -71,9 +71,10 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
 
 class TripSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
     class Meta:
         model = Trip
-        fields = '__all__'
+        fields = ('date', 'time', 'trail', 'username')
 
 
 

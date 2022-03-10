@@ -15,6 +15,8 @@ import AdminList from './components/Admin/AdminList';
 import TrailDetail from './components/User/TrailDetail';
 import ParkDetail from './components/User/ParkDetail';
 import TripForm from './components/User/TripForm';
+import Trips from './components/User/Trips';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -28,7 +30,8 @@ ReactDOM.render(
           <Route path='register' element={<Register />} />
           <Route path='trail/:trailId' element={<TrailDetail />} />
           <Route path='park/:parkId' element={<ParkDetail />} />
-          <Route path='plan' element={<TripForm/>}/>
+          <Route path='plan/:trailId' element={<TripForm />} />
+          <Route path='trips/' element={<Trips />}/>
           <Route path='administrator' element={<Admin />}>
             <Route index element={<AdminList />} />
             <Route path='park/:parkId' element={<AdminParkDetail />} />

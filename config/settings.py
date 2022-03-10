@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'allauth.socialaccount',
 
+    'django_cleanup.apps.CleanupConfig',
+
 ]
 
 REST_AUTH_SERIALIZERS = {

@@ -48,11 +48,11 @@ function ParkDetail() {
         <Accordion.Header>{trail.name}</Accordion.Header>
         <Accordion.Body>
             <ul>
-                <li>{trail.length}</li> 
-                <li>{trail.elevation_gain}</li> 
+                <li>{trail.length} miles</li> 
+                <li>{trail.elevation_gain} feet</li> 
                 <li>{TRAIL_TYPES[trail.trail_type]}</li>
                 <Link to={`/trail/${trail.id}`}>See More</Link>
-                <Link to='/plan'>Plan your trip</Link>
+                <Link to={`/plan/${trail.id}`}>Plan your trip</Link>
             </ul>
         </Accordion.Body>
     </Accordion.Item>)
