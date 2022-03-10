@@ -8,10 +8,14 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Admin from './components/Admin/Admin';
 import TrailForm from './components/Admin/TrailForm';
-import Home from './components/Home';
+import Home from './components/User/Home';
 import AdminParkDetail from './components/Admin/AdminParkDetail';
 import AdminTrailDetail from './components/Admin/AdminTrailDetail';
 import AdminList from './components/Admin/AdminList';
+import TrailDetail from './components/User/TrailDetail';
+import ParkDetail from './components/User/ParkDetail';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +25,8 @@ ReactDOM.render(
           <Route index element={< Home/>}/>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='trail/:trailId' element={<TrailDetail />} />
+          <Route path='park/:parkId' element={<ParkDetail />}/>
           <Route path='administrator' element={<Admin />}>
             <Route index element={<AdminList />} />
             <Route path='park/:parkId' element={<AdminParkDetail />} />

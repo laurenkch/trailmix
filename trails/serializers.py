@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Trail, Trip, UserFeedack, TrailImage, Park
+from .models import Trail, Trip, UserFeedback, TrailImage, Park
 
 class ParkNameSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,7 +23,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class UserFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserFeedack
+        model = UserFeedback
         fields = '__all__'
 
 

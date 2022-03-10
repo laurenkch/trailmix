@@ -43,7 +43,7 @@ class TrailImage(models.Model):
     trail = models.ForeignKey(Trail, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='trails/', blank=True, null=True)
 
-class UserFeedack(models.Model):
+class UserFeedback(models.Model):
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     dog_friendly = models.BooleanField(default = False, blank=False)
     no_pets_allowed = models.BooleanField(default=False, blank=False)

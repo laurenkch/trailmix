@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form'
 import { useState } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { handleError, handleInput } from './../util';
 import Cookies from 'js-cookie';
 

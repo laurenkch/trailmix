@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from idna import IDNAError
 from rest_framework import generics
 from rest_framework import serializers
 
-from .models import Trail, UserFeedack, Trip, TrailImage, Park, TrailImage
+from .models import Trail, UserFeedback, Trip, TrailImage, Park, TrailImage
 from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripSerializer, UserFeedbackSerializer, ImageSerializer, ParkSerializer
 
 from rest_framework.permissions import IsAdminUser
@@ -28,16 +27,31 @@ class TrailListAdmin(generics.ListCreateAPIView):
 
     queryset = Trail.objects.all()
 
-class TrailListUser(generics.ListAPIView):
-    serializer_class = DeepTrailSerializer
-
-    queryset=Trail.objects.all()
 
 class TrailDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DeepTrailSerializer
     permission_classes = (IsAdminUser,)
 
     queryset=Trail.objects.all()
+
+
+class TrailListUser(generics.ListAPIView):
+    serializer_class = DeepTrailSerializer
+
+    queryset = Trail.objects.all()
+
+class TrailDetailUser(generics.RetrieveAPIView):
+    serializer_class = DeepTrailSerializer
+    queryset = Trail.objects.all()
+
+class ParkListUser(generics.ListAPIView):
+    serializer_class = ParkSerializer
+
+    queryset = Park.objects.all()
+
+class ParkDetailUser(generics.RetrieveAPIView):
+    serializer_class = ParkSerializer
+    queryset = Park.objects.all()
 
 class ImageList(generics.ListCreateAPIView):
     serializer_class=ImageSerializer
@@ -65,3 +79,7 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=ImageSerializer
 
     queryset = TrailImage.objects.all()
+
+class UserFeedback(generics.CreateAPIView):
+    serializer_class=UserFeedbackSerializer
+    queryset= UserFeedback.objects.all()
