@@ -65,3 +65,10 @@ code {
 .form {
   max-width: 50%;
 }
+
+/*///////////////////////////////////////////////// MAP */
+
+.leaflet-container { 
+  height: 500px; 
+  width: 50vw;
+}

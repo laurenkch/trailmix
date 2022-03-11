@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { handleError, TRAIL_TYPES } from './../../util';
 import Accordion from 'react-bootstrap/Accordion';
-
+import {
+    MapContainer,
+    TileLayer,
+    Popup,
+    Marker
+} from 'react-leaflet'
 function ParkDetail() {
 
     const params = useParams();
@@ -41,8 +46,6 @@ function ParkDetail() {
     }
 
     const trails = state.trails
-    console.log(trails);
-    state.trails.forEach((trail) => console.log(trail.id));
 
     const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
         <Accordion.Header>{trail.name}</Accordion.Header>
@@ -57,11 +60,22 @@ function ParkDetail() {
         </Accordion.Body>
     </Accordion.Item>)
 
-    console.log(state);
-    
+    const position = [state.latitude, state.longitude]
+
     return (
         <div>
             <h2>{state.name}</h2>
+            <MapContainer center={position} zoom={13}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={position}>
+                    <Popup>
+                       {state.name}
+                    </Popup>
+                </Marker>
+            </MapContainer>
             <ul>
                 <li>Address: {state.address}</li>
                 <li>Fee: {state.fee}</li>

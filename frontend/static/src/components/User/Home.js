@@ -2,6 +2,13 @@ import { useOutletContext, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { handleError } from '../../util';
 import Cookies from 'js-cookie';
+import {
+    MapContainer,
+    TileLayer,
+    Popup,
+    Marker
+} from 'react-leaflet';
+
 
 function Home() {
 
@@ -60,6 +67,9 @@ function Home() {
         return 'Loading...'
     };
 
+    // let map = L.map('map').setView([51.505, -0.09], 13);
+
+
     const parksHTML = parks.map((park) => (
         <Link
             style={{ display: "block", margin: "1rem 0" }}
@@ -81,8 +91,28 @@ function Home() {
 
     ))
 
+    parks.forEach((park)=> console.log(park.latitude, park.longitude))
+
+    const popupHtml = parks.map((park) => (
+        <Marker key={park.id} position={[park.latitude, park.longitude]}>
+            <Popup>
+                {park.name}
+            </Popup>
+        </Marker>
+    ));
+
     return (
         <div>
+
+            <MapContainer center={[34.7119067, -82.3037375]} zoom={9}>
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {popupHtml}
+            </MapContainer>
+
+            {/* <div id="map"></div> */}
             Parks
             {parksHTML}
             Trails

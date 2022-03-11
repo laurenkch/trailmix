@@ -95,8 +95,6 @@ function AdminParkDetail() {
         navigate('/administrator')
 
     };
-
-    console.log(trails);
     ////////////////////////////////////////////////////DISPLAY LOGIC
 
 
