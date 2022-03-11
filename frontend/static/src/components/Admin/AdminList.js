@@ -18,8 +18,6 @@ function AdminList() {
             {park.name}
         </Link>
     ))
-
-    console.log(trails);
     
     const trailsHTML = trails.map((trail) => (
         <Link
