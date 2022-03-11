@@ -153,8 +153,9 @@ function AdminTrailDetail() {
 
         setIsEditing(false);
 
-         // eslint-disable-next-line
-        const newTrailList = trails.map((trail) => (trail.id != state.id))
+        // eslint-disable-next-line
+        const newTrailList = trails.filter((trail) => (trail.id != state.id));
+
         setTrails(newTrailList);
         navigate('/administrator')
     };

@@ -19,6 +19,8 @@ function AdminList() {
         </Link>
     ))
 
+    console.log(trails);
+    
     const trailsHTML = trails.map((trail) => (
         <Link
             style={{ display: "block", margin: "1rem 0" }}
