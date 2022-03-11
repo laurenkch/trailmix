@@ -3,20 +3,20 @@ from rest_framework import generics
 from rest_framework import serializers
 
 from .models import Trail, UserFeedback, Trip, TrailImage, Park, TrailImage
-from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripSerializer, UserFeedbackSerializer, ImageSerializer, ParkSerializer
+from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripSerializer, UserFeedbackSerializer, ImageSerializer, ParkCreateSerializer, ParkViewSerializer
 
 from rest_framework.permissions import IsAdminUser
 
 class ParkListAdmin(generics.ListCreateAPIView):
     permission_classes=(IsAdminUser,)
-    serializer_class = ParkSerializer
+    serializer_class = ParkCreateSerializer
 
     queryset= Park.objects.all()
 
 
 class ParkDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAdminUser,)
-    serializer_class = ParkSerializer
+    serializer_class = ParkCreateSerializer
 
     queryset = Park.objects.all()
 
@@ -45,12 +45,12 @@ class UserTrailDetail(generics.RetrieveAPIView):
     queryset = Trail.objects.all()
 
 class UserParkList(generics.ListAPIView):
-    serializer_class = ParkSerializer
+    serializer_class = ParkViewSerializer
 
     queryset = Park.objects.all()
 
 class UserParkDetail(generics.RetrieveAPIView):
-    serializer_class = ParkSerializer
+    serializer_class = ParkViewSerializer
     queryset = Park.objects.all()
 
 

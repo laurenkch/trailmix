@@ -23,7 +23,12 @@ class ShallowTrailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ParkSerializer(serializers.ModelSerializer):
+class ParkCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Park
+        fields = '__all__'
+
+class ParkViewSerializer(serializers.ModelSerializer):
     trails = ShallowTrailSerializer(many=True)
 
     class Meta:
