@@ -37,13 +37,13 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                             <li>
                                 <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
                             </li>
-                            {/* {auth && !admin &&
+                            {auth && !admin &&
                                 <li>
-                                    <NavLink className='btn toggle-btn' to='/profile'>
-                                        Profile
+                                    <NavLink className='btn toggle-btn' to='/trips'>
+                                        My Trips
                                     </NavLink>
                                 </li>
-                            } */}
+                            }
                             {admin &&
                                 <li>
                                     <NavLink className='btn toggle-btn' to='administrator/addtrail'>

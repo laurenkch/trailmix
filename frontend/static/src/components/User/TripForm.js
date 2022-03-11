@@ -128,6 +128,7 @@ function TripDetail() {
                     name='time'
                     id='time'
                     placeholder='optional'
+                    step={5000}
                     value={state.time}
                 />
                 <button type='submit'>Save Trip</button>

@@ -93,13 +93,14 @@ class TripList(generics.ListCreateAPIView):
         filters list to return trips associated with the current user
         """
         queryset = Trip.objects.filter(user=self.request.user)
+        queryset.order_by('date')
 
         return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class TripDetail(generics.RetrieveDestroyAPIView):
+class TripDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TripSerializer
 
     def get_queryset(self):

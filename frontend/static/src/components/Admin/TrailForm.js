@@ -12,17 +12,19 @@ function TrailForm() {
 
     useEffect(() => {
 
-        const getParkList = async () => {
+            const getParkList = async () => {
 
-            const response = await fetch('/api/v1/trails/admin/parks/').catch(handleError);
-            if (!response.ok) {
-                throw new Error('Network response not ok');
-            } else {
-                const data = await response.json();
-                setParks(data);
+                const response = await fetch('/api/v1/trails/admin/parks/').catch(handleError);
+                if (!response.ok) {
+                    throw new Error('Network response not ok');
+                } else {
+                    const data = await response.json();
+                    setParks(data);
+                }
             }
-        }
+        if(!parks) {
         getParkList();
+         }
     }, []);
 
 

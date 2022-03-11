@@ -72,9 +72,16 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
 class TripSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
+    trailname = serializers.ReadOnlyField(source='trail.name')
+    parkname = serializers.ReadOnlyField(source='trail.park.name')
+    latitude = serializers.ReadOnlyField(source='trail.park.latitude')
+    longitude = serializers.ReadOnlyField(source='trail.park.longitude')
+    fees = serializers.ReadOnlyField(source='trail.park.fees')
+    address = serializers.ReadOnlyField(source='trail.park.address')
     class Meta:
         model = Trip
-        fields = ('date', 'time', 'trail', 'username')
+        fields = ('date', 'time', 'trail', 'username',
+                  'trailname', 'id', 'parkname', 'latitude','longitude','fees','address')
 
 
 
