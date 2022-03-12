@@ -55,8 +55,6 @@ class UserFeedback(models.Model):
     paved = models.BooleanField(default=False, blank=False)
     wheelchair_accessible = models.BooleanField(default=False, blank=False)
 
-    difficulty = models.IntegerField(null=True, blank=True)
-
     DOG_FRIENDLY = 'df'
     NO_PETS_ALLOWED = 'npa'
 

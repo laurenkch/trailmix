@@ -25,7 +25,7 @@ function TrailForm() {
         if(!parks) {
         getParkList();
          }
-    }, []);
+    }, [parks]);
 
 
 

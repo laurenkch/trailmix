@@ -112,8 +112,10 @@ function TripDetail() {
 
     let weatherHtml;
 
+    // eslint-disable-next-line
     if (weather != null && weather != 'none') {
         weatherHtml = weather
+                                                    // eslint-disable-next-line
             .filter((entry) => (new Date(entry.startTime).getDate() == new Date(state.date).getDate()))
             .map((entry) => (
                 <div key={entry.number} className='scroll-squares'>
@@ -179,6 +181,10 @@ function TripDetail() {
                 </Form>
             }
             {state.park}
+            {state.length}
+            {state.elevation_gain}
+            {state.difficulty}
+            {TRAIL_TYPES[state.trail_type]}
             {state.address}
             {state.fee}
             {weather != null &&

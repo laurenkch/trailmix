@@ -100,6 +100,7 @@ class TripList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TripSerializer
 

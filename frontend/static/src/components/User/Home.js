@@ -12,6 +12,7 @@ import {
 
 function Home() {
 
+        // eslint-disable-next-line
     const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
     const [parks, setParks] = useState(null);
     const [trails, setTrails] = useState(null);

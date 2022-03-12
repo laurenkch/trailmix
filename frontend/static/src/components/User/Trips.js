@@ -1,4 +1,4 @@
-import { useState, useEffect, useParams } from 'react';
+import { useState, useEffect } from 'react';
 import { handleError } from './../../util';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ function Trips() {
         if (!trips) {
             getTrips();
         }
-    }, []);
+    }, [trips]);
 
     if (!trips) {
         return 'Loading...'

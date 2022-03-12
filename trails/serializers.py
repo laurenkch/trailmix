@@ -45,14 +45,6 @@ class ParkViewSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-
-# class ImageSerializer(serializers.ModelSerializer):
-#     trail_id = serializers.ReadOnlyField(source='trail.id')
-#     class Meta:
-#         model = TrailImage
-#         fields = ['id', 'image','trail','trail_id']
-
-
 class UserFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserFeedback
@@ -61,18 +53,27 @@ class UserFeedbackSerializer(serializers.ModelSerializer):
 
 class DeepTrailSerializer(serializers.ModelSerializer):
     images = ImageSerializer
+    difficulty = serializers.SerializerMethodField()
+
     class Meta:
         model = Trail
         fields = '__all__'
         depth = 1
 
+    def get_difficulty(self, obj):
+        if obj.length < 3 and obj.elevation_gain < 500:
+            return 1
+        if obj.length < 5 and obj.elevation_gain < 1000:
+            return 2
+        if obj.length < 7 and obj.elevation_gain < 1500:
+            return 3
+        if obj.length < 9 and obj.elevation_gain < 2000:
+            return 4
+        if obj.length < 11 and obj.elevation_gain < 2500:
+            return 5
+        if obj.length > 11 or obj.elevation_gain > 2500:
+            return 6
 
-# class ShallowTrailSerializer(serializers.ModelSerializer):
-#     images = ImageSerializer
-
-#     class Meta:
-#         model = Trail
-#         fields = '__all__'
 
 
 class TripSerializer(serializers.ModelSerializer):

@@ -45,8 +45,6 @@ function ParkDetail() {
         return 'Loading...'
     }
 
-    const trails = state.trails
-
     const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
         <Accordion.Header>{trail.name}</Accordion.Header>
         <Accordion.Body>
