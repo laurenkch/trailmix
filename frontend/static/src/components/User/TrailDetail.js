@@ -15,7 +15,10 @@ function TrailDetail() {
     const params = useParams();
 
     const [state, setState] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => { setShow(false) };
+    const handleOpen = () => { setShow(true) };
 
 
     const INITIAL_FEEDBACK = FEEDBACK_CHECKBOX_OPTIONS.reduce((prevValue, currentValue) => (
@@ -33,6 +36,7 @@ function TrailDetail() {
     const [checkedState, setCheckedState] = useState(INITIAL_FEEDBACK);
     const [radioState, setRadioState] = useState(INITIAL_RADIO_OPTIONS);
     const [difficulty, setDifficulty] = useState(null);
+
 
     ////////////////////////////////////////////////////LOAD TRAIL
 
@@ -109,7 +113,7 @@ function TrailDetail() {
             throw new Error("Network response not ok");
         }
 
-        setModalShow(false);
+        handleClose();
 
     }
 
@@ -143,7 +147,6 @@ function TrailDetail() {
         </div>
     ));
 
-    console.log(radioState);
     return (
         <div>
             <h2>{state.name}</h2>
@@ -158,7 +161,7 @@ function TrailDetail() {
                 <li>{state.park.hours}</li>
             </ul>
             {auth && <button
-                type='button' onClick={() => setModalShow(true)}
+                type='button' onClick={handleOpen}
             >
                 How was the hike?
             </button>}
@@ -167,7 +170,7 @@ function TrailDetail() {
             >
                 Plan a trip to {state.name}
             </Link>}
-            <Modal show={modalShow}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>Select any that apply</Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={submitFeedback}>
@@ -181,7 +184,7 @@ function TrailDetail() {
                 </Form> 
                 </Modal.Body>
                 
-                <button type='button' onClick={() => setModalShow(false)}>Close</button>
+                <button type='button' onClick={handleClose}>Close</button>
 
             </Modal>
         </div>
