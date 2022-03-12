@@ -6,7 +6,7 @@ class Park(models.Model):
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
 
-    fee = models.CharField(max_length=255,null=True, blank=True)
+    fee = models.CharField(max_length=255, null=True, blank=True)
     park_code = models.CharField(max_length=4, null=True, blank=True)
     hours = models.CharField(max_length=255, null=True, blank=True)
     activities = models.CharField(max_length=255, null=True, blank=True)
@@ -23,6 +23,7 @@ class Trail(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     description = models.TextField(null=True, blank=True)
+
 
     OUT_AND_BACK = 'oab'
     LOOP = 'loop'
@@ -44,7 +45,7 @@ class TrailImage(models.Model):
     image = models.ImageField(upload_to='trails/', blank=True, null=True)
 
 class UserFeedback(models.Model):
-    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    trail = models.ForeignKey(Trail, related_name='feedback', on_delete=models.CASCADE)
 
     muddy = models.BooleanField(default=False, blank=False)
     rocky = models.BooleanField(default=False, blank=False)

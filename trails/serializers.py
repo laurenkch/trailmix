@@ -1,4 +1,7 @@
+from itertools import count
 from rest_framework import serializers
+from django.db.models import Avg, Count, Sum
+
 
 from .models import Trail, Trip, UserFeedback, TrailImage, Park
 
@@ -54,11 +57,120 @@ class UserFeedbackSerializer(serializers.ModelSerializer):
 class DeepTrailSerializer(serializers.ModelSerializer):
     images = ImageSerializer
     difficulty = serializers.SerializerMethodField()
+    steep = serializers.SerializerMethodField()
+    muddy = serializers.SerializerMethodField()
+    rocky = serializers.SerializerMethodField()
+    shaded = serializers.SerializerMethodField()
+    river_crossing = serializers.SerializerMethodField()
+    kid_friendly = serializers.SerializerMethodField()
+    paved = serializers.SerializerMethodField()
+    wheelchair_accessible = serializers.SerializerMethodField()
+    pet_stance = serializers.SerializerMethodField()
+    parking = serializers.SerializerMethodField()
+    bathrooms = serializers.SerializerMethodField()
+    cell_strength = serializers.SerializerMethodField()
 
     class Meta:
         model = Trail
         fields = '__all__'
         depth = 1
+
+    def get_steep(self, obj):
+
+        variables = UserFeedback.objects.filter(trail = obj.id).aggregate(total=Count('steep'),num=Sum('steep'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_muddy(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('muddy'), num=Sum('muddy'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_shaded(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('shaded'), num=Sum('shaded'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_rocky(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('rocky'), num=Sum('rocky'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_river_crossing(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('river_crossing'), num=Sum('river_crossing'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+    
+    def get_kid_friendly(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('kid_friendly'), num=Sum('kid_friendly'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_paved(self, obj):
+
+        variables = UserFeedback.objects.filter(trail = obj.id).aggregate(total=Count('paved'),num=Sum('paved'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_wheelchair_accessible(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('wheelchair_accessible'), num=Sum('wheelchair_accessible'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
+
+    def get_steep(self, obj):
+
+        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
+            total=Count('steep'), num=Sum('steep'))
+
+        average = variables['num']/variables['total']
+        if average > 0.5:
+            return True
+        else:
+            return False
 
     def get_difficulty(self, obj):
         if obj.length < 3 and obj.elevation_gain < 500:
@@ -73,6 +185,75 @@ class DeepTrailSerializer(serializers.ModelSerializer):
             return 5
         if obj.length > 11 or obj.elevation_gain > 2500:
             return 6
+    
+    def get_pet_stance(self, obj):
+
+        df = UserFeedback.objects.filter(trail=obj.id).filter(pet_stance='df').aggregate(count=Count('pet_stance'))
+        np = UserFeedback.objects.filter(
+            trail=obj.id, pet_stance='np').aggregate(count = Count('pet_stance'))
+
+        if df['count'] > 0 or np['count'] > 0:
+            if df['count'] > np['count']:
+                return 'df'
+            else:
+                return 'np'
+        else:
+            return False
+
+
+    def get_parking(self, obj):
+
+        lpark = UserFeedback.objects.filter(trail=obj.id).filter(parking='lpark').aggregate(count=Count('parking'))
+        apark= UserFeedback.objects.filter(
+            trail=obj.id, pet_stance='apark').aggregate(count=Count('parking'))
+
+        if lpark['count'] > 0 or apark['count'] > 0:
+            if lpark['count'] > apark['count']:
+                return 'lpark'
+            else:
+                return 'apark'
+        else:
+            return False       
+
+    def get_bathrooms(self, obj):
+
+        nbath = UserFeedback.objects.filter(trail=obj.id,
+                                            bathrooms='nbath').aggregate(count=Count('bathrooms'))
+        dbath = UserFeedback.objects.filter(
+            trail=obj.id, bathrooms='dbath').aggregate(count=Count('bathrooms'))
+        cbath = UserFeedback.objects.filter(
+            trail=obj.id, bathrooms='cb').aggregate(count=Count('bathrooms'))
+
+        if nbath['count'] > 0 or dbath['count'] > 0 or cbath['count'] > 0:
+            if nbath['count'] > dbath['count'] and nbath['count'] > cbath['count']:
+                return 'nbath'
+            elif dbath['count'] > nbath['count'] and dbath['count'] > cbath['count']:
+                return 'dbath'
+            else:
+                return 'cbath'
+        else:
+            return False
+
+    def get_cell_strength(self, obj):
+
+        ncell = UserFeedback.objects.filter(trail=obj.id,
+                                         cell_strength='ncell').aggregate(count=Count('cell_strength'))
+        wcell = UserFeedback.objects.filter(trail=obj.id,
+                                         cell_strength='wcell').aggregate(count=Count('cell_strength'))
+        scell = UserFeedback.objects.filter(trail=obj.id,
+                                            cell_strength='scell').aggregate(count=Count('cell_strength'))
+
+        if ncell['count'] > 0 or wcell['count'] > 0 or scell['count'] > 0:
+            if ncell['count'] > wcell['count'] and ncell['count'] > scell['count']:
+                return 'ncell'
+            elif wcell['count'] > ncell['count'] and wcell['count'] > scell['count']:
+                return 'wcell'
+            else:
+                return 'scell'
+        else:
+            return False
+
+
 
 
 

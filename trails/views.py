@@ -44,6 +44,7 @@ class UserTrailDetail(generics.RetrieveAPIView):
     serializer_class = DeepTrailSerializer
     queryset = Trail.objects.all()
 
+
 class UserParkList(generics.ListAPIView):
     serializer_class = ParkViewSerializer
 
