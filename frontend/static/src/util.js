@@ -17,23 +17,58 @@ export const TRAIL_TYPES = {
     seg: 'Trail segment',
 };
 
+export const RADIO_OPTIONS = {
+        pet_stance: {
+            df: 'Dog friendly',
+            npa: 'No pets allowed',
+        }
+    , 
+        parking: {
+            lpark: 'Limited parking',
+            apark: 'Ample parking',
+        }
+    , 
+        cell_strength: {
+            ncell: 'No cell service',
+            wcell: 'Weak signal',
+            scell: 'Strong signal'
+        }
+    , 
+        bathrooms: {
+            nbath: 'No bathrooms',
+            cbath: 'Clean bathrooms',
+            dbath: 'Dirty bathrooms',
+        }
+}
 
-export const TRAIL_FEEDBACK = [
-    'Dog friendly',
-    'No pets allowed',
+// export const DOG_OPTIONS = {
+//     df: 'Dog friendly',
+//     npa: 'No pets allowed',
+// };
+
+// export const PARKING_OPTIONS = {
+//     lpark: 'Limited parking',
+//     apark: 'Ample parking',
+// };
+
+// export const CELL_OPTIONS = {
+//     ncell: 'No cell service',
+//     wcell: 'Weak signal',
+//     scell: 'Strong signal'
+// };
+
+// export const BATHROOM_OPTIONS = {
+//     nbath: 'No bathrooms',
+//     cbath: 'Clean bathrooms',
+//     dbath: 'Dirty bathrooms',
+// };
+
+export const FEEDBACK_CHECKBOX_OPTIONS = [
     'Muddy',
     'Rocky',
     'Steep',
     'Shaded',
     'River crossing',
-    'Limited parking',
-    'Ample parking',
-    'Clean bathrooms',
-    'No bathrooms',
-    'Dirty bathrooms',
-    'No cell service',
-    'Strong cell signal',
-    'Weak cell signal',
     'Kid friendly',
     'Paved',
     'Wheelchair accessible',

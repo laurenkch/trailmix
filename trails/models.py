@@ -45,26 +45,65 @@ class TrailImage(models.Model):
 
 class UserFeedback(models.Model):
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
-    dog_friendly = models.BooleanField(default = False, blank=False)
-    no_pets_allowed = models.BooleanField(default=False, blank=False)
+
     muddy = models.BooleanField(default=False, blank=False)
     rocky = models.BooleanField(default=False, blank=False)
     steep = models.BooleanField(default=False, blank=False)
     shaded = models.BooleanField(default=False, blank=False)
     river_crossing = models.BooleanField(default=False, blank=False)
-    limited_parking = models.BooleanField(default=False, blank=False)
-    ample_parking = models.BooleanField(default=False, blank=False)
-    clean_bathrooms = models.BooleanField(default=False, blank=False)
-    no_bathrooms = models.BooleanField(default=False, blank=False)
-    dirty_bathrooms = models.BooleanField(default=False, blank=False)
-    no_cell_service = models.BooleanField(default=False, blank=False)
-    strong_cell_signal = models.BooleanField(default=False, blank=False)
-    weak_cell_signal = models.BooleanField(default=False, blank=False)
     kid_friendly = models.BooleanField(default=False, blank=False)
     paved = models.BooleanField(default=False, blank=False)
     wheelchair_accessible = models.BooleanField(default=False, blank=False)
 
     difficulty = models.IntegerField(null=True, blank=True)
+
+    DOG_FRIENDLY = 'df'
+    NO_PETS_ALLOWED = 'npa'
+
+    DOG_CHOICES = [
+        (DOG_FRIENDLY, 'df'),
+        (NO_PETS_ALLOWED, 'npa'),
+    ]
+
+    pet_stance = models.CharField(
+        max_length=255, choices=DOG_CHOICES, null=True, blank=True)
+
+    LIMITED_PARKING = 'lpark'
+    AMPLE_PARKING = 'apark'
+
+    PARKING_CHOICES = [
+        (LIMITED_PARKING, 'lpark'),
+        (AMPLE_PARKING, 'apark'),
+    ]
+
+    parking = models.CharField(
+        max_length=255, choices=PARKING_CHOICES, null=True, blank=True)
+
+    NO_BATHROOMS = 'nbath'
+    CLEAN_BATHROOMS = 'cbath'
+    DIRTY_BATHROOMS = 'dbath'
+
+    BATHROOM_CHOICES = [
+        (NO_BATHROOMS, 'nbath'),
+        (CLEAN_BATHROOMS, 'cbath'),
+        (DIRTY_BATHROOMS, 'dbath'),
+    ]
+
+    bathrooms = models.CharField(
+        max_length=255, choices=BATHROOM_CHOICES, null=True, blank=True)
+
+    NO_CELL = 'ncell'
+    WEAK_CELL = 'wcell'
+    STRONG_CELL = 'scell'
+
+    CELL_CHOICES = [
+        (NO_CELL, 'ncell'),
+        (WEAK_CELL, 'wcell'),
+        (STRONG_CELL, 'scell'),
+    ]
+
+    cell_strength = models.CharField(
+        max_length=255, choices=CELL_CHOICES, null=True, blank=True)
 
 
 class Trip(models.Model):

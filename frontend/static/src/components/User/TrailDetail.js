@@ -1,6 +1,6 @@
 import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { handleError, TRAIL_TYPES, TRAIL_FEEDBACK } from './../../util';
+import { handleError, TRAIL_TYPES, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
 import Cookies from 'js-cookie';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -18,11 +18,20 @@ function TrailDetail() {
     const [modalShow, setModalShow] = useState(false);
 
 
-    const INITIAL_FEEDBACK = TRAIL_FEEDBACK.reduce((prevValue, currentValue) => (
+    const INITIAL_FEEDBACK = FEEDBACK_CHECKBOX_OPTIONS.reduce((prevValue, currentValue) => (
         { ...prevValue, [currentValue]: false })
-    , {});
+        , {});
+    
+
+    const radioKey = Object.keys(RADIO_OPTIONS);
+    const radioValues = Object.values(RADIO_OPTIONS);
+
+    const INITIAL_RADIO_OPTIONS = radioKey.reduce((prevValue, currentValue) => (
+        { ...prevValue, [currentValue]: '' })
+        , {});
 
     const [checkedState, setCheckedState] = useState(INITIAL_FEEDBACK);
+    const [radioState, setRadioState] = useState(INITIAL_RADIO_OPTIONS);
     const [difficulty, setDifficulty] = useState(null);
 
     ////////////////////////////////////////////////////LOAD TRAIL
@@ -64,12 +73,14 @@ function TrailDetail() {
         )
     }
 
-    const feedbackHtml = TRAIL_FEEDBACK.map((option,index) => (
+    const checkboxHtml = FEEDBACK_CHECKBOX_OPTIONS.map((option,index) => (
         <div key={index} >
             <input onClick={handleFeedback} type="checkbox" id={option} name={option} checked={checkedState.option}/>
             <label htmlFor={option}>{option}</label>
         </div>
     ));
+
+    
 
     const difficultyOptions = [1,2,3,4,5,6,7,8,9,10]
     
@@ -102,6 +113,37 @@ function TrailDetail() {
 
     }
 
+    const handleRadioInput = (e) => {
+        const { name, value } = e.target
+
+        setRadioState((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const printButtons = (obj, index) => {
+
+        let data = [];
+
+        for (const [key, value] of Object.entries(obj)) {
+        let button = <div key={key}>
+                        <label htmlFor={value}>{value}</label>
+            <input type='radio' name={radioKey[index]} value={key} id={value} onChange={handleRadioInput} />
+                    </div>
+        data.push(button);
+        }
+
+        return data;
+    }
+
+    const radioHtml = radioValues.map((obj, index) => (
+        <div key={index}>
+            {printButtons(obj, index)}
+        </div>
+    ));
+
+    console.log(radioState);
     return (
         <div>
             <h2>{state.name}</h2>
@@ -128,8 +170,9 @@ function TrailDetail() {
             <Modal show={modalShow}>
                 <Modal.Header closeButton>Select any that apply</Modal.Header>
                 <Modal.Body>
-                <Form onSubmit={submitFeedback}>
-                    {feedbackHtml}
+                    <Form onSubmit={submitFeedback}>
+                        {radioHtml}
+                        {checkboxHtml}
                         Difficulty Level:
                     <ButtonGroup>
                             {difficultyHtml}
