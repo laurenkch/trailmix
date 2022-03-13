@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { handleError, TRAIL_TYPES , getWeather, handleInput} from './../../util';
+import { handleError, TRAIL_TYPES , handleInput} from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
 
@@ -10,13 +10,9 @@ function TripDetail() {
     const navigate = useNavigate();
 
     const [state, setState] = useState(null);
-    const [weather, setWeather] = useState(null);
     const [isEditingDate, setIsEditingDate] = useState(false);
     const [isEditingTime, setIsEditingTime] = useState(false);
-
-
-    const currentTime = new Date();
-    const forecastCutoff = currentTime.setDate(currentTime.getDate() + 7);
+    const [trip, setTrip] = useState(null);
 
     useEffect(() => {
 
@@ -35,29 +31,27 @@ function TripDetail() {
                 throw new Error("Network response not ok");
             }
             const trip = await response.json();
-            setState(trip);
+            setTrip(trip);
 
-            if (!weather && (new Date(trip.date) < forecastCutoff)) {
-                const data = await getWeather(trip.latitude, trip.longitude);
-                setWeather(data);
-            } else {
-                setWeather('none');
-            }
+            setState({
+                id: trip.id,
+                date: trip.date,
+                time: trip.time,
+            })
+
         }
 
-        if (!state) {
+        if (!trip) {
             getTripDetails();
         }
 
-
-    }, []);
+    }, [params.tripId, trip]);
 
     ///////////////////////////////////////////////// EDIT TRIP
 
     const editTrip = async (e) => {
 
         e.preventDefault();
-        console.log('test');
 
         const options = {
             method: 'PUT',
@@ -73,6 +67,9 @@ function TripDetail() {
         if (!response.ok) {
             throw new Error("Network response not ok");
         }
+
+        const data = await response.json()
+        setTrip(data)
 
         setIsEditingDate(false);
         setIsEditingTime(false);
@@ -106,36 +103,33 @@ function TripDetail() {
 ///////////////////////////////////////////////// DISPLAY LOGIC
 
 
-    if (!state || weather == null) {
+    if (!trip ) {
         return 'Loading...'
     }
-
+    console.log(trip)
     let weatherHtml;
 
-    // eslint-disable-next-line
-    if (weather != null && weather != 'none') {
-        weatherHtml = weather
-                                                    // eslint-disable-next-line
-            .filter((entry) => (new Date(entry.startTime).getDate() == new Date(state.date).getDate()))
-            .map((entry) => (
-                <div key={entry.number} className='scroll-squares'>
-                    <h4>{entry.name}</h4>
-                    <div className='weather-image'>
-                        <img src={entry.icon} alt={entry.shortForecast} />
-                    </div>
-                    <p>{entry.temperature}{entry.temperatureUnit}</p>
-                    <p>{entry.windSpeed}{entry.windDirection}</p>
-                    <p>{entry.detailedForecast}</p>
-                </div>));
+    if (trip.weather) {
+        const data = trip.weather[0]
+        weatherHtml =
+            <div className='scroll-squares'>
+                <h4>{data.name}</h4>
+                <div className='weather-image'>
+                    <img src={data.icon} alt={data.shortForecast} />
+                </div>
+                <p>{data.temperature}{data.temperatureUnit}</p>
+                <p>{data.windSpeed}{data.windDirection}</p>
+                <p>{data.detailedForecast}</p>
+            </div>
     };
 
     return (
         <div>
-            <h2>{state.trailname}</h2>
+            <h2>{trip.trailname}</h2>
 
             {!isEditingDate &&
                 <div>
-                    {state.date}
+                    {trip.date}
                     <button type='button' onClick={() => setIsEditingDate(true)}>Edit Date</button>
                 </div>
             }
@@ -159,7 +153,7 @@ function TripDetail() {
             }
             {!isEditingTime &&
                 <div>
-                { state.time }
+                { trip.time }
                     < button type='button' onClick={() => setIsEditingTime(true)}>Edit Time</button>
                 </div>
             }
@@ -174,20 +168,20 @@ function TripDetail() {
                         name='time'
                         id='time'
                         placeholder='optional'
-                        step={5000}
+                        step={50000}
                         value={state.time}
                     />
                     <button type='submit'>Save</button>
                 </Form>
             }
-            {state.park}
-            {state.length}
-            {state.elevation_gain}
-            {state.difficulty}
-            {TRAIL_TYPES[state.trail_type]}
-            {state.address}
-            {state.fee}
-            {weather != null &&
+            {trip.park}
+            {trip.length}
+            {trip.elevation_gain}
+            {trip.difficulty}
+            {TRAIL_TYPES[trip.trail_type]}
+            {trip.address}
+            {trip.fee}
+            {trip.weather &&
             <div>
                 {weatherHtml}
             </div>}

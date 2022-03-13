@@ -1,6 +1,9 @@
 from itertools import count
 from rest_framework import serializers
 from django.db.models import Avg, Count, Sum
+import requests
+from datetime import datetime , timedelta, date
+
 
 
 from .models import Trail, Trip, UserFeedback, TrailImage, Park
@@ -54,6 +57,13 @@ class UserFeedbackSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ShallowTrailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Trail
+        fields = '__all__'
+        depth = 1
+
 class DeepTrailSerializer(serializers.ModelSerializer):
     images = ImageSerializer
     difficulty = serializers.SerializerMethodField()
@@ -69,11 +79,50 @@ class DeepTrailSerializer(serializers.ModelSerializer):
     parking = serializers.SerializerMethodField()
     bathrooms = serializers.SerializerMethodField()
     cell_strength = serializers.SerializerMethodField()
+    weather = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Trail
         fields = '__all__'
         depth = 1
+
+    def get_weather(self, obj):
+
+        lat = str(obj.park.latitude)
+        long = str(obj.park.longitude)
+        baseurl = 'https://api.weather.gov/points/'
+        url = baseurl+lat+','+long
+
+        headers = {
+            'USER-AGENT': '(https://trailmix-lkoch.herokuapp.com/, lkoch879@gmail.com)'}
+        r = requests.get(url, headers=headers)
+        data1 = r.json()
+        newUrl = data1['properties']['forecast']
+
+        r2 = requests.get(newUrl, headers=headers)
+        data2 = r2.json()
+
+        forecast = data2['properties']['periods']
+        dayForecast = [d for d in forecast if d['isDaytime']]
+        
+        return dayForecast
+        
+
+    def get_difficulty(self, obj):
+        if obj.length < 3 and obj.elevation_gain < 500:
+            return 1
+        if obj.length < 5 and obj.elevation_gain < 1000:
+            return 2
+        if obj.length < 7 and obj.elevation_gain < 1500:
+            return 3
+        if obj.length < 9 and obj.elevation_gain < 2000:
+            return 4
+        if obj.length < 11 and obj.elevation_gain < 2500:
+            return 5
+        if obj.length > 11 or obj.elevation_gain > 2500:
+            return 6
+    
 
     def get_steep(self, obj):
 
@@ -172,20 +221,6 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         else:
             return False
 
-    def get_difficulty(self, obj):
-        if obj.length < 3 and obj.elevation_gain < 500:
-            return 1
-        if obj.length < 5 and obj.elevation_gain < 1000:
-            return 2
-        if obj.length < 7 and obj.elevation_gain < 1500:
-            return 3
-        if obj.length < 9 and obj.elevation_gain < 2000:
-            return 4
-        if obj.length < 11 and obj.elevation_gain < 2500:
-            return 5
-        if obj.length > 11 or obj.elevation_gain > 2500:
-            return 6
-    
     def get_pet_stance(self, obj):
 
         df = UserFeedback.objects.filter(trail=obj.id).filter(pet_stance='df').aggregate(count=Count('pet_stance'))
@@ -253,11 +288,51 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         else:
             return False
 
+class TripDeepSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='user.username')
+    trailname = serializers.ReadOnlyField(source='trail.name')
+    parkname = serializers.ReadOnlyField(source='trail.park.name')
+    latitude = serializers.ReadOnlyField(source='trail.park.latitude')
+    longitude = serializers.ReadOnlyField(source='trail.park.longitude')
+    fees = serializers.ReadOnlyField(source='trail.park.fees')
+    address = serializers.ReadOnlyField(source='trail.park.address')
+    weather = serializers.SerializerMethodField()
+    class Meta:
+        model = Trip
+        fields = ('date', 'time', 'trail', 'username',
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather')
+        depth = 1
 
+    def get_weather(self, obj):
 
+        cutoffDate = date.today() + timedelta(days=7)
 
+        if obj.date < cutoffDate:
 
-class TripSerializer(serializers.ModelSerializer):
+            lat = str(obj.trail.park.latitude)
+            long = str(obj.trail.park.longitude)
+            baseurl = 'https://api.weather.gov/points/'
+            url = baseurl+lat+','+long
+
+            headers = {
+                'USER-AGENT': '(https://trailmix-lkoch.herokuapp.com/, lkoch879@gmail.com)'}
+            r = requests.get(url, headers=headers)
+            data1 = r.json()
+            newUrl = data1['properties']['forecast']
+
+            r2 = requests.get(newUrl, headers=headers)
+            data2 = r2.json()
+
+            forecast = data2['properties']['periods']
+            dayForecast = [d for d in forecast if d['isDaytime']
+                           and d['startTime'][0:10] == str(obj.date)]
+
+            return dayForecast
+
+        else:
+            return False
+
+class TripShallowSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
     trailname = serializers.ReadOnlyField(source='trail.name')
     parkname = serializers.ReadOnlyField(source='trail.park.name')
@@ -268,7 +343,5 @@ class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = ('date', 'time', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude','longitude','fees','address')
-
-
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address')
 

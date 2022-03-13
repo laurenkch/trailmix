@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework import serializers
 
 from .models import Trail, UserFeedback, Trip, TrailImage, Park, TrailImage
-from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripSerializer, UserFeedbackSerializer, ImageSerializer, ParkCreateSerializer, ParkViewSerializer
+from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripShallowSerializer, UserFeedbackSerializer, ImageSerializer, ParkCreateSerializer, ParkViewSerializer, TripDeepSerializer
 
 from rest_framework.permissions import IsAdminUser
 
@@ -36,7 +36,7 @@ class TrailDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserTrailList(generics.ListAPIView):
-    serializer_class = DeepTrailSerializer
+    serializer_class = ShallowTrailSerializer
 
     queryset = Trail.objects.all()
 
@@ -87,7 +87,7 @@ class UserFeedback(generics.CreateAPIView):
 
 
 class TripList(generics.ListCreateAPIView):
-    serializer_class = TripSerializer
+    serializer_class = TripShallowSerializer
 
     def get_queryset(self):
         """
@@ -103,7 +103,7 @@ class TripList(generics.ListCreateAPIView):
 
 
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = TripSerializer
+    serializer_class = TripDeepSerializer
 
     def get_queryset(self):
         """

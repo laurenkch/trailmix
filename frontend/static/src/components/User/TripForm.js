@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, TRAIL_TYPES, getWeather, handleInput } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput } from './../../util';
 import Form from 'react-bootstrap/Form';
 
 
@@ -17,7 +17,6 @@ function TripDetail() {
 
     const params = useParams();
     const [trail, setTrail] = useState(null);
-    const [weather, setWeather] = useState(null);
     const [state, setState] = useState(INITIAL_STATE);
 
     ////////////////////////////////////////////////////LOAD TRAIL
@@ -37,18 +36,15 @@ function TripDetail() {
         }
 
         const trail = await response.json();
-        const weather = await getWeather(trail.park.latitude, trail.park.longitude);
         setTrail(trail);
-        setWeather(weather);
     };
 
     useEffect(() => {
-        if (!weather) {
+        if(!trail)
             getTrail();
-        };
-    }, [weather])
+    }, [trail])
 
-    if (!trail || !weather) {
+    if (!trail) {
         return 'Loading...'
     };
 
@@ -75,7 +71,7 @@ function TripDetail() {
         setState(INITIAL_STATE);
     }
 
-    const weatherHtml = weather
+    const weatherHtml = trail.weather
         .filter(segment => segment.isDaytime)
         .map((segment) => <div key={segment.number} className='scroll-squares'>
         <h4>{segment.name}</h4>

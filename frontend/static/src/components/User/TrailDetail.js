@@ -52,6 +52,8 @@ function TrailDetail() {
         <div key={entry.level}>
             {`${entry.level} : ${entry.description}`}
         </div>)
+    
+    console.log(state);
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>

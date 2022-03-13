@@ -28,8 +28,6 @@ function Trips() {
     }
     const currentTime = new Date();
 
-    trips.forEach((trip) => console.log(trip));
-
     const upcomingTripsHtml = trips
         .filter((trip) => new Date(trip.date) > currentTime)
         .map((trip, index) => (

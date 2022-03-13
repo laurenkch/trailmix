@@ -111,5 +111,5 @@ class Trip(models.Model):
     date = models.DateField()
     time = models.TimeField(null=True)
     trail = models.ForeignKey(
-        Trail, on_delete=models.CASCADE)
+        Trail, related_name='trail', on_delete=models.CASCADE)
 

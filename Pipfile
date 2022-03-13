@@ -12,6 +12,7 @@ djangorestframework = "~=3.13.1"
 django-rest-auth = "~=0.9.5"
 django-allauth = "~=0.49.0"
 django-cleanup = "~=6.0.0"
+requests = "~=2.27.1"
 
 [dev-packages]
 autopep8 = "*"
