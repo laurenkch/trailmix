@@ -4,8 +4,10 @@ import { handleError, TRAIL_TYPES, DIFFICULTY_KEY } from './../../util';
 import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
 
 function TrailDetail() {
 
@@ -15,9 +17,12 @@ function TrailDetail() {
     const params = useParams();
 
     const [state, setState] = useState(null);
-    const [show, setShow] = useState(false);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
 
-    const handleOpen = () => { setShow(true) };
+    const handleOpenFeedback = () => { setShowFeedback(true) };
+    const handleOpenLogin = () => { setShowLogin(true) };
 
     ////////////////////////////////////////////////////LOAD TRAIL
 
@@ -86,16 +91,23 @@ function TrailDetail() {
                 <li>Hours: {state.park.hours}</li>
             </ul>
             {auth && <button
-                type='button' onClick={handleOpen}
+                type='button' onClick={handleOpenFeedback}
             >
-                How was the hike?
+                How was this hike?
             </button>}
             {auth && <Link
                 to={`/plan/${state.id}`}
             >
                 Plan a trip to {state.name}
             </Link>}
-            <FeedbackModal id={state.id} show={show} setShow={setShow}/>
+            {!auth && <button
+                type='button' onClick={handleOpenLogin}
+            >
+                Plan a trip to {state.name}
+            </button>}
+            <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
+            <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
+            <RegisterModal trailId={state.id} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin}/>
         </div>
     )
 }

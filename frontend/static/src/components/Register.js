@@ -16,19 +16,12 @@ function Register() {
             password2: '',
         }
 
-    const [state, setState] = useState(INITIAL_STATE)
-    
-    // const handleInput = (e) => {
-
-    //     const { name, value } = e.target
-    //     setState((prevState) => (
-    //         {
-    //             ...prevState,
-    //             [name]: value,
-    //         })
-
-    //     )
-    // }
+    const [state, setState] = useState(INITIAL_STATE);
+    const [errors, setErrors] = useState({
+        email: false,
+        password1: false,
+        password2: false,
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -49,6 +42,10 @@ function Register() {
             );
 
             if (!response.ok) {
+                const message = await response.json();
+                for (const [key, value] of Object.entries(message)) {
+                    setErrors((prevState) => ({ ...prevState, [key]: value[0] }));
+                }
                 throw new Error('Network response not ok');
             } else {
                 const data = await response.json();
@@ -59,8 +56,9 @@ function Register() {
         } else {
             alert('passwords must match');
         }
-    }
+    };
 
+    console.log(errors);
 
         return (
             <div>
@@ -79,7 +77,9 @@ function Register() {
                     <Form.Label htmlFor='email'>
                         Email
                     </Form.Label>
+                    {errors.email && <div className='error-label'>{ errors.email}</div>}
                     <Form.Control
+                        className={errors.email ? "error" : ""}
                         id='email'
                         required
                         name='email'
@@ -89,7 +89,9 @@ function Register() {
                     <Form.Label htmlFor='password1'>
                         Password
                     </Form.Label>
+                    {errors.password1 && <div className='error-label'>{errors.password1}</div>}
                     <Form.Control
+                        className={errors.password1 ? "error" : ""}
                         id='password1'
                         required
                         autoComplete="off"
@@ -101,7 +103,9 @@ function Register() {
                     <Form.Label htmlFor='password2'>
                         Password
                     </Form.Label>
+                    {errors.password2 && <div className='error-label'>{errors.password2}</div>}
                     <Form.Control
+                        className={errors.password2 ? "error" : ""}
                         id='password2'
                         required
                         autoComplete="off"

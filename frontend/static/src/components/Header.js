@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { handleError } from './../util';
 
 function Header({ auth, setAuth, navigate, admin, setAdmin }) {
@@ -32,7 +32,7 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
             return (
                 <nav>
                     <ul>
-                        <h1>TrailMix</h1>
+                        <Link to='/'><h1>TrailMix</h1></Link>
                         <div className='nav-links'>
                             <li>
                                 <NavLink className='btn toggle-btn' to='/'>Home</NavLink>

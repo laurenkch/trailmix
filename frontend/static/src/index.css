@@ -72,3 +72,18 @@ code {
   height: 500px; 
   width: 50vw;
 }
+
+/*///////////////////////////////////////////////// FORMS */
+
+.error {
+  border: 1px solid red !important;
+}
+
+.error-label {
+  font-size: 0.8em;
+}
+
+.error-message {
+  color: red;
+  font-style: italic;
+}

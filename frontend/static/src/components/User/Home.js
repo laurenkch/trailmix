@@ -92,8 +92,6 @@ function Home() {
 
     ))
 
-    parks.forEach((park)=> console.log(park.latitude, park.longitude))
-
     const popupHtml = parks.map((park) => (
         <Marker key={park.id} position={[park.latitude, park.longitude]}>
             <Popup>

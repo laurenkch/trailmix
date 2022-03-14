@@ -46,6 +46,8 @@ class TrailImage(models.Model):
 
 class UserFeedback(models.Model):
     trail = models.ForeignKey(Trail, related_name='feedback', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
     muddy = models.BooleanField(default=False, blank=False)
     rocky = models.BooleanField(default=False, blank=False)

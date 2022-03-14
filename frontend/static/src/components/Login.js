@@ -17,6 +17,7 @@ function Login() {
     }
 
     const [state, setState] = useState(INITIAL_STATE);
+    const [error, setError] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +36,10 @@ function Login() {
         );
 
         if (!response.ok) {
+            const message = await response.json();
+            if (message.non_field_errors) {
+                setError(message.non_field_errors[0]);
+            }
             throw new Error("Network response not ok");
         } else {
             const data = await response.json();
@@ -51,6 +56,7 @@ function Login() {
     return (
         <div>
             <Form onSubmit={handleSubmit}>
+                {error && <div className='error-message'>{error}</div>}
                 <Form.Label htmlFor='username'>
                     Username
                 </Form.Label>
