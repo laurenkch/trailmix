@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { handleError, TRAIL_TYPES , handleInput} from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput} from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
+
+
 
 function TripDetail() {
     
@@ -159,18 +161,7 @@ function TripDetail() {
             }
             {isEditingTime &&
                 <Form onSubmit={editTrip}>
-                    <Form.Label htmlFor='time'>
-                        Time
-                    </Form.Label>
-                    <Form.Control
-                        type='time'
-                        onChange={(e) => handleInput(e, setState)}
-                        name='time'
-                        id='time'
-                        placeholder='optional'
-                        step={50000}
-                        value={state.time}
-                    />
+                    <TimeInput setFormState={setState} formState={state}/>
                     <button type='submit'>Save</button>
                 </Form>
             }

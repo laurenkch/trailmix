@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faX } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 
@@ -20,6 +20,7 @@ function TrailDetail() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [showDifficulty, setShowDifficulty] = useState(false);
 
     const handleOpenFeedback = () => { setShowFeedback(true) };
     const handleOpenLogin = () => { setShowLogin(true) };
@@ -53,18 +54,29 @@ function TrailDetail() {
         return 'Loading...'
     }
 
-    const difficultykeyHtml = DIFFICULTY_KEY.map((entry) =>
+    const difficultyMap = DIFFICULTY_KEY.map((entry) =>
         <div key={entry.level}>
-            {`${entry.level} : ${entry.description}`}
+            {`Level ${entry.level} : ${entry.description}`}
         </div>)
     
-    console.log(state);
-
+    const difficultyHtml = 
+        <div>
+            <button type='button' onClick={() => setShowDifficulty(false)}><FontAwesomeIcon icon={faX} /></button>
+            Difficulty is based on total length and elevation gain.
+            {difficultyMap}
+        </div>
+    
+    const currentDifficultyHtml = 
+        <div>
+            {DIFFICULTY_KEY[state.difficulty - 1].description}
+            <button type='button' onClick={()=>setShowDifficulty(true)}>Read more about difficulty</button>
+        </div>
+    
+    
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
             <div>
-                Difficulty level is based on trail length and elevation gain. 
-                {difficultykeyHtml}
+                {showDifficulty ? difficultyHtml : currentDifficultyHtml}
             </div>
         </Tooltip>
     );
@@ -80,6 +92,7 @@ function TrailDetail() {
                     placement="right"
                     delay={{ show: 250, hide: 400 }}
                     overlay={renderTooltip}
+                    trigger="click"
                 >
                     <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion}/></Button>
                 </OverlayTrigger>

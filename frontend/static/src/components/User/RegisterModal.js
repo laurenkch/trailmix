@@ -64,7 +64,7 @@ function RegisterModal({ trailId, show, setShow, setAuth, navigate, setShowLogin
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>Create an account to plan your trip</Modal.Header>
+            <Modal.Header closeButton>Create an account</Modal.Header>
             <Modal.Body>
             <Form onSubmit={handleSubmit}>
                 <Form.Label htmlFor='username'>

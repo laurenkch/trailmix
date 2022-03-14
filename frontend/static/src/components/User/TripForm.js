@@ -1,19 +1,16 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, TRAIL_TYPES, handleInput } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput } from './../../util';
 import Form from 'react-bootstrap/Form';
-
-
 
 function TripDetail() {
 
     const INITIAL_STATE = {
         trail: '',
         date: '',
-        time: '',
+        time: '--:--',
     }
-
 
     const params = useParams();
     const [trail, setTrail] = useState(null);
@@ -81,8 +78,8 @@ function TripDetail() {
         <p>{segment.temperature}{segment.temperatureUnit}</p>
         <p>{segment.windSpeed}{segment.windDirection}</p>
         <p>{segment.detailedForecast}</p>
-    </div>)
-
+        </div>)
+    
     return (
         <div>
             <h2>Trip to {trail.name}</h2>
@@ -118,15 +115,7 @@ function TripDetail() {
                 <Form.Label htmlFor='time'>
                     Time
                 </Form.Label>
-                <Form.Control
-                    type='time'
-                    onChange={(e) => handleInput(e, setState)}
-                    name='time'
-                    id='time'
-                    placeholder='optional'
-                    step={5000}
-                    value={state.time}
-                />
+                <TimeInput setFormState={setState} formState={state}/>
                 <button type='submit'>Save Trip</button>
             </Form>
         </div>

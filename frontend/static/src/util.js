@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export const handleError = (err) => {
     console.warn(err);
 }
@@ -112,4 +114,83 @@ export const getWeather = async (lat, long) => {
     }
     return data.properties.periods
 };
+
+export function TimeInput({ setFormState, formState }) {
+
+    let INITIAL_VALUE = {
+        hr: '--',
+        min: '--',
+        amPm: '--',
+    }
+    if (formState) {
+        const oldTime = formState.time
+
+        const hour = parseInt(oldTime.slice(0, 2));
+        const min = oldTime.slice(3, 5);
+
+        if (hour > 12) {
+            INITIAL_VALUE.hr = hour - 12
+            INITIAL_VALUE.amPm = 'PM'
+        } else {
+            INITIAL_VALUE.hr = hour
+            INITIAL_VALUE.amPm = 'AM'
+        }
+        INITIAL_VALUE.min = min
+
+    }
+
+
+    const [state, setState] = useState(INITIAL_VALUE)
+
+    const handleInput = (e) => {
+        let newTime;
+        setState((prevState) => ({ ...prevState, [e.target.name]: e.target.value }))
+        newTime = { ...state, [e.target.name]: e.target.value }
+        if (newTime.hr === '--' || newTime.min === '--') {
+            setFormState((prevState) => ({ ...prevState, time: `` }));
+            return
+        }
+
+        if (newTime.amPm === 'PM' && newTime.hr !== '12') {
+            const hour = parseInt(newTime.hr) + 12
+            const data = { ...newTime, hr: hour }
+            newTime = data
+        }
+        setFormState((prevState) => ({ ...prevState, time: `${newTime.hr}:${newTime.min}` }))
+    }
+
+
+    return (
+        <div>
+            <label htmlFor="hour"></label>
+            <select name="hr" id="hour" onChange={handleInput} value={state.hr}>
+                <option value="--">--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <label htmlFor="minute"></label>
+            <select name="min" id="minute" onChange={handleInput} value={state.min}>
+                <option value="--">--</option>
+                <option value="00">00</option>
+                <option value="30">30</option>
+            </select>
+            <label htmlFor="Am/Pm"></label>
+            <select name="amPm" id="Am/Pm" onChange={handleInput} value={state.amPm}>
+                <option value="--">--</option>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+    )
+}
 

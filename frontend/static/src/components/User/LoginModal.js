@@ -60,10 +60,10 @@ function LoginModal({ trailId, show, setShow, setAdmin, setAuth, navigate, setSh
 
     return (
         <Modal show={show} onHide={handleClose}>
-            {error && <div className='error-message'>{error}</div>}
-
-        <Modal.Header closeButton>Login to plan your trip</Modal.Header>
+        <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
+                Login to save your trip details for later!
+                {error && <div className='error-message'>{error}</div>}
             <Form onSubmit={handleSubmit}>
                 <Form.Label htmlFor='username'>
                     Username
