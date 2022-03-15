@@ -49,6 +49,11 @@ function TripDetail() {
         e.preventDefault();
 
         const data = { ...state, trail: trail.id };
+        if (data.time.includes('-')) {
+            data.time = null
+        }
+
+        console.log(data);
 
         const options = {
             method: 'POST',
@@ -79,7 +84,7 @@ function TripDetail() {
         <p>{segment.windSpeed}{segment.windDirection}</p>
         <p>{segment.detailedForecast}</p>
         </div>)
-    
+
     return (
         <div>
             <h2>Trip to {trail.name}</h2>

@@ -117,12 +117,14 @@ export const getWeather = async (lat, long) => {
 
 export function TimeInput({ setFormState, formState }) {
 
+    console.log(formState.time != null);
+
     let INITIAL_VALUE = {
         hr: '--',
         min: '--',
         amPm: '--',
     }
-    if (formState) {
+    if (formState && formState.time != null) {
         const oldTime = formState.time
 
         INITIAL_VALUE.hr = oldTime.slice(0, 2);

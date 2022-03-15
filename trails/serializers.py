@@ -297,7 +297,7 @@ class TripDeepSerializer(serializers.ModelSerializer):
     fees = serializers.ReadOnlyField(source='trail.park.fees')
     address = serializers.ReadOnlyField(source='trail.park.address')
     weather = serializers.SerializerMethodField()
-    time = serializers.TimeField(
+    time = serializers.TimeField(allow_null = True,
         format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
     
     class Meta:
@@ -344,7 +344,7 @@ class TripShallowSerializer(serializers.ModelSerializer):
     longitude = serializers.ReadOnlyField(source='trail.park.longitude')
     fees = serializers.ReadOnlyField(source='trail.park.fees')
     address = serializers.ReadOnlyField(source='trail.park.address')
-    time = serializers.TimeField(format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
+    time = serializers.TimeField(allow_null = True, format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ],)
 
     class Meta:
         model = Trip

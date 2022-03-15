@@ -55,13 +55,18 @@ function TripDetail() {
 
         e.preventDefault();
 
+        let data = state
+        if (data.time && data.time.includes('-')){
+            data.time = null
+        }
+
         const options = {
             method: 'PUT',
             headers: {
                 'X-CSRFToken': Cookies.get('csrftoken'),
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(state),
+            body: JSON.stringify(data),
         };
 
         const response = await fetch(`/api/v1/trails/trip/${state.id}/`, options).catch(handleError);
@@ -70,8 +75,8 @@ function TripDetail() {
             throw new Error("Network response not ok");
         }
 
-        const data = await response.json()
-        setTrip(data)
+        const updatedTrip = await response.json()
+        setTrip(updatedTrip)
 
         setIsEditingDate(false);
         setIsEditingTime(false);
@@ -124,8 +129,6 @@ function TripDetail() {
             </div>
     };
 
-    console.log(state);
-
     return (
         <div>
             <h2>{trip.trailname}</h2>
@@ -154,7 +157,13 @@ function TripDetail() {
                     </Form>
                 </div>
             }
-            {!isEditingTime &&
+            {!isEditingTime && trip.time === null &&
+                <div>
+                    {trip.time}
+                    < button type='button' onClick={() => setIsEditingTime(true)}>Add Time</button>
+                </div>
+            }
+            {!isEditingTime && trip.time !== null &&
                 <div>
                 { trip.time }
                     < button type='button' onClick={() => setIsEditingTime(true)}>Edit Time</button>
@@ -164,6 +173,13 @@ function TripDetail() {
                 <Form onSubmit={editTrip}>
                     <TimeInput setFormState={setState} formState={state}/>
                     <button type='submit'>Save</button>
+                    <button type='button' onClick={(e) => {
+                        const newState = state
+                        newState.time = null
+                        setTrip(newState)
+                        editTrip(e)
+                    }}
+                    >Delete Time</button>
                 </Form>
             }
             {trip.park}
