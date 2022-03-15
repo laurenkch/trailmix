@@ -8,14 +8,19 @@ import {
     Popup,
     Marker
 } from 'react-leaflet';
+import Form from 'react-bootstrap/Form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 
 function Home() {
 
-        // eslint-disable-next-line
+    // eslint-disable-next-line
     const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
     const [parks, setParks] = useState(null);
     const [trails, setTrails] = useState(null);
+    const [searchState, setSearchState] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     useEffect(() => {
 
@@ -64,12 +69,12 @@ function Home() {
         
     }, [admin, navigate])
 
+    const [results, setResults] = useState('');
+
+
     if (!parks || !trails) {
         return 'Loading...'
     };
-
-    // let map = L.map('map').setView([51.505, -0.09], 13);
-
 
     const parksHTML = parks.map((park) => (
         <Link
@@ -100,6 +105,17 @@ function Home() {
         </Marker>
     ));
 
+    let resultsHtml;
+    if (results) {
+        resultsHtml = results.map((trail) => <div>{trail.name}</div>)
+    }
+
+    const runSearch = (e) => {
+        setSearchState(e.target.value);
+        const data = trails.filter((trail) => trail.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setResults(data)
+    }
+
     return (
         <div>
 
@@ -110,8 +126,23 @@ function Home() {
                 />
                 {popupHtml}
             </MapContainer>
-
-            {/* <div id="map"></div> */}
+            <Form>
+                <input
+                    type='text'
+                    onChange={runSearch}
+                    name='search'
+                    value={searchState}
+                    onFocus={()=>setIsSearching(true)}
+                    onBlur={() => {
+                        setIsSearching(false)
+                        setSearchState('')
+                    }}
+                    autoComplete='off'
+                />
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                {/* <button type='submit'><FontAwesomeIcon icon={faMagnifyingGlass}/></button> */}
+            </Form>
+            {isSearching && resultsHtml}
             Parks
             {parksHTML}
             Trails
