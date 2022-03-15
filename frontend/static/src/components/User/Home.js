@@ -8,9 +8,10 @@ import {
     Popup,
     Marker
 } from 'react-leaflet';
-import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Accordion from 'react-bootstrap/Accordion';
+
 
 
 function Home() {
@@ -100,14 +101,14 @@ function Home() {
     const popupHtml = parks.map((park) => (
         <Marker key={park.id} position={[park.latitude, park.longitude]}>
             <Popup>
-                {park.name}
+                <Link to={`park/${park.id}`}>{park.name}</Link>
             </Popup>
         </Marker>
     ));
 
     let resultsHtml;
     if (results) {
-        resultsHtml = results.map((trail) => <div>{trail.name}</div>)
+        resultsHtml = results.map((trail) => <div key={trail.id} onMouseDown={()=>navigate(`trail/${trail.id}`)}>{trail.name}</div>)
     }
 
     const runSearch = (e) => {
@@ -126,7 +127,7 @@ function Home() {
                 />
                 {popupHtml}
             </MapContainer>
-            <Form>
+            <div>
                 <input
                     type='text'
                     onChange={runSearch}
@@ -140,15 +141,39 @@ function Home() {
                     autoComplete='off'
                 />
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-                {/* <button type='submit'><FontAwesomeIcon icon={faMagnifyingGlass}/></button> */}
-            </Form>
-            {isSearching && resultsHtml}
-            Parks
-            {parksHTML}
-            Trails
-            {trailsHTML}
+                {isSearching && resultsHtml}
+            </div>
+            <Accordion>
+                <Accordion.Item eventKey='0'>
+                <Accordion.Header>Parks</Accordion.Header>
+                <Accordion.Body>
+                    <ul>{parksHTML}</ul>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+            <Accordion>
+                <Accordion.Item eventKey='1'>
+                <Accordion.Header>Trails</Accordion.Header>
+                <Accordion.Body>
+                    <ul>{trailsHTML}</ul>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
         </div>
     )
 }
 
 export default Home
+
+// const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
+//     <Accordion.Header>{trail.name}</Accordion.Header>
+//     <Accordion.Body>
+//         <ul>
+//             <li>{trail.length} miles</li>
+//             <li>{trail.elevation_gain} feet</li>
+//             <li>{TRAIL_TYPES[trail.trail_type]}</li>
+//             <Link to={`/trail/${trail.id}`}>See More</Link>
+//             <Link to={`/plan/${trail.id}`}>Plan your trip</Link>
+//         </ul>
+//     </Accordion.Body>
+// </Accordion.Item>)
