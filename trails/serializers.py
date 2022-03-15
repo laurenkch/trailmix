@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.db.models import Avg, Count, Sum
 import requests
 from datetime import datetime , timedelta, date
-
+from django.conf import settings
 
 
 from .models import Trail, Trip, UserFeedback, TrailImage, Park
@@ -297,10 +297,13 @@ class TripDeepSerializer(serializers.ModelSerializer):
     fees = serializers.ReadOnlyField(source='trail.park.fees')
     address = serializers.ReadOnlyField(source='trail.park.address')
     weather = serializers.SerializerMethodField()
+    time = serializers.TimeField(
+        format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
+    
     class Meta:
         model = Trip
-        fields = ('date', 'time', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather')
+        fields = ('date', 'trail', 'username',
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time')
         depth = 1
 
     def get_weather(self, obj):
@@ -332,6 +335,7 @@ class TripDeepSerializer(serializers.ModelSerializer):
         else:
             return False
 
+
 class TripShallowSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source='user.username')
     trailname = serializers.ReadOnlyField(source='trail.name')
@@ -340,8 +344,9 @@ class TripShallowSerializer(serializers.ModelSerializer):
     longitude = serializers.ReadOnlyField(source='trail.park.longitude')
     fees = serializers.ReadOnlyField(source='trail.park.fees')
     address = serializers.ReadOnlyField(source='trail.park.address')
+    time = serializers.TimeField(format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
+
     class Meta:
         model = Trip
         fields = ('date', 'time', 'trail', 'username',
                   'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address')
-

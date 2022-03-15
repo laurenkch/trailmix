@@ -184,3 +184,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+#New time format
+#https://docs.djangoproject.com/en/4.0/ref/settings/#time-input-formats
+
+TIME_INPUT_FORMATS ='%I:%M %p'

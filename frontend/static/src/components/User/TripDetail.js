@@ -97,7 +97,6 @@ function TripDetail() {
             throw new Error("Network response not ok");
         }
 
-        // setTrails(newTrailList);
         navigate('/trips')
     };
 
@@ -108,7 +107,7 @@ function TripDetail() {
     if (!trip ) {
         return 'Loading...'
     }
-    console.log(trip)
+
     let weatherHtml;
 
     if (trip.weather) {
@@ -124,6 +123,8 @@ function TripDetail() {
                 <p>{data.detailedForecast}</p>
             </div>
     };
+
+    console.log(state);
 
     return (
         <div>
