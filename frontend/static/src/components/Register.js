@@ -58,8 +58,6 @@ function Register() {
         }
     };
 
-    console.log(errors);
-
         return (
             <div>
                 <Form onSubmit={handleSubmit}>

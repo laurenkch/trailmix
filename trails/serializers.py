@@ -62,7 +62,7 @@ class ShallowTrailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trail
         fields = '__all__'
-        depth = 1
+        # depth = 1
 
 class DeepTrailSerializer(serializers.ModelSerializer):
     images = ImageSerializer
@@ -97,16 +97,27 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         headers = {
             'USER-AGENT': '(https://trailmix-lkoch.herokuapp.com/, lkoch879@gmail.com)'}
         r = requests.get(url, headers=headers)
-        data1 = r.json()
-        newUrl = data1['properties']['forecast']
 
-        r2 = requests.get(newUrl, headers=headers)
-        data2 = r2.json()
+        if not r.ok:
+            return None
 
-        forecast = data2['properties']['periods']
-        dayForecast = [d for d in forecast if d['isDaytime']]
+        else: 
+            data1 = r.json()
+            newUrl = data1['properties']['forecast']
+
+            r2 = requests.get(newUrl, headers=headers)
+
+            if not r2.ok:
+                return None
+
+            else:
+                data2 = r2.json()
+
+                forecast = data2['properties']['periods']
+                dayForecast = [d for d in forecast if d['isDaytime']]
         
         return dayForecast
+
         
 
     def get_difficulty(self, obj):
@@ -122,15 +133,19 @@ class DeepTrailSerializer(serializers.ModelSerializer):
             return 5
         if obj.length > 11 or obj.elevation_gain > 2500:
             return 6
-    
+        else:
+            return 0
 
     def get_steep(self, obj):
 
         variables = UserFeedback.objects.filter(trail = obj.id).aggregate(total=Count('steep'),num=Sum('steep'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -139,9 +154,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('muddy'), num=Sum('muddy'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -150,9 +168,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('shaded'), num=Sum('shaded'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -161,9 +182,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('rocky'), num=Sum('rocky'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -172,9 +196,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('river_crossing'), num=Sum('river_crossing'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
     
@@ -183,9 +210,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('kid_friendly'), num=Sum('kid_friendly'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -193,9 +223,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
         variables = UserFeedback.objects.filter(trail = obj.id).aggregate(total=Count('paved'),num=Sum('paved'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -204,20 +237,12 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
             total=Count('wheelchair_accessible'), num=Sum('wheelchair_accessible'))
 
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
-        else:
-            return False
-
-    def get_steep(self, obj):
-
-        variables = UserFeedback.objects.filter(trail=obj.id).aggregate(
-            total=Count('steep'), num=Sum('steep'))
-
-        average = variables['num']/variables['total']
-        if average > 0.5:
-            return True
+        if variables['num']:
+            average = variables['num']/variables['total']
+            if average > 0.5:
+                return True
+            else:
+                return False
         else:
             return False
 

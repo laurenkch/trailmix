@@ -23,7 +23,7 @@ function FeedbackModal({ id, show, setShow }) {
     const [checkedState, setCheckedState] = useState(INITIAL_FEEDBACK);
     const [radioState, setRadioState] = useState(INITIAL_RADIO_OPTIONS);
 
-// ////////////////////////////////////////////////HANDLE FORM INPUT
+    // ////////////////////////////////////////////////HANDLE FORM INPUT
     
     const handleFeedback = (e) => {
         const key = e.target.name
@@ -43,7 +43,7 @@ function FeedbackModal({ id, show, setShow }) {
         }));
     };
 
-// //////////////////////////////////////////////// SUBMIT INPUT
+    // //////////////////////////////////////////////// SUBMIT INPUT
 
     const submitFeedback = async (e) => {
         e.preventDefault();
@@ -69,15 +69,18 @@ function FeedbackModal({ id, show, setShow }) {
 
     }
 
-// ////////////////////////////////////////////////CREATE MODAL HTML
+    // ////////////////////////////////////////////////CREATE MODAL HTML
 
 
-    const checkboxHtml = FEEDBACK_CHECKBOX_OPTIONS.map((option, index) => (
-        <div key={index} >
-            <input onClick={handleFeedback} type="checkbox" id={option} name={option} checked={checkedState.option} />
-            <label htmlFor={option}>{option}</label>
-        </div>
-    ));
+    const checkboxHtml = FEEDBACK_CHECKBOX_OPTIONS.map((option, index) => {
+        let displayValue = option.replaceAll('_', ' ')
+        return (
+            <div key={index} >
+                <input onClick={handleFeedback} type="checkbox" id={option} name={option} checked={checkedState.option} />
+                <label htmlFor={option}>{displayValue}</label>
+            </div>
+        );
+});
 
     const printButtons = (obj, index) => {
 

@@ -1,10 +1,12 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { handleError, TRAIL_TYPES, handleInput, TimeInput } from './../../util';
 import Form from 'react-bootstrap/Form';
 
-function TripDetail() {
+function TripForm() {
+
+    const navigate = useNavigate();
 
     const INITIAL_STATE = {
         trail: '',
@@ -53,8 +55,6 @@ function TripDetail() {
             data.time = null
         }
 
-        console.log(data);
-
         const options = {
             method: 'POST',
             headers: {
@@ -71,6 +71,7 @@ function TripDetail() {
         }
 
         setState(INITIAL_STATE);
+        navigate('/');
     }
 
     const weatherHtml = trail.weather
@@ -127,4 +128,4 @@ function TripDetail() {
     )
 };
 
-export default TripDetail
+export default TripForm

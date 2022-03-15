@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { handleError } from './../../util';
 import { Link } from 'react-router-dom';
+import Accordion from 'react-bootstrap/Accordion';
 
 function Trips() {
 
@@ -28,6 +29,10 @@ function Trips() {
     }
     const currentTime = new Date();
 
+    if (trips.length < 1) {
+        return 'No trips planned'
+    }
+
     const upcomingTripsHtml = trips
         .filter((trip) => new Date(trip.date) > currentTime)
         .map((trip, index) => (
@@ -37,6 +42,7 @@ function Trips() {
                 {trip.time}
             </Link>
         ));
+    
     const pastTripsHtml = trips
         .filter((trip) => new Date(trip.date) < currentTime)
         .map((trip, index) => (
@@ -51,12 +57,19 @@ function Trips() {
         <div>
             <h2>Upcoming Trips</h2>
             <ul>
-                {upcomingTripsHtml}
+                {upcomingTripsHtml.length > 0 ? upcomingTripsHtml: 'No upcoming trips'}
             </ul>
-            <h2>Past Trips</h2>
-            <ul>
-                {pastTripsHtml}
-            </ul>
+
+            <Accordion>
+                <Accordion.Item eventKey='0'>
+                    <Accordion.Header>Past Trips</Accordion.Header>
+                    <Accordion.Body>
+                        <ul>
+                            {pastTripsHtml.length > 0 ? pastTripsHtml: 'No past trips' }
+                        </ul>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
         </div>
     )
 }

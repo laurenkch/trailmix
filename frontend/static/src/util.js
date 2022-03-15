@@ -68,14 +68,14 @@ export const DIFFICULTY_KEY = [
 ]
 
 export const FEEDBACK_CHECKBOX_OPTIONS = [
-    'Muddy',
-    'Rocky',
-    'Steep',
-    'Shaded',
-    'River crossing',
-    'Kid friendly',
-    'Paved',
-    'Wheelchair accessible',
+    'muddy',
+    'rocky',
+    'steep',
+    'shaded',
+    'river_crossing',
+    'kid_friendly',
+    'paved',
+    'wheelchair_accessible',
 ]
 
 
@@ -116,8 +116,6 @@ export const getWeather = async (lat, long) => {
 };
 
 export function TimeInput({ setFormState, formState }) {
-
-    console.log(formState.time != null);
 
     let INITIAL_VALUE = {
         hr: '--',
@@ -174,4 +172,3 @@ export function TimeInput({ setFormState, formState }) {
         </div>
     )
 }
-

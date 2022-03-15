@@ -1,6 +1,6 @@
 import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { handleError, TRAIL_TYPES, DIFFICULTY_KEY } from './../../util';
+import { handleError, TRAIL_TYPES, DIFFICULTY_KEY, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
 import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
@@ -81,6 +81,42 @@ function TrailDetail() {
         </Tooltip>
     );
 
+    const weatherHtml = state.weather
+        .filter(segment => segment.isDaytime)
+        .map((segment) => <div key={segment.number} className='scroll-squares'>
+            <h4>{segment.name}</h4>
+            <div className='weather-image'>
+                <img src={segment.icon} alt={segment.shortForecast} />
+            </div>
+            <p>{segment.temperature}{segment.temperatureUnit}</p>
+            <p>{segment.windSpeed}{segment.windDirection}</p>
+            <p>{segment.detailedForecast}</p>
+        </div>)
+    
+
+    let feedbackHtml;
+
+    if (Object.values(state).includes(true)) {
+        feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
+            .filter((option) => (state[option]))
+            .map((option) => (option.replaceAll('_', ' ')))
+            .map((option, index) => (<div key={index}>{option}</div>))
+    };
+
+    const printRadioFeedback = () => {
+
+        let data = [];
+
+        for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
+            let variable = state[key]
+            let displayValue = <div>{value[variable]}</div>
+            data.push(displayValue);
+        }
+        return data;
+    }
+
+    const radioFeedbackHtml = printRadioFeedback();
+    
     return (
         <div>
             <h2>{state.name}</h2>
@@ -103,6 +139,8 @@ function TrailDetail() {
                 <li>Fee: {state.park.fee}</li>
                 <li>Hours: {state.park.hours}</li>
             </ul>
+            {feedbackHtml && feedbackHtml}
+            {radioFeedbackHtml && radioFeedbackHtml}
             {auth && <button
                 type='button' onClick={handleOpenFeedback}
             >
@@ -118,6 +156,10 @@ function TrailDetail() {
             >
                 Plan a trip to {state.name}
             </button>}
+            <h3>Weather</h3>
+            <div className='horizontal-scroll-wrapper'>
+                {weatherHtml}
+            </div>
             <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
             <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
             <RegisterModal trailId={state.id} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin}/>

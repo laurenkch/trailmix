@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput} from './../../util';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput } from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
 
@@ -131,7 +131,7 @@ function TripDetail() {
 
     return (
         <div>
-            <h2>{trip.trailname}</h2>
+            <Link to={`/trail/${trip.trail.id}/`}><h2>{trip.trailname}</h2></Link>
 
             {!isEditingDate &&
                 <div>
