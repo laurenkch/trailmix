@@ -12,8 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Accordion from 'react-bootstrap/Accordion';
 
-
-
 function Home() {
 
     // eslint-disable-next-line
@@ -22,6 +20,8 @@ function Home() {
     const [trails, setTrails] = useState(null);
     const [searchState, setSearchState] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const [results, setResults] = useState('');
+
 
     useEffect(() => {
 
@@ -63,14 +63,13 @@ function Home() {
             } else {
                 const data = await response.json();
                 setTrails(data);
+                setResults(data);
             }
         }
         getParkList();
         getTrailList();
         
     }, [admin, navigate])
-
-    const [results, setResults] = useState('');
 
 
     if (!parks || !trails) {
@@ -107,19 +106,42 @@ function Home() {
     ));
 
     let resultsHtml;
-    if (results) {
-        resultsHtml = results.map((trail) => <div key={trail.id} onMouseDown={()=>navigate(`trail/${trail.id}`)}>{trail.name}</div>)
+
+    if (results.length > 0) {
+        resultsHtml = results.map((trail) => <div className='result' key={trail.id} onMouseDown={()=>navigate(`trail/${trail.id}`)}>{trail.name}</div>)
+    } else {
+        resultsHtml = <div>'No matching trails'</div>
     }
 
     const runSearch = (e) => {
         setSearchState(e.target.value);
-        const data = trails.filter((trail) => trail.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const data = trails.filter((trail) => trail.name.toLowerCase().includes(e.target.value.toLowerCase()));
         setResults(data)
+
     }
 
     return (
-        <div>
-
+        <div className='home'>
+            <div className='full-width search'>
+                <input
+                    className='search-bar'
+                    type='text'
+                    onChange={runSearch}
+                    name='search'
+                    value={searchState}
+                    onFocus={() => setIsSearching(true)}
+                    onBlur={() => {
+                        setIsSearching(false)
+                        setSearchState('')
+                    }}
+                    autoComplete='off'
+                    placeholder='search trails'
+                />
+                <FontAwesomeIcon className='search-icon gray-font' icon={faMagnifyingGlass} />
+                <div className={isSearching ? 'search-results' : 'hidden search-results'}>
+                    {isSearching && resultsHtml}
+                </div>
+            </div>
             <MapContainer center={[34.7119067, -82.3037375]} zoom={9}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -127,22 +149,7 @@ function Home() {
                 />
                 {popupHtml}
             </MapContainer>
-            <div>
-                <input
-                    type='text'
-                    onChange={runSearch}
-                    name='search'
-                    value={searchState}
-                    onFocus={()=>setIsSearching(true)}
-                    onBlur={() => {
-                        setIsSearching(false)
-                        setSearchState('')
-                    }}
-                    autoComplete='off'
-                />
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-                {isSearching && resultsHtml}
-            </div>
+            <div className='home-lists'>
             <Accordion>
                 <Accordion.Item eventKey='0'>
                 <Accordion.Header>Parks</Accordion.Header>
@@ -150,15 +157,14 @@ function Home() {
                     <ul>{parksHTML}</ul>
                     </Accordion.Body>
                 </Accordion.Item>
-            </Accordion>
-            <Accordion>
                 <Accordion.Item eventKey='1'>
                 <Accordion.Header>Trails</Accordion.Header>
                 <Accordion.Body>
                     <ul>{trailsHTML}</ul>
                     </Accordion.Body>
                 </Accordion.Item>
-            </Accordion>
+                </Accordion>
+            </div>
         </div>
     )
 }

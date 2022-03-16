@@ -30,13 +30,13 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
             }
 
             return (
-                <nav>
+                <nav className='forest-green'>
                     <ul>
-                        <Link to='/'><h1>TrailMix</h1></Link>
+                        <Link className='ecru-font'to='/'><h1>TrailMix</h1></Link>
                         <div className='nav-links'>
-                            <li>
+                            {/* <li>
                                 <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
-                            </li>
+                            </li> */}
                             {auth && !admin &&
                                 <li>
                                     <NavLink className='btn toggle-btn' to='/trips'>
@@ -60,7 +60,7 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                                     </button>
                                 </li> :
                                 <li>
-                                    <NavLink to='login'>Login</NavLink>
+                                    <NavLink className='ecru-font' to='login'>Login</NavLink>
                                 </li>
                             }
                         </div>

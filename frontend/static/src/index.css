@@ -1,3 +1,109 @@
+/*//////////////////////////////////////////COLORS*/
+
+:root {
+ --gray: rgb(57	56	59);
+ --opaque-gray: rgba(57,	56,	59, 0.8);
+ --dark-green: rgb(37	38	18);
+ --dark-cranberry: rgb(128	26	36);
+ --cranberry: rgb(249	92	131	);
+ --stone: rgb(159	148	131	);
+ --sand: rgb(219	203	177	);
+ --dark-khaki: rgb(146	118	52	);
+ --washed-khaki: rgb(157	136	109	);
+ --army-green: rgb(65	70	20	);
+ --dusty-pink: rgb(149	85	68	);
+  --sage: rgb(148	168	125	);
+  --forest-green: rgb(48	62	44	);
+  --camel: rgb(178	170	101	);
+  --green: #58752b;
+  --brown: #4a4735;
+  --ecru: #e6e5ce;
+  --light-stone: #d0d4c9;
+}
+
+.cranberry-font {
+  color: var(--cranberry) !important;
+}
+
+.gray-font {
+  color: var(--gray) !important;
+}
+
+.cranberry {
+  background-color: var(--cranberry) !important;
+}
+
+.gray {
+  background-color: var(--gray) !important;
+}
+
+.dark-green {
+  background-color: var(--dark-green) !important;
+}
+
+
+.dark-green-font {
+  color: var(--dark-green) !important;
+}
+
+.sand-font {
+  color: var(--sand) !important;
+}
+
+.sand {
+  background-color: var(--sand) !important;
+}
+
+.stone {
+  background-color: var(--stone)!important;
+}
+
+.stone-font {
+  color: var(--stone) !important;
+}
+
+.sage {
+  background-color: var(--sage) !important;
+}
+
+.ecru {
+  background-color: var(--ecru) !important;
+}
+
+.ecru-font {
+  color: var(--ecru) !important;
+}
+
+.brown {
+  background-color: var(--brown) !important;
+}
+
+.brown-font {
+  color: var(--brown)!important;
+}
+
+.green {
+  background-color: var(--green) !important;
+}
+.green-font {
+  color: var(--green)!important;
+}
+
+.forest-green {
+  background-color: var(--forest-green)!important;
+}
+
+.forest-green-font {
+  color: var(--forest-green)!important;
+}
+
+.dark-cranberry {
+  background-color: var(--dark-cranberry)!important;
+}
+
+.dark-cranberry-font {
+  color: var(--dark-cranberry)!important;
+}
 /*//////////////////////////////////////////GLOBALS*/
 
 ul {
@@ -6,6 +112,8 @@ ul {
   padding-inline-start: 0;
   margin-block-start: 0;
   margin-block-end: 0;
+  padding-left: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 li {
@@ -19,6 +127,10 @@ html {
 *:before,
 *:after {
     box-sizing: inherit;
+}
+
+a, a:hover, a:active, a:visited, a:link {
+  text-decoration: none;
 }
 
 /* .btn-primary {
@@ -36,12 +148,90 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: var(--ecru) !important; */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.full-width {
+  width: 100%;
+}
+
+.ninety-width {
+  width: 90%;
+}
+
+.accordion-button:focus {
+  border-color: rgba(219	203	177	/ 25%)  !important;
+  box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
+}
+
+.accordion-button:not(.collapsed), .accordion-button, .accordion-button:not(.collapsed), .accordion-button::after {
+  color: white !important;
+  font-weight: bold !important;
+  background-color: var(--forest-green) !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23212529%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e') !important;
+}
+
+.accordion a:hover {
+  font-weight: bold;
+  color: var(--gray) !important;
+}
+
+.accordion a, a:visited, a:link, a:hover {
+  color: var(--gray);
+}
+
+.accordion {
+  margin-bottom: 10px;
+}
+
+.accordion-item {
+  margin: 3px 0px;
+}
+
+/*///////////////////////////////////////////////// HEADER */
+
+nav {
+  width: 100%;
+  padding: 15px 20px 15px 20px;
+  margin-bottom: 10px;
+}
+
+nav ul{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h1 {
+  margin-bottom: 0;
+} 
+
+/*///////////////////////////////////////////////// MAIN */
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 
 
 /*///////////////////////////////////////////////// WEATHER */
@@ -66,11 +256,78 @@ code {
   max-width: 50%;
 }
 
+/*///////////////////////////////////////////////// HOME */
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 2px solid rgba(57,	56,	59, 0.8);
+  border-radius: 2px;
+}
+
+.search-bar {
+  flex: 1;
+  height: 45px;
+  border: none;
+}
+.search-icon {
+  margin-left: 10px;
+  height: 1.25em;
+  padding-right: 10px;
+}
+
+.home {
+  width: 77vw;
+}
+
+.home-lists {
+  width: 100%;
+}
+
+.search-results {
+  position: absolute;
+  z-index: 10;
+  top: 45px;
+  background-color: white;
+  width: 77%;
+  left: -2px;
+  border-left: 2px solid var(--opaque-gray);
+  border-bottom: 2px solid var(--opaque-gray);
+  border-right: 2px solid var(--opaque-gray);
+  border-radius: 2px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+:focus-visible {
+  outline: none !important;
+}
+
+.search-bar::placeholder {
+  font-style: italic;
+  padding: 0px 5px;
+}
+
+.result {
+  padding: 2px 5px;
+  font-size: 1.2em;
+}
+
 /*///////////////////////////////////////////////// MAP */
 
 .leaflet-container { 
-  height: 500px; 
-  width: 50vw;
+  height: 400px; 
+  width: 100%;
+  margin: 15px 0px;
+  z-index: 0;
+}
+
+.leaflet-marker-icon {
+  background-color: var(--cranberry);
 }
 
 /*///////////////////////////////////////////////// FORMS */
@@ -86,4 +343,29 @@ code {
 .error-message {
   color: red;
   font-style: italic;
+}
+
+/*//////////////////////////////////////////LOGIN AND REGISTER*/
+
+.verification-redirect {
+  background-color: white;
+  border: none;
+  margin: 30px;
+  color: var(--darkgrey);
+  font-style: italic;
+
+}
+
+/* /////////////////////////////////////////////////////////////////DESKTOP */
+
+@media (min-width: 768px) {
+ 
+  .wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
+
+
 }

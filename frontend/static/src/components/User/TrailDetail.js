@@ -109,7 +109,7 @@ function TrailDetail() {
 
         for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
             let variable = state[key]
-            let displayValue = <div>{value[variable]}</div>
+            let displayValue = <div key={key}>{value[variable]}</div>
             data.push(displayValue);
         }
         return data;

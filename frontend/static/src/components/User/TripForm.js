@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
 import Form from 'react-bootstrap/Form';
 
 function TripForm() {
@@ -85,6 +85,29 @@ function TripForm() {
         <p>{segment.windSpeed}{segment.windDirection}</p>
         <p>{segment.detailedForecast}</p>
         </div>)
+    
+    let feedbackHtml;
+
+    if (Object.values(state).includes(true)) {
+        feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
+            .filter((option) => (trail[option]))
+            .map((option) => (option.replaceAll('_', ' ')))
+            .map((option, index) => (<div key={index}>{option}</div>))
+    };
+
+    const printRadioFeedback = () => {
+
+        let data = [];
+
+        for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
+            let variable = trail[key]
+            let displayValue = <div key={key}>{value[variable]}</div>
+            data.push(displayValue);
+        }
+        return data;
+    }
+
+    const radioFeedbackHtml = printRadioFeedback();
 
     return (
         <div>
@@ -97,7 +120,9 @@ function TripForm() {
             <li>{trail.park.name}</li>
             <li>{trail.park.address}</li>
             <li>{trail.park.fee}</li>
-            <li>{trail.park.hours}</li>
+                <li>{trail.park.hours}</li>
+                {feedbackHtml && feedbackHtml}
+                {radioFeedbackHtml && radioFeedbackHtml}
 
             <h3>Weather</h3>
                 <div className='horizontal-scroll-wrapper'>
