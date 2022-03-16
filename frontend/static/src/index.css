@@ -2,7 +2,7 @@
 
 :root {
  --gray: rgb(57	56	59);
- --opaque-gray: rgba(57,	56,	59, 0.8);
+ --opaque-gray: rgba(57,	56,	59, 0.5);
  --dark-green: rgb(37	38	18);
  --dark-cranberry: rgb(128	26	36);
  --cranberry: rgb(249	92	131	);
@@ -19,7 +19,8 @@
   --brown: #4a4735;
   --ecru: #e6e5ce;
   --light-stone: #d0d4c9;
-  --background: rgba(208, 212, 201, 0.1)
+  --background: rgba(208, 212, 201, 0.1);
+  --middle-stone: rgb(222, 232, 204);
 }
 
 .cranberry-font {
@@ -193,12 +194,13 @@ code {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-.accordion a:hover {
-  font-weight: bold;
+.accordion-body ul a:hover {
+  font-weight: 500;
   color: var(--gray) !important;
+  transition: all 0.05s ease-in-out;
 }
 
-.accordion a, a:visited, a:link, a:hover {
+.accordion-body ul a, a:visited, a:link, a:hover {
   color: var(--gray);
 }
 
@@ -229,6 +231,17 @@ nav h1 {
   margin-bottom: 0;
 } 
 
+nav a:hover {
+  font-weight: 500;
+  color: var(--middle-stone) !important;
+  transition: all 0.05s ease-in-out;
+}
+
+.login-logout-button a:hover {
+  font-weight: normal !important;
+  transform: scale(1.2) !important;
+}
+
 /*///////////////////////////////////////////////// MAIN */
 
 main {
@@ -245,19 +258,6 @@ main {
   align-items: center;
   width: 100%;
 }
-
-.leaflet-marker-icon {
-  filter: hue-rotate(-249deg);
-}
-
-/* original color rbg(0	122	205)	 */
-/* in hsl 204 100 40.2*/
-
-
-/* goal color rgb  (249	92	131)*/
-/* goal color hsl 345 92.9 66.9*/
- 
-/* h: -249 s:129.1 l: 73.3  */
 
 /*///////////////////////////////////////////////// WEATHER */
 .horizontal-scroll-wrapper {
@@ -287,7 +287,7 @@ main {
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 2px solid rgba(57,	56,	59, 0.8);
+  border: 2px solid var(--opaque-gray);
   border-radius: 2px;
 }
 
@@ -315,8 +315,9 @@ main {
   z-index: 10;
   top: 45px;
   background-color: white;
-  width: 77%;
+  right: -2px;
   left: -2px;
+  border-top: 1.5px solid rgba(57,	56,	59, 0.3);
   border-left: 2px solid var(--opaque-gray);
   border-bottom: 2px solid var(--opaque-gray);
   border-right: 2px solid var(--opaque-gray);
@@ -350,9 +351,29 @@ main {
   z-index: 0;
 }
 
-/* .leaflet-marker-icon {
-  background-color: var(--cranberry);
-} */
+.leaflet-marker-icon {
+  filter: hue-rotate(-249deg);
+}
+
+.leaflet-popup-content:hover {
+  transform: scale(1.07, 1.07);
+}
+
+.leaflet-popup-content a:hover {
+    color: rgb(148, 34, 103) !important;
+    transition: all 0.15s ease-in-out;
+}
+
+/* original color of marker */
+/* rbg(0	122	205)	 */
+/* hsl 204 100 40.2*/
+
+/* goal color */ 
+/* rgb  (249	92	131)*/
+/* hsl 345 92.9 66.9*/
+ 
+/* difference between the two, a.k.a. filter values  */
+/* h: -249% */
 
 /*///////////////////////////////////////////////// FORMS */
 
