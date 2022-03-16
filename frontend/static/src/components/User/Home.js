@@ -71,7 +71,6 @@ function Home() {
         
     }, [admin, navigate])
 
-
     if (!parks || !trails) {
         return 'Loading...'
     };
@@ -171,15 +170,3 @@ function Home() {
 
 export default Home
 
-// const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
-//     <Accordion.Header>{trail.name}</Accordion.Header>
-//     <Accordion.Body>
-//         <ul>
-//             <li>{trail.length} miles</li>
-//             <li>{trail.elevation_gain} feet</li>
-//             <li>{TRAIL_TYPES[trail.trail_type]}</li>
-//             <Link to={`/trail/${trail.id}`}>See More</Link>
-//             <Link to={`/plan/${trail.id}`}>Plan your trip</Link>
-//         </ul>
-//     </Accordion.Body>
-// </Accordion.Item>)

@@ -32,7 +32,7 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
             return (
                 <nav className='forest-green'>
                     <ul>
-                        <Link className='ecru-font'to='/'><h1>TrailMix</h1></Link>
+                        <Link className='background-color-font'to='/'><h1>TrailMix</h1></Link>
                         <div className='nav-links'>
                             {/* <li>
                                 <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
@@ -55,12 +55,12 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                         <div className='login-logout-button'>
                             {auth ?
                                 <li>
-                                    <button type='button' className='btn toggle-btn' onClick={handleLogout} value={'logout'}>
+                                    <button type='button' className='btn toggle-btn background-color-font' onClick={handleLogout} value={'logout'}>
                                         Logout
                                     </button>
                                 </li> :
                                 <li>
-                                    <NavLink className='ecru-font' to='login'>Login</NavLink>
+                                    <NavLink className='background-color-font' to='login'>Login</NavLink>
                                 </li>
                             }
                         </div>
