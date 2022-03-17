@@ -49,19 +49,40 @@ function ParkDetail() {
         <Accordion.Header>{trail.name}</Accordion.Header>
         <Accordion.Body>
             <ul>
-                <li>{trail.length} miles</li> 
-                <li>{trail.elevation_gain} feet</li> 
-                <li>{TRAIL_TYPES[trail.trail_type]}</li>
-                <Link to={`/trail/${trail.id}`}>See More</Link>
-                <Link to={`/plan/${trail.id}`}>Plan your trip</Link>
+                <li>
+                    <h4>
+                        Length
+                    </h4>
+                    {trail.length.slice(-1)==='0'? trail.length.slice(0,-1) : trail.length} miles
+                </li> 
+                <li>
+                    <h4>
+                        Elevation gain
+                    </h4>
+                    {trail.elevation_gain} feet
+                </li> 
+                <li>
+                    <h4>
+                        Trail type
+                    </h4>
+                    {TRAIL_TYPES[trail.trail_type]}
+                </li>
             </ul>
+            <div className='trail-list-buttons'>
+                <Link className='trail-list-button' to={`/trail/${trail.id}`}>
+                    See More
+                </Link>
+                <Link className='trail-list-button' to={`/plan/${trail.id}`}>
+                    Plan a trip
+                </Link>
+            </div>
         </Accordion.Body>
     </Accordion.Item>)
 
     const position = [state.latitude, state.longitude]
 
     return (
-        <div>
+        <div className='wrapper park'>
             <h2>{state.name}</h2>
             <MapContainer center={position} zoom={13}>
                 <TileLayer
@@ -75,14 +96,44 @@ function ParkDetail() {
                 </Marker>
             </MapContainer>
             <ul>
-                <li>Address: {state.address}</li>
-                <li>Fee: {state.fee}</li>
-                <li>Hours: {state.hours}</li>
-                <li>Latitude: {state.latitude}</li>
-                <li>Longitude: {state.longitude}</li>
-                <li>Park code:{state.parkcode}</li>
-                <li>Activities: {state.activities}</li>
+                <li className='park-attributes'>
+                    <h3>
+                        Address
+                    </h3>
+                    <div>
+                        {state.address}
+                    </div>
+                </li>
+                <li className='park-attributes'>
+                    <h3>
+                        Hours
+                    </h3>
+                    <div>
+                        {state.hours.replaceAll(';', '\n')}
+                    </div>
+                </li>
+                {state.fee &&
+                    <li className='park-attributes'>
+                        <h3>
+                            Fees
+                        </h3>
+                        <div>
+                            {state.fee.replaceAll(';', '\n')}
+                        </div>
+                    </li>}
+                {state.activities &&
+                    <li className='park-attributes'>
+                        <h3>
+                            Activites
+                        </h3>
+                        <div>
+                            {state.activities}
+                        </div>
+                </li>}
             </ul>
+            <h3>
+                Trails
+            </h3>
             <Accordion>
                 {trailHtml}
             </Accordion>

@@ -4,20 +4,19 @@
  --gray: rgb(57	56	59);
  --opaque-gray: rgba(57,	56,	59, 0.5);
  --dark-green: rgb(37	38	18);
- --dark-cranberry: rgb(148, 34, 103);
+  --buttons: rgba(148, 34, 103, 0.87);
+  --links: rgb(148, 34, 103);
  --cranberry: rgb(249	92	131	);
  --stone: rgb(159	148	131	);
  --sand: rgb(219	203	177	);
- --dusty-pink: rgb(149	85	68	);
-  --sage: rgb(148	168	125	);
   --forest-green: rgb(48	62	44	);
-  --camel: rgb(178	170	101	);
   --green: #58752b;
   --brown: #4a4735;
   --ecru: #e6e5ce;
   --light-stone: #d0d4c9;
-  --background: rgba(208, 212, 201, 0.1);
+  --background-color: rgb(250	250	249	);
   --middle-stone: rgb(222, 232, 204);
+  --yellow: rgb(251,196,117);
 }
 
 .cranberry-font {
@@ -109,7 +108,7 @@
 }
 
 .background-color {
-  background-color: rgba(208, 212, 201, 0.1) !important;
+  background-color: var(--background-color) !important;
 }
 
 /*//////////////////////////////////////////GLOBALS*/
@@ -209,9 +208,14 @@ code {
   margin: 3px 0px;
 }
 
-.scale:hover {
-  transform: scale(1.05);
-  transition: all 0.15s;
+.form-control {
+  transition: var(--yellow) .15s ease-in-out,box-shadow .15s ease-in-out !important;
+}
+
+.form-control:focus {
+  border-color: var(--yellow) !important;
+  box-shadow: 0 0 0 0.25rem rgb(251 196 117 / 25%) !important;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
 }
 
 /*///////////////////////////////////////////////// HEADER */
@@ -353,6 +357,10 @@ main {
   cursor: pointer;
 }
 
+.result:hover {
+  font-weight: 1.1em;
+}
+
 /*///////////////////////////////////////////////// MAP */
 
 .leaflet-container { 
@@ -377,7 +385,7 @@ main {
 } */
 
 .leaflet-popup-content a:hover {
-    color: var(--dark-cranberry) !important;
+    color: var(--links) !important;
     transition: all 0.10s ease-in-out;
 }
 
@@ -412,7 +420,7 @@ main {
 .verification-redirect {
   background-color: inherit;
   border: none;
-  margin: 10px;
+  margin: 0px;
   color: var(--darkgrey);
   font-style: italic;
   cursor: pointer;
@@ -424,34 +432,107 @@ main {
 
 .submit-button {
   margin-top: 20px;
-  background-color: var(--dark-cranberry);
-  color: whitesmoke;
+  background-color: var(--buttons);
+  color: var(--background-color);
   margin: 5px;
   padding: 10px 30px;
-  border: 1px solid var(--dark-cranberry) !important;
+  border: 2px solid rgba(148, 34, 103, 0.75)  !important;
   border-radius: 4px; 
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: 600;
 }
 
 .button-wrapper {
   display: flex;
   justify-content: center;
-  padding: 20px 0px;
+  padding: 25px 0px;
 }
 
-.footnote {
-  margin-top: 50px;
+/* .footnote {
+  margin-top: px;
+} */
+
+/*///////////////////////////////////////////////// HOVER EFFECTS */
+
+.scale:hover {
+  transform: scale(1.05);
+  transition: all 0.15s;
 }
+
+.invert-color:hover {
+  background-color:var(--background);
+  color:var(--buttons);
+  border: 3px solid var(--links) !important;
+  transition: all 0.15s ease-in-out;
+}
+
+.link:hover {
+    color: var(--forest-green) !important;
+    transition: all 0.10s ease-in-out;
+}
+
+.fade-button:hover {
+  background-color: rgba(148, 34, 103, 0.84);
+  box-shadow: 2px 6px 6px var(--light-stone);
+  transition: all 0.15s ease-in-out;
+}
+
+/* /////////////////////////////////////////////////////////////////PARK VIEW */
+
+.park-attributes {
+  margin: 10px 0;
+   white-space: break-spaces;
+}
+
+.park h3 {
+  font-size: 1.4em;
+  padding-top: 5px;
+  margin-bottom: 3px;
+}
+
+.park h4 {
+  font-size: 1.1em;
+  padding-top: 5px;
+  margin-bottom: 3px;
+  color: rgb(184, 143, 68);
+}
+
+.trail-list-button {
+  background-color: var(--green);
+  color:white !important;
+  font-weight: 550;
+  padding: 10px 0;
+  min-width: 120px;
+  border-radius: 5px;
+  margin: 8px 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+.trail-list-buttons {
+  padding-top: 9px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.trail-list-button:hover {
+  background-color: rgba(87, 117, 43, 0.84);
+  box-shadow: 2px 6px 6px var(--light-stone);
+  transition: all 0.15s ease-in-out;
+}
+
+/* /////////////////////////////////////////////////////////////////TRAIL VIEW */
+
+
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {
-  .wrapper {
+.wrapper {
   display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: row;
+  width: 60vw;
+  flex-direction: column; 
 }
 
 

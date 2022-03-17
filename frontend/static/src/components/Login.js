@@ -80,13 +80,13 @@ function Login() {
                     value={state.password}
                     onChange={(e) => handleInput(e, setState)}
                 />
-                <div className='button-wrapper scale'>
-                    <button className='submit-button' type='submit'>Log in</button>
+                <div className='button-wrapper'>
+                    <button className='submit-button fade-button' type='submit'>Log in</button>
                 </div>
             </Form>
 
-            <div className='button-wrapper scale footnote'>
-                <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
+            <div className='button-wrapper footnote'>
+                <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect link">I need to make an account</button>
             </div>
         </div>
     )

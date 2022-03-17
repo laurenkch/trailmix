@@ -118,7 +118,7 @@ function TrailDetail() {
     const radioFeedbackHtml = printRadioFeedback();
     
     return (
-        <div>
+        <div className='wrapper trail'>
             <h2>{state.name}</h2>
             <ul>
                 <li>Elevation gain: {state.elevation_gain}ft</li>
