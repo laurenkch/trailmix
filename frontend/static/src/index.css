@@ -113,6 +113,10 @@
 
 /*//////////////////////////////////////////GLOBALS*/
 
+/* html {
+    white-space: break-spaces;
+}  */
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -251,7 +255,7 @@ nav ul a:hover {
 }
 
 .login-logout-button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
   transition: all 0.05s ease-in-out;
 }
 
@@ -481,7 +485,7 @@ main {
 
 .park-attributes {
   margin: 10px 0;
-   white-space: break-spaces;
+  white-space: break-spaces;
 }
 
 .park h3 {
@@ -524,7 +528,120 @@ main {
 
 /* /////////////////////////////////////////////////////////////////TRAIL VIEW */
 
+.trail h3 {
+  font-size: 1.4em;
+  padding-top: 12px;
+  margin-bottom: 0;
+}
 
+.trail h2 {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.trail div{
+  white-space: break-spaces;
+}
+
+.btn-success {
+  padding: 1px !important;
+  background-color: inherit !important;
+  border: none !important;
+  color: var(--green) !important;
+  margin-left: 5px; 
+}
+
+.btn-success:focus {
+  color: rgb(87 117 43 / 75%) !important;
+  transition: all 0.15s ease-in-out;
+  box-shadow: none !important;
+  border: none !important;
+}
+#button-tooltip > .tooltip-inner {
+  background-color: var(--forest-green) !important;
+  max-width: 80%;
+}
+
+
+.tooltip-arrow::before {
+  border-right: 5px solid var(--forest-green) !important;
+}
+
+.tip button  {
+  background-color: inherit;
+  border: none;
+  color: var(--yellow);
+  text-align: right;
+}
+
+.difficulty-heading {
+  display: flex;
+}
+
+.whitespace {
+   white-space: break-spaces;
+}
+
+.tip {
+  text-align: right;
+  white-space: break-spaces;
+  font-weight: 500;
+}
+.levels {
+  text-align: left;
+  margin-bottom: 6px; 
+  max-width: 500px;
+}
+
+.levels h3 {
+  font-size: 1.05em !important;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.feedback-badge {
+  background-color: var(--buttons);
+  color: var(--background-color);
+  font-size: 1.2em;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.feedback-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.plan-trip-prompt {
+  position: absolute;
+  border: none;
+  background-color: var(--gray);
+  color: var(--background-color);
+  width: 100vw;
+  left: 0;
+  font-size: 1.3em;
+  padding: 70px;
+}
+
+.plan-trip-prompt:hover {
+  color: rgb(200, 200, 200);
+  transition: all 15ms ease-in-out;
+}
+
+.plan-trip-prompt-wrapper {
+  text-align: center;
+}
+
+.weather {
+  margin-top: 230px;
+}
+
+.weather h3 {
+  margin-bottom: 10px;
+}
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
@@ -535,5 +652,9 @@ main {
   flex-direction: column; 
 }
 
+
+#button-tooltip > .tooltip-inner {
+  max-width: 100%;
+}
 
 }

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faX } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 
@@ -20,7 +20,6 @@ function TrailDetail() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
-    const [showDifficulty, setShowDifficulty] = useState(false);
 
     const handleOpenFeedback = () => { setShowFeedback(true) };
     const handleOpenLogin = () => { setShowLogin(true) };
@@ -56,27 +55,22 @@ function TrailDetail() {
 
     const difficultyMap = DIFFICULTY_KEY.map((entry) =>
         <div key={entry.level}>
-            {`Level ${entry.level} : ${entry.description}`}
+            <h3>
+                {`Level ${entry.level}`}
+            </h3>
+            {entry.description}
         </div>)
     
     const difficultyHtml = 
-        <div>
-            <button type='button' onClick={() => setShowDifficulty(false)}><FontAwesomeIcon icon={faX} /></button>
+        <div className='levels'>
             Difficulty is based on total length and elevation gain.
-            {difficultyMap}
-        </div>
-    
-    const currentDifficultyHtml = 
-        <div>
-            {DIFFICULTY_KEY[state.difficulty - 1].description}
-            <button type='button' onClick={()=>setShowDifficulty(true)}>Read more about difficulty</button>
-        </div>
-    
+                {difficultyMap}
+        </div> 
     
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            <div>
-                {showDifficulty ? difficultyHtml : currentDifficultyHtml}
+            <div className='tip'>
+                {difficultyHtml}
             </div>
         </Tooltip>
     );
@@ -93,14 +87,13 @@ function TrailDetail() {
             <p>{segment.detailedForecast}</p>
         </div>)
     
-
     let feedbackHtml;
 
     if (Object.values(state).includes(true)) {
         feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
             .filter((option) => (state[option]))
             .map((option) => (option.replaceAll('_', ' ')))
-            .map((option, index) => (<div key={index}>{option}</div>))
+            .map((option, index) => (<div className='feedback-badge' key={index}>{option}</div>))
     };
 
     const printRadioFeedback = () => {
@@ -109,7 +102,7 @@ function TrailDetail() {
 
         for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
             let variable = state[key]
-            let displayValue = <div key={key}>{value[variable]}</div>
+            let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
             data.push(displayValue);
         }
         return data;
@@ -121,44 +114,100 @@ function TrailDetail() {
         <div className='wrapper trail'>
             <h2>{state.name}</h2>
             <ul>
-                <li>Elevation gain: {state.elevation_gain}ft</li>
-                <li>Length: {state.length}miles</li>
-                <li>Difficulty: {state.difficulty}</li>
-                <OverlayTrigger
-                    placement="right"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={renderTooltip}
-                    trigger="click"
-                >
-                    <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion}/></Button>
-                </OverlayTrigger>
-                <li>Trail Type:{TRAIL_TYPES[state.trail_type]}</li>
-                <li>Description: {state.description}</li>
-                <li>Name: {state.park.name}</li>
-                <li>Address: {state.park.address}</li>
-                <li>Fee: {state.park.fee}</li>
-                <li>Hours: {state.park.hours}</li>
+                <li>
+                    <h3>
+                        Elevation gain
+                    </h3>
+                    {state.elevation_gain}ft
+                </li>
+                <li>
+                    <h3>
+                        Length
+                    </h3>
+                    {state.length} miles
+                </li>
+                <li>
+                    <div className='difficulty-heading'>
+                    <h3>
+                        Difficulty
+                    </h3>
+                    <OverlayTrigger
+                        placement="right"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={renderTooltip}
+                        trigger="hover"
+                    >
+                        <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion} /></Button>
+                        </OverlayTrigger>
+                    </div>
+                    <div>
+                        {state.difficulty}
+                    </div>
+                </li>
+                <li>
+                    <h3>
+                        Trail Type
+                    </h3>
+                    { TRAIL_TYPES[state.trail_type]}
+                </li>
+                <li>
+                    <h3>
+                        Description
+                    </h3>
+                    {state.description}
+                </li>
+                <li>
+                    <h3>
+                        Park
+                    </h3>
+                    {state.park.name}
+                </li>
+                <li>
+                    <h3>
+                        Address
+                    </h3>
+                    {state.park.address}
+                </li>
+                <li className='whitespace'>
+                    <h3>
+                        Fees
+                    </h3>
+                    {state.park.fee.replaceAll(';', '\n')}
+                </li>
+                <li className='whitespace'>
+                    <h3>
+                        Hours
+                    </h3>
+                    {state.park.hours.replaceAll(';','\n')}
+                </li>
             </ul>
-            {feedbackHtml && feedbackHtml}
-            {radioFeedbackHtml && radioFeedbackHtml}
+            {feedbackHtml && radioFeedbackHtml && <h3>Other hikers say this trail...</h3>}
+            <div class='feedback-wrapper'>
+                {feedbackHtml && feedbackHtml}
+                {radioFeedbackHtml && radioFeedbackHtml}
+            </div>
             {auth && <button
                 type='button' onClick={handleOpenFeedback}
             >
                 How was this hike?
             </button>}
-            {auth && <Link
+            <div className='plan-trip-prompt-wrapper'>
+            {auth && <Link className='plan-trip-prompt'
                 to={`/plan/${state.id}`}
             >
                 Plan a trip to {state.name}
             </Link>}
-            {!auth && <button
+            {!auth && <button className='plan-trip-prompt'
                 type='button' onClick={handleOpenLogin}
             >
                 Plan a trip to {state.name}
-            </button>}
+                </button>}
+            </div>
+            <div className='weather'>
             <h3>Weather</h3>
             <div className='horizontal-scroll-wrapper'>
                 {weatherHtml}
+                </div>
             </div>
             <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
             <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
