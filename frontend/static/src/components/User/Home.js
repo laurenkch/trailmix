@@ -120,7 +120,7 @@ function Home() {
     }
 
     return (
-        <div className='home'>
+        <div className='home wrapper'>
             <div className='full-width search'>
                 <input
                     className='search-bar'

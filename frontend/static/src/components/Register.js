@@ -59,8 +59,8 @@ function Register() {
     };
 
         return (
-            <div>
-                <Form onSubmit={handleSubmit}>
+            <div className='wrapper'>
+                <Form className='form-styles' onSubmit={handleSubmit}>
                     <Form.Label htmlFor='username'>
                         Username
                     </Form.Label>
@@ -113,10 +113,14 @@ function Register() {
                         type='password'
                         
                     />
-                    <button type='submit'>Register</button>
+                    <div className='button-wrapper scale'>
+                        <button className='submit-button' type='submit'>Register</button>
+                    </div>
                 </Form>
 
-                <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">Login to exisiting account</button>
+                <div className='button-wrapper scale'>
+                    <button type="button" value="login" onClick={() => navigate('login/')} className="verification-redirect">Login to exisiting account</button>
+                </div>
             </div>
         )
     }

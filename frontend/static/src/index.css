@@ -4,13 +4,10 @@
  --gray: rgb(57	56	59);
  --opaque-gray: rgba(57,	56,	59, 0.5);
  --dark-green: rgb(37	38	18);
- --dark-cranberry: rgb(128	26	36);
+ --dark-cranberry: rgb(148, 34, 103);
  --cranberry: rgb(249	92	131	);
  --stone: rgb(159	148	131	);
  --sand: rgb(219	203	177	);
- --dark-khaki: rgb(146	118	52	);
- --washed-khaki: rgb(157	136	109	);
- --army-green: rgb(65	70	20	);
  --dusty-pink: rgb(149	85	68	);
   --sage: rgb(148	168	125	);
   --forest-green: rgb(48	62	44	);
@@ -197,7 +194,7 @@ code {
 .accordion-body ul a:hover {
   font-weight: 500;
   color: var(--gray) !important;
-  transition: all 0.05s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .accordion-body ul a, a:visited, a:link, a:hover {
@@ -210,6 +207,11 @@ code {
 
 .accordion-item {
   margin: 3px 0px;
+}
+
+.scale:hover {
+  transform: scale(1.05);
+  transition: all 0.15s;
 }
 
 /*///////////////////////////////////////////////// HEADER */
@@ -231,15 +233,22 @@ nav h1 {
   margin-bottom: 0;
 } 
 
-nav a:hover {
+nav ul a:hover {
   font-weight: 500;
-  color: var(--middle-stone) !important;
   transition: all 0.05s ease-in-out;
+  transform: scale(1.05);
 }
 
 .login-logout-button a:hover {
   font-weight: normal !important;
-  transform: scale(1.2) !important;
+  transform: scale(1.05);
+  transition: all 0.05s ease-in-out;
+  font-weight: 500;
+}
+
+.login-logout-button:hover {
+    transform: scale(1.1);
+  transition: all 0.05s ease-in-out;
 }
 
 /*///////////////////////////////////////////////// MAIN */
@@ -256,7 +265,12 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
+}
+
+.wrapper {
+  width: 77vw;
+  /* height: 100vh; */
 }
 
 /*///////////////////////////////////////////////// WEATHER */
@@ -302,10 +316,6 @@ main {
   padding-right: 10px;
 }
 
-.home {
-  width: 77vw;
-}
-
 .home-lists {
   width: 100%;
 }
@@ -339,7 +349,8 @@ main {
 
 .result {
   padding: 2px 5px;
-  font-size: 1.2em;
+  font-size: 1.115em;
+  cursor: pointer;
 }
 
 /*///////////////////////////////////////////////// MAP */
@@ -355,13 +366,19 @@ main {
   filter: hue-rotate(-249deg);
 }
 
-.leaflet-popup-content:hover {
-  transform: scale(1.07, 1.07);
+.leaflet-popup-content {
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
 }
 
+/* .leaflet-popup-content:hover {
+  transform: scale(1.07, 1.07);
+} */
+
 .leaflet-popup-content a:hover {
-    color: rgb(148, 34, 103) !important;
-    transition: all 0.15s ease-in-out;
+    color: var(--dark-cranberry) !important;
+    transition: all 0.10s ease-in-out;
 }
 
 /* original color of marker */
@@ -393,18 +410,43 @@ main {
 /*//////////////////////////////////////////LOGIN AND REGISTER*/
 
 .verification-redirect {
-  background-color: white;
+  background-color: inherit;
   border: none;
-  margin: 30px;
+  margin: 10px;
   color: var(--darkgrey);
   font-style: italic;
+  cursor: pointer;
+}
 
+.form-styles {
+  margin-top: 20px;
+}
+
+.submit-button {
+  margin-top: 20px;
+  background-color: var(--dark-cranberry);
+  color: whitesmoke;
+  margin: 5px;
+  padding: 10px 30px;
+  border: 1px solid var(--dark-cranberry) !important;
+  border-radius: 4px; 
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px;
+}
+
+.footnote {
+  margin-top: 50px;
 }
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {
- 
   .wrapper {
   display: flex;
   width: 100%;

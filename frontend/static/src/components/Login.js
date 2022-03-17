@@ -54,8 +54,8 @@ function Login() {
         }
 
     return (
-        <div>
-            <Form onSubmit={handleSubmit}>
+        <div className='wrapper form-wrapper'>
+            <Form className='form-styles' onSubmit={handleSubmit}>
                 {error && <div className='error-message'>{error}</div>}
                 <Form.Label htmlFor='username'>
                     Username
@@ -80,10 +80,14 @@ function Login() {
                     value={state.password}
                     onChange={(e) => handleInput(e, setState)}
                 />
-                <button type='submit'>Sign in</button>
+                <div className='button-wrapper scale'>
+                    <button className='submit-button' type='submit'>Log in</button>
+                </div>
             </Form>
 
-            <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
+            <div className='button-wrapper scale footnote'>
+                <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
+            </div>
         </div>
     )
 }
