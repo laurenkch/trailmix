@@ -52,8 +52,6 @@ function TrailDetail() {
     if (!state) {
         return 'Loading...'
     }
-    
-    console.log(state.weather);
 
     const difficultyMap = DIFFICULTY_KEY.map((entry) =>
         <div key={entry.level}>
@@ -96,7 +94,7 @@ function TrailDetail() {
     
     let feedbackHtml;
 
-    if (Object.values(state).includes(true)) {
+    if (Object.values(state).includes('true')) {
         feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
             .filter((option) => (state[option]))
             .map((option) => (option.replaceAll('_', ' ')))
@@ -109,18 +107,17 @@ function TrailDetail() {
 
         for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
             let variable = state[key]
-            let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
-            data.push(displayValue);
+
+            if (variable) {
+                let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
+                data.push(displayValue);
+            }
         }
         return data;
     }
 
     const radioFeedbackHtml = printRadioFeedback();
     
-
-    console.log(state);
-
-
     return (
         <div className='wrapper trail'>
             <h2>{state.name}</h2>
@@ -146,7 +143,8 @@ function TrailDetail() {
                             placement="right"
                             delay={{ show: 250, hide: 400 }}
                             overlay={renderTooltip}
-                            trigger="hover"
+
+                            trigger={['hover', 'focus']}
                         >
                             <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion} /></Button>
                         </OverlayTrigger>

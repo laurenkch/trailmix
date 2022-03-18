@@ -186,13 +186,13 @@ code {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-.accordion-body ul a:hover {
+.accordion-body ul a:hover, .accordion-body ul a:focus {
   font-weight: 500;
   color: var(--gray) !important;
   transition: all 0.1s ease-in-out;
 }
 
-.accordion-body ul a, a:visited, a:link, a:hover {
+.accordion-body ul a, a:visited, a:link, a:hover , a:focus{
   color: var(--gray);
 }
 
@@ -244,7 +244,7 @@ nav h1 {
   margin-bottom: 0;
 } 
 
-nav ul a:hover {
+nav ul a:hover, nav ul a:focus {
   font-weight: 500;
   transition: all 0.05s ease-in-out;
   transform: scale(1.05);
@@ -255,7 +255,7 @@ nav ul a:hover {
   flex-direction: column;
 }
 
-.login-logout-button a:hover {
+.login-logout-button a:hover, .login-logout-button a:focus {
   font-weight: normal !important;
   transform: scale(1.05);
   transition: all 0.05s ease-in-out;
@@ -267,7 +267,7 @@ nav ul a:hover {
   transition: all 0.05s ease-in-out;
 }
 
-.nav-button:hover, .mobile .accordion-body ul a:hover  {
+.nav-button:hover,.nav-button:focus, .mobile .accordion-body ul a:hover , .mobile .accordion-body ul a:focus {
   font-weight: normal !important;
   transform: scale(1.05);
   transition: all 0.05s ease-in-out;
@@ -417,7 +417,7 @@ main {
   text-align: center;
 }
 
-.leaflet-popup-content a:hover {
+.leaflet-popup-content a:hover, .leaflet-popup-content a:focus {
     color: var(--links) !important;
     transition: all 0.10s ease-in-out;
 }
@@ -483,24 +483,24 @@ main {
 
 /*///////////////////////////////////////////////// HOVER EFFECTS */
 
-.scale:focus {
+.scale:focus, .scale:hover {
   transform: scale(1.05);
   transition: all 0.15s;
 }
 
-.invert-color:focus {
+.invert-color:focus, .invert-color:hover {
   background-color:var(--background);
   color:var(--buttons);
   border: 3px solid var(--links) !important;
   transition: all 0.15s ease-in-out;
 }
 
-.link:focus {
+.link:focus, .link:hover {
     color: var(--forest-green) !important;
     transition: all 0.10s ease-in-out;
 }
 
-.fade-button:focus {
+.fade-button:focus, .fade-button:hover {
   background-color: rgba(148, 34, 103, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
