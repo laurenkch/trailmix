@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { NavLink, Link } from 'react-router-dom';
 import { handleError } from './../util';
+import Accordion from 'react-bootstrap/Accordion';
 
 function Header({ auth, setAuth, navigate, admin, setAdmin }) {
 
@@ -27,30 +28,64 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                     setAdmin(false);
                 }
                 navigate('/');
-            }
+    }
 
-            return (
-                <nav className='forest-green'>
+    return (
+                
+        <div>
+            <Accordion className='mobile forest-green'>
+                <Accordion.Header>
+                    <Link className='background-color-font nav-button' to='/'><h1>TrailMix</h1></Link>
+                </Accordion.Header>
+                <Accordion.Body>
                     <ul>
+                        {auth && !admin &&
+                            <li>
+                                <NavLink className='btn toggle-btn background-color-font nav-button' to='/trips'>
+                                    My Trips
+                                </NavLink>
+                            </li>
+                        }
+                        {admin &&
+                            <li>
+                                <NavLink className='btn toggle-btn background-color-font nav-button' to='administrator/addtrail'>
+                                    Add New Trail
+                                </NavLink>
+                            </li>
+                        }
+                        {auth ?
+                            <li>
+                                <button type='button' className='btn toggle-btn background-color-font nav-button' onClick={handleLogout} value={'logout'}>
+                                    Logout
+                                </button>
+                            </li> :
+                            <li>
+                                <NavLink className='background-color-font nav-button' to='login'>Login</NavLink>
+                            </li>
+                        }
+                    </ul>
+                </Accordion.Body>
+            </Accordion>
+                <nav className='forest-green desktop'>
+                    <ul>
+                        <div className='left-header'>
                         <Link className='background-color-font'to='/'><h1>TrailMix</h1></Link>
                         <div className='nav-links'>
-                            {/* <li>
-                                <NavLink className='btn toggle-btn' to='/'>Home</NavLink>
-                            </li> */}
-                            {auth && !admin &&
-                                <li>
-                                    <NavLink className='btn toggle-btn' to='/trips'>
-                                        My Trips
-                                    </NavLink>
-                                </li>
-                            }
                             {admin &&
                                 <li>
-                                    <NavLink className='btn toggle-btn' to='administrator/addtrail'>
+                                    <NavLink className='btn toggle-btn background-color-font' to='administrator/addtrail'>
                                         Add New Trail
                                     </NavLink>
                                 </li>
                             }
+                            {!admin && auth &&
+                                <li>
+                                    <NavLink className='btn toggle-btn background-color-font desktop-nav-button' to='/trips'>
+                                        My Trips
+                                    </NavLink>
+                                </li>
+                            }
+                            </div>
                         </div>
                         <div className='login-logout-button'>
                             {auth ?
@@ -65,7 +100,8 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
                             }
                         </div>
                     </ul>
-                </nav>
+            </nav>
+        </div>
             )
         }
     

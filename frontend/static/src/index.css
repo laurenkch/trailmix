@@ -59,12 +59,12 @@
 .stone-font {
   color: var(--stone) !important;
 }
-
+/* 
 .sage {
   background-color: var(--sage) !important;
-}
+} */
 
-.ecru {
+/* .ecru {
   background-color: var(--ecru) !important;
 }
 
@@ -78,7 +78,7 @@
 
 .brown-font {
   color: var(--brown)!important;
-}
+} */
 
 .green {
   background-color: var(--green) !important;
@@ -104,7 +104,7 @@
 }
 
 .background-color-font {
-  color: rgba(250,250,249) !important;
+  color: var(--background-color) !important;
 }
 
 .background-color {
@@ -143,14 +143,6 @@ html {
 a, a:hover, a:active, a:visited, a:link {
   text-decoration: none;
 }
-
-/* .btn-primary {
-  margin: 5px;
-  background-color: var(--red) !important;
-  border-radius: 2%;
-  border: 1px solid rgb(235	0	0	) !important; 
-} */
-
 
 body {
   margin: 0;
@@ -224,6 +216,10 @@ code {
 
 /*///////////////////////////////////////////////// HEADER */
 
+.desktop {
+  display: none;
+}
+
 nav {
   width: 100%;
   padding: 15px 20px 15px 20px;
@@ -237,6 +233,13 @@ nav ul{
   align-items: center;
 }
 
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
 nav h1 {
   margin-bottom: 0;
 } 
@@ -247,6 +250,11 @@ nav ul a:hover {
   transform: scale(1.05);
 }
 
+.left-header {
+  display: flex;
+  flex-direction: column;
+}
+
 .login-logout-button a:hover {
   font-weight: normal !important;
   transform: scale(1.05);
@@ -254,11 +262,35 @@ nav ul a:hover {
   font-weight: 500;
 }
 
-.login-logout-button:hover {
+.login-logout-button:focus {
   transform: scale(1.1);
   transition: all 0.05s ease-in-out;
 }
 
+.nav-button:hover, .mobile .accordion-body ul a:hover  {
+  font-weight: normal !important;
+  transform: scale(1.05);
+  transition: all 0.05s ease-in-out;
+  font-weight: 500;
+  color: rgb(200, 200, 200) !important;
+}
+
+.mobile .accordion-button:focus {
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+/*///////////////////////////////////////////////// ADMIN */
+
+.admin-list {
+  width: 100%;
+}
+
+
+.image-wrapper img {
+max-width:100%;
+max-height:100%;
+}
 /*///////////////////////////////////////////////// MAIN */
 
 main {
@@ -278,6 +310,7 @@ main {
 
 .wrapper {
   width: 77vw;
+  overflow:hidden;
   /* height: 100vh; */
 }
 
@@ -361,7 +394,7 @@ main {
   cursor: pointer;
 }
 
-.result:hover {
+.result:focus {
   font-weight: 1.1em;
 }
 
@@ -383,10 +416,6 @@ main {
   width: 100%;
   text-align: center;
 }
-
-/* .leaflet-popup-content:hover {
-  transform: scale(1.07, 1.07);
-} */
 
 .leaflet-popup-content a:hover {
     color: var(--links) !important;
@@ -452,30 +481,26 @@ main {
   padding: 25px 0px;
 }
 
-/* .footnote {
-  margin-top: px;
-} */
-
 /*///////////////////////////////////////////////// HOVER EFFECTS */
 
-.scale:hover {
+.scale:focus {
   transform: scale(1.05);
   transition: all 0.15s;
 }
 
-.invert-color:hover {
+.invert-color:focus {
   background-color:var(--background);
   color:var(--buttons);
   border: 3px solid var(--links) !important;
   transition: all 0.15s ease-in-out;
 }
 
-.link:hover {
+.link:focus {
     color: var(--forest-green) !important;
     transition: all 0.10s ease-in-out;
 }
 
-.fade-button:hover {
+.fade-button:focus {
   background-color: rgba(148, 34, 103, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -520,7 +545,7 @@ main {
   width: 100%;
 }
 
-.trail-list-button:hover {
+.trail-list-button:focus {
   background-color: rgba(87, 117, 43, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -615,7 +640,7 @@ main {
   margin-bottom: 40px;
 }
 
-.plan-trip-prompt {
+.plan-trip-prompt{
   position: absolute;
   border: none;
   background-color: var(--gray);
@@ -626,8 +651,12 @@ main {
   padding: 70px;
 }
 
-.plan-trip-prompt:hover {
-  color: rgb(200, 200, 200);
+.plan-trip-prompt-wrapper a {
+  color: var(--background-color) !important;
+}
+
+.plan-trip-prompt-wrapper a:focus {
+  color: rgb(200, 200, 200) !important;
   transition: all 15ms ease-in-out;
 }
 
@@ -647,15 +676,36 @@ main {
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {
-.wrapper {
-  display: flex;
-  width: 60vw;
-  flex-direction: column; 
-}
+
+  nav ul {
+    flex-direction: row;
+  }
+
+  .left-header {
+    flex-direction: row;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  .desktop {
+    display: inherit;
+  }
+
+  .wrapper {
+    display: flex;
+    width: 60vw;
+    flex-direction: column; 
+  }
+
+  .nav-links a {
+    margin: 0px 20px;
+  }
 
 
-#button-tooltip > .tooltip-inner {
-  max-width: 100%;
+  #button-tooltip > .tooltip-inner {
+    max-width: 100%;
 }
 
 }

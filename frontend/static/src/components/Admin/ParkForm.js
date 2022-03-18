@@ -100,7 +100,6 @@ function ParkForm({ setParks, setIsAddingPark}) {
                     type='text'
                     onChange={(e) => handleInput(e, setState)}
                     value={state.hours}
-                    required
                     autoComplete='off'
                 />
                 <Form.Label htmlFor='Address'>Address</Form.Label>

@@ -3,8 +3,8 @@ from django.db import models
 
 class Park(models.Model):
     name = models.CharField(max_length=255)
-    latitude = models.DecimalField(max_digits=8, decimal_places=6)
-    longitude = models.DecimalField(max_digits=8, decimal_places=6)
+    latitude = models.DecimalField(max_digits=17, decimal_places=15)
+    longitude = models.DecimalField(max_digits=17, decimal_places=15)
 
     fee = models.CharField(max_length=255, null=True, blank=True)
     park_code = models.CharField(max_length=4, null=True, blank=True)

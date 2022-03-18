@@ -52,6 +52,8 @@ function TrailDetail() {
     if (!state) {
         return 'Loading...'
     }
+    
+    console.log(state.weather);
 
     const difficultyMap = DIFFICULTY_KEY.map((entry) =>
         <div key={entry.level}>
@@ -61,11 +63,11 @@ function TrailDetail() {
             {entry.description}
         </div>)
     
-    const difficultyHtml = 
+    const difficultyHtml =
         <div className='levels'>
             Difficulty is based on total length and elevation gain.
-                {difficultyMap}
-        </div> 
+            {difficultyMap}
+        </div>
     
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -75,17 +77,22 @@ function TrailDetail() {
         </Tooltip>
     );
 
-    const weatherHtml = state.weather
-        .filter(segment => segment.isDaytime)
-        .map((segment) => <div key={segment.number} className='scroll-squares'>
-            <h4>{segment.name}</h4>
-            <div className='weather-image'>
-                <img src={segment.icon} alt={segment.shortForecast} />
-            </div>
-            <p>{segment.temperature}{segment.temperatureUnit}</p>
-            <p>{segment.windSpeed}{segment.windDirection}</p>
-            <p>{segment.detailedForecast}</p>
-        </div>)
+    let weatherHtml;
+
+    if (state.weather) {
+        weatherHtml = state.weather
+            .filter(segment => segment.isDaytime)
+            .map((segment) =>
+                <div key={segment.number} className='scroll-squares'>
+                <h4>{segment.name}</h4>
+                <div className='weather-image'>
+                    <img src={segment.icon} alt={segment.shortForecast} />
+                </div>
+                <p>{segment.temperature}{segment.temperatureUnit}</p>
+                <p>{segment.windSpeed}{segment.windDirection}</p>
+                <p>{segment.detailedForecast}</p>
+            </div>)
+    } 
     
     let feedbackHtml;
 
@@ -110,6 +117,10 @@ function TrailDetail() {
 
     const radioFeedbackHtml = printRadioFeedback();
     
+
+    console.log(state);
+
+
     return (
         <div className='wrapper trail'>
             <h2>{state.name}</h2>
@@ -128,16 +139,16 @@ function TrailDetail() {
                 </li>
                 <li>
                     <div className='difficulty-heading'>
-                    <h3>
-                        Difficulty
-                    </h3>
-                    <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 400 }}
-                        overlay={renderTooltip}
-                        trigger="hover"
-                    >
-                        <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion} /></Button>
+                        <h3>
+                            Difficulty
+                        </h3>
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 400 }}
+                            overlay={renderTooltip}
+                            trigger="hover"
+                        >
+                            <Button variant="success"><FontAwesomeIcon icon={faCircleQuestion} /></Button>
                         </OverlayTrigger>
                     </div>
                     <div>
@@ -148,7 +159,7 @@ function TrailDetail() {
                     <h3>
                         Trail Type
                     </h3>
-                    { TRAIL_TYPES[state.trail_type]}
+                    {TRAIL_TYPES[state.trail_type]}
                 </li>
                 <li>
                     <h3>
@@ -168,24 +179,27 @@ function TrailDetail() {
                     </h3>
                     {state.park.address}
                 </li>
-                <li className='whitespace'>
+                {state.park.fee && <li className='whitespace'>
                     <h3>
                         Fees
                     </h3>
                     {state.park.fee.replaceAll(';', '\n')}
-                </li>
-                <li className='whitespace'>
+                </li>}
+                {state.park.hours && <li className='whitespace'>
                     <h3>
                         Hours
                     </h3>
-                    {state.park.hours.replaceAll(';','\n')}
+                    {state.park.hours.replaceAll(';', '\n')}
                 </li>
+                }
             </ul>
             {feedbackHtml && radioFeedbackHtml && <h3>Other hikers say this trail...</h3>}
-            <div class='feedback-wrapper'>
-                {feedbackHtml && feedbackHtml}
-                {radioFeedbackHtml && radioFeedbackHtml}
-            </div>
+            {(feedbackHtml || radioFeedbackHtml) &&
+                < div className='feedback-wrapper'>
+            {feedbackHtml && feedbackHtml}
+            {radioFeedbackHtml && radioFeedbackHtml}
+        </div>
+            }
             {auth && <button
                 type='button' onClick={handleOpenFeedback}
             >

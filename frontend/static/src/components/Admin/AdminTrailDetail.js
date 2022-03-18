@@ -236,7 +236,7 @@ function AdminTrailDetail() {
 
     const imageHTML = imagelist.map((image) => (
         <div key={image.id}>
-            <div>
+            <div className='image-wrapper'>
                 <img src={image.image} alt='trail' />
             </div>
             <button type='button' value={image.id} onClick={deleteImage}>Delete Image</button>
@@ -285,7 +285,6 @@ function AdminTrailDetail() {
                         <Form.Control
                             id='elevation gain'
                             type='number'
-                            min='0'
                             name='elevation_gain'
                             autoComplete='off'
                             value={state.elevation_gain}
@@ -343,7 +342,7 @@ function AdminTrailDetail() {
                         <button type='submit'>Save</button>
                         </Form>
                     }
-                    {preview && isAddingImage && <div><img src={preview} alt='preview' /></div>}
+                    {preview && isAddingImage && <div className='image-wrapper'><img src={preview} alt='preview' /></div>}
                     <ul>
                         <li>{state.elevation_gain}ft</li>
                         <li>{state.length}miles</li>

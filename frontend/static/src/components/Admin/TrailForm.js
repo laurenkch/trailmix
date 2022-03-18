@@ -156,7 +156,6 @@ function TrailForm() {
                 <Form.Control
                     id='elevation gain'
                     type='number'
-                    min='0'
                     name='elevation_gain'
                     autoComplete='off'
                     value={state.elevation_gain}
@@ -203,7 +202,7 @@ function TrailForm() {
                     
                 />
                 }
-                {preview && isAddingImage && <div><img src={preview} alt='preview' /></div>}
+                {preview && isAddingImage && <div className='preview'><img src={preview} alt='preview' /></div>}
                 <button type='submit'>Save</button>
             </Form>
         </div>

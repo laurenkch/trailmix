@@ -35,7 +35,7 @@ function Admin() {
     }, []);
 
     return (
-        <div>
+        <div className='wrapper'>
             <Outlet context={[parks, setParks, trails, setTrails]}/>
         </div>
     )

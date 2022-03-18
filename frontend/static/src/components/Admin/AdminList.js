@@ -31,7 +31,7 @@ function AdminList() {
     ))
 
     return (
-        <div>
+        <div className='admin-list'>
             Parks
             {parksHTML}
             Trails

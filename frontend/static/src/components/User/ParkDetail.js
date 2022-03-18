@@ -104,14 +104,16 @@ function ParkDetail() {
                         {state.address}
                     </div>
                 </li>
-                <li className='park-attributes'>
-                    <h3>
-                        Hours
-                    </h3>
-                    <div>
-                        {state.hours.replaceAll(';', '\n')}
-                    </div>
-                </li>
+                {state.hours &&
+                    <li className='park-attributes'>
+                        <h3>
+                            Hours
+                        </h3>
+                        <div>
+                            {state.hours.replaceAll(';', '\n')}
+                        </div>
+                    </li>
+                }
                 {state.fee &&
                     <li className='park-attributes'>
                         <h3>
