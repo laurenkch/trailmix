@@ -94,7 +94,7 @@ function TrailDetail() {
     
     let feedbackHtml;
 
-    if (Object.values(state).includes('true')) {
+    if (Object.values(state).includes(true)) {
         feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
             .filter((option) => (state[option]))
             .map((option) => (option.replaceAll('_', ' ')))
@@ -119,7 +119,7 @@ function TrailDetail() {
     const radioFeedbackHtml = printRadioFeedback();
     
     return (
-        <div className='wrapper trail'>
+        <div className='trail'>
             <h2>{state.name}</h2>
             <ul>
                 <li>
@@ -198,11 +198,6 @@ function TrailDetail() {
             {radioFeedbackHtml && radioFeedbackHtml}
         </div>
             }
-            {auth && <button
-                type='button' onClick={handleOpenFeedback}
-            >
-                How was this hike?
-            </button>}
             <div className='plan-trip-prompt-wrapper'>
             {auth && <Link className='plan-trip-prompt'
                 to={`/plan/${state.id}`}
@@ -221,6 +216,12 @@ function TrailDetail() {
                 {weatherHtml}
                 </div>
             </div>
+            {auth && <div className='feedback-prompt-wrapper'>
+                <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>
+                <button
+                    type='button' className='feedback-prompt' onClick={handleOpenFeedback}
+                >Let us know how it was!</button>
+            </div>}
             <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
             <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
             <RegisterModal trailId={state.id} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin}/>

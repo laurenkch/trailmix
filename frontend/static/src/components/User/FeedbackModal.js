@@ -111,11 +111,11 @@ function FeedbackModal({ id, show, setShow }) {
             <Form onSubmit={submitFeedback}>
                 {radioHtml}
                 {checkboxHtml}
-                <button type='submit'>Submit</button>
+                <button className='feedback-button' type='submit'>Submit</button>
             </Form>
         </Modal.Body>
 
-        <button type='button' onClick={handleClose}>Close</button>
+        <button className='close-modal' type='button' onClick={handleClose}>Close</button>
 
         </Modal>
     )

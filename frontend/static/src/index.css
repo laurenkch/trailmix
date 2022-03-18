@@ -167,7 +167,7 @@ code {
   width: 90%;
 }
 
-.accordion-button:focus {
+.accordion-button:focus, .accordion-button:hover {
   border-color: rgba(219	203	177	/ 25%)  !important;
   box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
 }
@@ -262,7 +262,7 @@ nav ul a:hover, nav ul a:focus {
   font-weight: 500;
 }
 
-.login-logout-button:focus {
+.login-logout-button:focus, .login-logout-button:hover {
   transform: scale(1.1);
   transition: all 0.05s ease-in-out;
 }
@@ -310,7 +310,7 @@ main {
 
 .wrapper {
   width: 77vw;
-  overflow:hidden;
+  /* overflow:hidden; */
   /* height: 100vh; */
 }
 
@@ -394,7 +394,7 @@ main {
   cursor: pointer;
 }
 
-.result:focus {
+.result:focus, .result:hover {
   font-weight: 1.1em;
 }
 
@@ -545,13 +545,17 @@ main {
   width: 100%;
 }
 
-.trail-list-button:focus {
+.trail-list-button:focus, .trail-list-button:hover {
   background-color: rgba(87, 117, 43, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
 }
 
 /* /////////////////////////////////////////////////////////////////TRAIL VIEW */
+
+.trail {
+  width: 77vw;
+}
 
 .trail h3 {
   font-size: 1.4em;
@@ -576,7 +580,7 @@ main {
   margin-left: 5px; 
 }
 
-.btn-success:focus {
+.btn-success:focus, .btn-success:hover {
   color: rgb(87 117 43 / 75%) !important;
   transition: all 0.15s ease-in-out;
   box-shadow: none !important;
@@ -637,7 +641,7 @@ main {
 .feedback-wrapper {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 12px;
 }
 
 .plan-trip-prompt{
@@ -655,7 +659,7 @@ main {
   color: var(--background-color) !important;
 }
 
-.plan-trip-prompt-wrapper a:focus {
+.plan-trip-prompt-wrapper a:focus, .plan-trip-prompt-wrapper a:hover {
   color: rgb(200, 200, 200) !important;
   transition: all 15ms ease-in-out;
 }
@@ -665,13 +669,100 @@ main {
 }
 
 .weather {
-  margin-top: 230px;
+  margin-top: 175px;
 }
 
 .weather h3 {
   margin-bottom: 10px;
 }
 
+
+.feedback-prompt-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--forest-green);
+  color: var(--background-color);
+  width: 100vw;
+  margin-left: -15%;
+  height: 250px;
+}
+
+.question-wrapper{
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 7px;
+  margin-top: 7px;
+}
+
+.question-wrapper h3  {
+  padding-top: 0;
+  text-align: center;
+}
+
+.feedback-prompt  {
+  border: none;
+  font-weight: 550;
+  font-size: 1.4em;
+  margin: 0 7px;
+  background-color: var(--forest-green);
+  color: var(--background-color);
+  margin-top: 7px;
+}
+
+.feedback-prompt:hover {
+  color: var(--light-stone);
+}
+
+/* /////////////////////////////////////////////////////////////////FEEDBACK MODAL */
+
+.modal-content {
+  background-color: var(--background-color) !important;
+
+}
+
+.modal-header {
+  background-color: var(--forest-green);
+  color: var(--background-color) !important;
+}
+
+.btn-close {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill='%23fff'%3e%3cpath d=%27M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z%27/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+}
+.feedback-button {
+  background-color: var(--green);
+  color:white !important;
+  font-weight: 550;
+  padding: 10px 0;
+  min-width: 120px;
+  border-radius: 5px;
+  margin: 8px 10px;
+  display: inline-block;
+  text-align: center;
+  border: none;
+}
+
+.close-modal {
+  background-color: var(--stone);
+  color:white !important;
+  font-weight: 550;
+  padding: 10px 0;
+  min-width: 120px;
+  border-radius: 5px;
+  margin: 8px 10px;
+  display: inline-block;
+  text-align: center;
+  border: none;
+}
+
+.feedback-button:focus, .feedback-button:hover .close-modal:focus,.close-modal:hover {
+  background-color: rgba(87, 117, 43, 0.84);
+  box-shadow: 2px 6px 6px var(--middle-stone);
+  transition: all 0.15s ease-in-out;
+}
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
@@ -699,13 +790,26 @@ main {
     flex-direction: column; 
   }
 
+  .trail {
+  width: 60vw;
+  }
+
+  .feedback-prompt-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    margin-left: -33.33%;
+  }
+
+  .feedback-prompt, .question-wrapper {
+    margin-top: 0;
+  }
+
   .nav-links a {
     margin: 0px 20px;
   }
 
-
   #button-tooltip > .tooltip-inner {
     max-width: 100%;
-}
+  }
 
 }
