@@ -75,7 +75,7 @@ function FeedbackModal({ id, show, setShow }) {
     const checkboxHtml = FEEDBACK_CHECKBOX_OPTIONS.map((option, index) => {
         let displayValue = option.replaceAll('_', ' ')
         return (
-            <div key={index} >
+            <div className='checkbox' key={index} >
                 <input onClick={handleFeedback} type="checkbox" id={option} name={option} checked={checkedState.option} />
                 <label htmlFor={option}>{displayValue}</label>
             </div>
@@ -87,7 +87,7 @@ function FeedbackModal({ id, show, setShow }) {
         let data = [];
 
         for (const [key, value] of Object.entries(obj)) {
-            let button = <div key={key}>
+            let button = <div className='set' key={key}>
                 <label htmlFor={value}>{value}</label>
                 <input type='radio' name={radioKey[index]} value={key} id={value} onChange={handleRadioInput} />
             </div>
@@ -98,7 +98,7 @@ function FeedbackModal({ id, show, setShow }) {
     }
 
     const radioHtml = radioValues.map((obj, index) => (
-        <div key={index}>
+        <div className='radio-buttons' key={index}>
             {printButtons(obj, index)}
         </div>
     ));
@@ -109,12 +109,13 @@ function FeedbackModal({ id, show, setShow }) {
         <Modal.Header closeButton>Select any that apply</Modal.Header>
         <Modal.Body>
             <Form onSubmit={submitFeedback}>
-                {radioHtml}
-                {checkboxHtml}
+                    <div className='checkboxes'>
+                        {checkboxHtml}
+                    </div>
+                    {radioHtml}
                 <button className='feedback-button' type='submit'>Submit</button>
             </Form>
         </Modal.Body>
-
         <button className='close-modal' type='button' onClick={handleClose}>Close</button>
 
         </Modal>

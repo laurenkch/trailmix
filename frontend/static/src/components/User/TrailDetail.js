@@ -9,6 +9,7 @@ import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 
+
 function TrailDetail() {
 
     // eslint-disable-next-line
@@ -161,12 +162,6 @@ function TrailDetail() {
                 </li>
                 <li>
                     <h3>
-                        Description
-                    </h3>
-                    {state.description}
-                </li>
-                <li>
-                    <h3>
                         Park
                     </h3>
                     {state.park.name}
@@ -177,12 +172,14 @@ function TrailDetail() {
                     </h3>
                     {state.park.address}
                 </li>
-                {state.park.fee && <li className='whitespace'>
+                {state.park.fee &&
+                    <li className='whitespace'>
                     <h3>
                         Fees
                     </h3>
                     {state.park.fee.replaceAll(';', '\n')}
-                </li>}
+                    </li>
+                }
                 {state.park.hours && <li className='whitespace'>
                     <h3>
                         Hours
@@ -191,12 +188,14 @@ function TrailDetail() {
                 </li>
                 }
             </ul>
-            {feedbackHtml && radioFeedbackHtml && <h3>Other hikers say this trail...</h3>}
+            {(feedbackHtml || radioFeedbackHtml) &&
+                <h3>Other hikers say this trail...</h3>
+            }
             {(feedbackHtml || radioFeedbackHtml) &&
                 < div className='feedback-wrapper'>
             {feedbackHtml && feedbackHtml}
             {radioFeedbackHtml && radioFeedbackHtml}
-        </div>
+                </div>
             }
             <div className='plan-trip-prompt-wrapper'>
             {auth && <Link className='plan-trip-prompt'
@@ -215,6 +214,12 @@ function TrailDetail() {
             <div className='horizontal-scroll-wrapper'>
                 {weatherHtml}
                 </div>
+            </div>
+            <div className='description'>
+                <h3>
+                    Trail Description
+                </h3>
+                {state.description}
             </div>
             {auth && <div className='feedback-prompt-wrapper'>
                 <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>

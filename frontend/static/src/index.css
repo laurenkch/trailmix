@@ -669,7 +669,7 @@ main {
 }
 
 .weather {
-  margin-top: 175px;
+  margin-top: 185px;
 }
 
 .weather h3 {
@@ -717,11 +717,32 @@ main {
   color: var(--light-stone);
 }
 
+ .description {
+    margin-bottom: 20px;
+  }
+
 /* /////////////////////////////////////////////////////////////////FEEDBACK MODAL */
 
 .modal-content {
   background-color: var(--background-color) !important;
 
+}
+
+.checkboxes, .radio-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.set {
+  margin: 5px;
+}
+
+.checkbox {
+  margin: 5px;
+}
+
+.checkbox input, .checkbox label .radio-buttons input, .radio-buttons label {
+  margin: 0 5px;
 }
 
 .modal-header {
@@ -743,12 +764,13 @@ main {
   display: inline-block;
   text-align: center;
   border: none;
+  width: 100%;
 }
 
 .close-modal {
-  background-color: var(--stone);
-  color:white !important;
-  font-weight: 550;
+  background-color: var(--background-color);
+  color: var(--brown) !important;
+  font-weight: 700;
   padding: 10px 0;
   min-width: 120px;
   border-radius: 5px;
@@ -756,13 +778,27 @@ main {
   display: inline-block;
   text-align: center;
   border: none;
+  align-self: flex-end;
 }
 
-.feedback-button:focus, .feedback-button:hover .close-modal:focus,.close-modal:hover {
+.feedback-button:hover {
   background-color: rgba(87, 117, 43, 0.84);
-  box-shadow: 2px 6px 6px var(--middle-stone);
+  box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
 }
+/* 
+.close-modal:focus, .close-modal:hover {
+  background-color: rgb(138, 127, 112);
+  box-shadow: 2px 6px 6px var(--light-stone) !important;
+  transition: all 0.15s ease-in-out;
+} */
+
+
+.close-modal:focus, .close-modal:hover {
+  color: rgb(46, 44, 33) !important;
+  transition: all 0.15s ease-in-out;
+}
+
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
@@ -791,7 +827,17 @@ main {
   }
 
   .trail {
-  width: 60vw;
+    width: 60vw;
+  }
+
+  .trail ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .trail li {
+    margin: 0px 15px;
+    max-width: 250px;
   }
 
   .feedback-prompt-wrapper {
@@ -804,9 +850,17 @@ main {
     margin-top: 0;
   }
 
+  .feedback-badge {
+    font-size: 1.1em;
+  }
+
   .nav-links a {
     margin: 0px 20px;
   }
+
+  .weather {
+  margin-top: 205px;
+}
 
   #button-tooltip > .tooltip-inner {
     max-width: 100%;
