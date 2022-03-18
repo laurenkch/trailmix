@@ -54,7 +54,7 @@ function Trips() {
         ));
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Upcoming Trips</h2>
             <ul>
                 {upcomingTripsHtml.length > 0 ? upcomingTripsHtml: 'No upcoming trips'}

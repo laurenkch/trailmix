@@ -110,7 +110,7 @@ function TripForm() {
     const radioFeedbackHtml = printRadioFeedback();
 
     return (
-        <div>
+        <div className='wrapper'>
             <h2>Trip to {trail.name}</h2>
             <ul>
             <li>{trail.elevation_gain}ft</li>

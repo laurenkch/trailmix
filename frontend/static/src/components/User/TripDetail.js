@@ -130,7 +130,7 @@ function TripDetail() {
     };
 
     return (
-        <div>
+        <div className='wrapper'>
             <Link to={`/trail/${trip.trail.id}/`}><h2>{trip.trailname}</h2></Link>
 
             {!isEditingDate &&
