@@ -89,8 +89,9 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
     def get_weather(self, obj):
 
-        lat = str(obj.park.latitude)
-        long = str(obj.park.longitude)
+        lat = str(float(obj.park.latitude))
+        long = str(float(obj.park.longitude))
+
         baseurl = 'https://api.weather.gov/points/'
         url = baseurl+lat+','+long
 
@@ -99,7 +100,8 @@ class DeepTrailSerializer(serializers.ModelSerializer):
         r = requests.get(url, headers=headers)
 
         if not r.ok:
-            return None
+            message = r.json()
+            return message['detail']
 
         else: 
             data1 = r.json()
@@ -108,7 +110,8 @@ class DeepTrailSerializer(serializers.ModelSerializer):
             r2 = requests.get(newUrl, headers=headers)
 
             if not r2.ok:
-                return None
+                message2 = r2.json()
+                return message2['detail']
 
             else:
                 data2 = r2.json()
@@ -328,7 +331,7 @@ class TripDeepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = ('date', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time')
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time', 'notes')
         depth = 1
 
     def get_weather(self, obj):
@@ -345,10 +348,20 @@ class TripDeepSerializer(serializers.ModelSerializer):
             headers = {
                 'USER-AGENT': '(https://trailmix-lkoch.herokuapp.com/, lkoch879@gmail.com)'}
             r = requests.get(url, headers=headers)
+
+            if not r.ok:
+                message = r.json()
+                return message['detail']
+
             data1 = r.json()
             newUrl = data1['properties']['forecast']
 
             r2 = requests.get(newUrl, headers=headers)
+
+            if not r2.ok:
+                message2 = r2.json()
+                return message2['detail']
+
             data2 = r2.json()
 
             forecast = data2['properties']['periods']
@@ -374,4 +387,4 @@ class TripShallowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = ('date', 'time', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address')
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'notes')

@@ -88,8 +88,8 @@ function FeedbackModal({ id, show, setShow }) {
 
         for (const [key, value] of Object.entries(obj)) {
             let button = <div className='set' key={key}>
-                <label htmlFor={value}>{value}</label>
                 <input type='radio' name={radioKey[index]} value={key} id={value} onChange={handleRadioInput} />
+                <label htmlFor={value}>{value}</label>
             </div>
             data.push(button);
         }

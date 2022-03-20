@@ -12,6 +12,7 @@ function TripForm() {
         trail: '',
         date: '',
         time: '--:--',
+        notes: '',
     }
 
     const params = useParams();
@@ -74,17 +75,27 @@ function TripForm() {
         navigate('/');
     }
 
-    const weatherHtml = trail.weather
-        .filter(segment => segment.isDaytime)
-        .map((segment) => <div key={segment.number} className='scroll-squares'>
-        <h4>{segment.name}</h4>
-        <div className='weather-image'>
-            <img src={segment.icon} alt={segment.shortForecast} />
-        </div>
-        <p>{segment.temperature}{segment.temperatureUnit}</p>
-        <p>{segment.windSpeed}{segment.windDirection}</p>
-        <p>{segment.detailedForecast}</p>
-        </div>)
+
+    let weatherHtml;
+
+    if (typeof (trail.weather) != typeof ('string')) {
+        weatherHtml = trail.weather
+            .filter(segment => segment.isDaytime)
+            .map((segment) =>
+                <div key={segment.number} className='scroll-squares'>
+                    <h4>{segment.name}</h4>
+                    <div className='weather-image'>
+                        <img src={segment.icon} alt={segment.shortForecast} />
+                    </div>
+                    <p>{segment.temperature}{segment.temperatureUnit}</p>
+                    <p>{segment.windSpeed}{segment.windDirection}</p>
+                    <p>{segment.detailedForecast}</p>
+                </div>)
+    }
+    
+    // if (typeof(trail.weather) === typeof('string')) {
+    //     console.log(`Weather error: ${trail.weather}`);
+    // }
     
     let feedbackHtml;
 
@@ -124,10 +135,12 @@ function TripForm() {
                 {feedbackHtml && feedbackHtml}
                 {radioFeedbackHtml && radioFeedbackHtml}
 
-            <h3>Weather</h3>
+                {weatherHtml && <h3>Weather</h3>}
                 <div className='horizontal-scroll-wrapper'>
             {weatherHtml}
-            </div>
+                </div>
+                
+
                 
             </ul>
         
@@ -146,7 +159,18 @@ function TripForm() {
                 <Form.Label htmlFor='time'>
                     Time
                 </Form.Label>
-                <TimeInput setFormState={setState} formState={state}/>
+                <TimeInput setFormState={setState} formState={state} />
+                <Form.Label htmlFor='notes'>
+                    Notes
+                </Form.Label>
+                <Form.Control
+                    as='textarea'
+                    rows={5}
+                    name='notes'
+                    id='notes'
+                    value={state.notes}
+                    onChange={(e)=> handleInput(e, setState)}
+                />
                 <button type='submit'>Save Trip</button>
             </Form>
         </div>

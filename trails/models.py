@@ -114,4 +114,5 @@ class Trip(models.Model):
     time = models.TimeField(null=True, blank=True, default=None)
     trail = models.ForeignKey(
         Trail, related_name='trail', on_delete=models.CASCADE)
+    notes = models.TextField(null=True, blank=True)
 

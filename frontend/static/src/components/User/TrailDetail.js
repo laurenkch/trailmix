@@ -78,7 +78,7 @@ function TrailDetail() {
 
     let weatherHtml;
 
-    if (state.weather) {
+    if (typeof(state.weather) != typeof('string')) {
         weatherHtml = state.weather
             .filter(segment => segment.isDaytime)
             .map((segment) =>
@@ -92,6 +92,10 @@ function TrailDetail() {
                 <p>{segment.detailedForecast}</p>
             </div>)
     } 
+
+    if (typeof (state.weather) === typeof ('string')) {
+        console.log(`Weather error: ${state.weather}`);
+    }
     
     let feedbackHtml;
 

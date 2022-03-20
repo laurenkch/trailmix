@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { handleError, TRAIL_TYPES } from './../../util';
@@ -9,12 +9,28 @@ import {
     Popup,
     Marker
 } from 'react-leaflet'
+import LoginModal from './LoginModal';
+import RegisterModal from './RegisterModal';
+
+
 function ParkDetail() {
 
     const params = useParams();
     // const navigate = useNavigate();
 
+    // eslint-disable-next-line
+    const [navigate, auth, setAuth, admin, setAdmin] = useOutletContext();
+
     const [state, setState] = useState(undefined);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
+    const [trailId, setTrailId] = useState(null);
+
+    const handleOpenLogin = (e) => {
+        console.log(e.target.value);
+        setTrailId(e.target.value)
+        setShowLogin(true)
+    };
 
     ////////////////////////////////////////////////////LOAD PARK
 
@@ -72,9 +88,20 @@ function ParkDetail() {
                 <Link className='trail-list-button' to={`/trail/${trail.id}`}>
                     See More
                 </Link>
-                <Link className='trail-list-button' to={`/plan/${trail.id}`}>
+                {/* <Link className='trail-list-button' to={`/plan/${trail.id}`}>
                     Plan a trip
-                </Link>
+                </Link> */}
+                {auth && <Link className='trail-list-button'
+                    to={`/plan/${trail.id}`}
+                >
+                    Plan a trip
+                </Link>}
+                {!auth && <button className='trail-list-button'
+                    type='button' value={trail.id} onClick={handleOpenLogin}
+                >
+                    Plan a trip
+                </button>}
+
             </div>
         </Accordion.Body>
     </Accordion.Item>)
@@ -139,6 +166,8 @@ function ParkDetail() {
             <Accordion>
                 {trailHtml}
             </Accordion>
+            <LoginModal trailId={trailId} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
+            <RegisterModal trailId={trailId} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin} />
         </div>
     )
 }

@@ -14,6 +14,7 @@ function TripDetail() {
     const [state, setState] = useState(null);
     const [isEditingDate, setIsEditingDate] = useState(false);
     const [isEditingTime, setIsEditingTime] = useState(false);
+    const [isEditingNotes, setIsEditingNotes] = useState(false);
     const [trip, setTrip] = useState(null);
 
     useEffect(() => {
@@ -80,6 +81,7 @@ function TripDetail() {
 
         setIsEditingDate(false);
         setIsEditingTime(false);
+        setIsEditingNotes(false);
 
     };
 
@@ -107,7 +109,6 @@ function TripDetail() {
 
 
 ///////////////////////////////////////////////// DISPLAY LOGIC
-
 
     if (!trip ) {
         return 'Loading...'
@@ -182,6 +183,25 @@ function TripDetail() {
                     >Delete Time</button>
                 </Form>
             }
+            {!isEditingNotes && trip.notes !== null &&
+                <div>
+                    {trip.notes}
+                    <button type='button' onClick={() => setIsEditingNotes(true)}>Edit Notes</button>
+                </div>}
+            {isEditingNotes &&
+                <Form onSubmit={editTrip}>
+                    <Form.Control
+                        as='textarea'
+                        rows={5}
+                        onChange={(e) => handleInput(e, setState)}
+                        name='notes'
+                        id='notes'
+                        value={trip.notes}
+                    />
+                    <button type='submit'>Save</button>
+                </Form>
+                }
+
             {trip.park}
             {trip.length}
             {trip.elevation_gain}

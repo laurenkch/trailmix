@@ -21,6 +21,7 @@ import TripDetail from './components/User/TripDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
