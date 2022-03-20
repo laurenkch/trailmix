@@ -801,7 +801,7 @@ main {
 }
 
 /* input:checked[type='checkbox'] {
-  background-image: url(./../../../media/icons/check_black_24dp.svg) !important;
+  background-image: url(./../../../media/icons/check_black_24dp.svg);
   font-size: 16px;
   appearance: none;
 } */

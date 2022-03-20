@@ -1,3 +1,6 @@
 .DS_Store
 __pycache__
 .env
+.check_black_24dp.svg
+.icons
+.vscode
