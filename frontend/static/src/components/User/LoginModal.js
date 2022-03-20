@@ -60,11 +60,12 @@ function LoginModal({ trailId, show, setShow, setAdmin, setAuth, navigate, setSh
 
     return (
         <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
+            <Modal.Header closeButton>
                 Login to save your trip details for later!
+            </Modal.Header>
+            <Modal.Body>
                 {error && <div className='error-message'>{error}</div>}
-            <Form onSubmit={handleSubmit}>
+            <Form className='modal-form' onSubmit={handleSubmit}>
                 <Form.Label htmlFor='username'>
                     Username
                 </Form.Label>
@@ -88,7 +89,7 @@ function LoginModal({ trailId, show, setShow, setAdmin, setAuth, navigate, setSh
                     value={state.password}
                     onChange={(e) => handleInput(e, setState)}
                 />
-                <button type='submit'>Sign in</button>
+                <button className='trail-list-button form-submit' type='submit'>Sign in</button>
             </Form>
             </Modal.Body>
 

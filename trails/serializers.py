@@ -101,7 +101,7 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
         if not r.ok:
             message = r.json()
-            return message['detail']
+            return 'Weather error: ' + message['detail']
 
         else: 
             data1 = r.json()
@@ -111,7 +111,7 @@ class DeepTrailSerializer(serializers.ModelSerializer):
 
             if not r2.ok:
                 message2 = r2.json()
-                return message2['detail']
+                return 'Weather error: ' + message2['detail']
 
             else:
                 data2 = r2.json()
@@ -351,7 +351,7 @@ class TripDeepSerializer(serializers.ModelSerializer):
 
             if not r.ok:
                 message = r.json()
-                return message['detail']
+                return 'Weather error: '+ message['detail']
 
             data1 = r.json()
             newUrl = data1['properties']['forecast']
@@ -360,7 +360,7 @@ class TripDeepSerializer(serializers.ModelSerializer):
 
             if not r2.ok:
                 message2 = r2.json()
-                return message2['detail']
+                return 'Weather error: '+ message2['detail']
 
             data2 = r2.json()
 

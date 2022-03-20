@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
 import Form from 'react-bootstrap/Form';
+import Accordion from 'react-bootstrap/Accordion';
 
 function TripForm() {
 
@@ -103,7 +104,7 @@ function TripForm() {
         feedbackHtml = FEEDBACK_CHECKBOX_OPTIONS
             .filter((option) => (trail[option]))
             .map((option) => (option.replaceAll('_', ' ')))
-            .map((option, index) => (<div key={index}>{option}</div>))
+            .map((option, index) => (<div className='feedback-badge' key={index}>{option}</div>))
     };
 
     const printRadioFeedback = () => {
@@ -112,7 +113,7 @@ function TripForm() {
 
         for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
             let variable = trail[key]
-            let displayValue = <div key={key}>{value[variable]}</div>
+            let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
             data.push(displayValue);
         }
         return data;
@@ -122,31 +123,76 @@ function TripForm() {
 
     return (
         <div className='wrapper'>
+            <div className='trip-form'>
+            <div className='left'>
             <h2>Trip to {trail.name}</h2>
-            <ul>
-            <li>{trail.elevation_gain}ft</li>
-            <li>{trail.length}miles</li>
-            <li>{TRAIL_TYPES[trail.trail_type]}</li>
-            <li>{trail.description}</li>
-            <li>{trail.park.name}</li>
+            <ul className='trail'>
+                <li>
+                    <h3>
+                        Elevation gain
+                    </h3>
+                    {trail.elevation_gain}ft
+                </li>
+                <li>
+                    <h3>
+                        Length
+                    </h3>
+                    {trail.length} miles
+                </li>
+                <li>
+                    <h3>
+                        Trail Type
+                    </h3>
+                    {TRAIL_TYPES[trail.trail_type]}
+                </li>
+                <li>
+                    <h3>
+                        Park
+                    </h3>
+                    {trail.park.name}
+                </li>
             <li>{trail.park.address}</li>
-            <li>{trail.park.fee}</li>
-                <li>{trail.park.hours}</li>
-                {feedbackHtml && feedbackHtml}
-                {radioFeedbackHtml && radioFeedbackHtml}
-
+                <li>
+                    <h3>
+                        Address
+                    </h3>
+                    {trail.park.address}
+                </li>
+                {trail.park.hours && <li className='whitespace'>
+                    <h3>
+                        Hours
+                    </h3>
+                    {trail.park.hours.replaceAll(';', '\n')}
+                </li>
+                }
+                {trail.park.fee &&
+                    <li className='whitespace'>
+                        <h3>
+                            Fees
+                        </h3>
+                        {trail.park.fee.replaceAll(';', '\n')}
+                    </li>
+                }
+                </ul>
+            
+            {(feedbackHtml || radioFeedbackHtml) &&
+                <h3>Other hikers say this trail...</h3>
+            }
+            {(feedbackHtml || radioFeedbackHtml) &&
+                < div className='feedback-wrapper'>
+                    {feedbackHtml && feedbackHtml}
+                    {radioFeedbackHtml && radioFeedbackHtml}
+                </div>
+            }
                 {weatherHtml && <h3>Weather</h3>}
                 <div className='horizontal-scroll-wrapper'>
             {weatherHtml}
+                    </div>
                 </div>
-                
-
-                
-            </ul>
-        
+            <div className='right'>
             <Form className='form' onSubmit={submitTrip}>
                 <Form.Label htmlFor='date'>
-                    Calendar
+                    <h3>Calendar</h3>
                 </Form.Label>
                 <Form.Control
                     type='date'
@@ -157,11 +203,11 @@ function TripForm() {
                     value={state.date}
                 />
                 <Form.Label htmlFor='time'>
-                    Time
+                            <h3>Time</h3>
                 </Form.Label>
                 <TimeInput setFormState={setState} formState={state} />
                 <Form.Label htmlFor='notes'>
-                    Notes
+                            <h3>Notes</h3>
                 </Form.Label>
                 <Form.Control
                     as='textarea'
@@ -171,8 +217,16 @@ function TripForm() {
                     value={state.notes}
                     onChange={(e)=> handleInput(e, setState)}
                 />
-                <button type='submit'>Save Trip</button>
-            </Form>
+                <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
+                    </Form>
+                </div>
+            </div>
+            <Accordion>
+                <Accordion.Header>Trail Description</Accordion.Header>
+                <Accordion.Body>
+                    {trail.description}
+                </Accordion.Body>
+            </Accordion>
         </div>
     )
 };

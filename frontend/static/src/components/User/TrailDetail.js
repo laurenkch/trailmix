@@ -94,7 +94,7 @@ function TrailDetail() {
     } 
 
     if (typeof (state.weather) === typeof ('string')) {
-        console.log(`Weather error: ${state.weather}`);
+        console.log(state.weather);
     }
     
     let feedbackHtml;
@@ -122,6 +122,12 @@ function TrailDetail() {
     }
 
     const radioFeedbackHtml = printRadioFeedback();
+
+    console.log(radioFeedbackHtml);
+    console.log(feedbackHtml);
+
+    console.log(state.weather);
+
     
     return (
         <div className='trail'>
@@ -214,7 +220,8 @@ function TrailDetail() {
                 </button>}
             </div>
             <div className='weather'>
-            <h3>Weather</h3>
+                <h3>Weather</h3>
+                {state.weather.includes('error') && <div>Weather unavailable</div>}
             <div className='horizontal-scroll-wrapper'>
                 {weatherHtml}
                 </div>

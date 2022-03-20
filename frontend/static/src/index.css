@@ -458,6 +458,7 @@ main {
   color: var(--darkgrey);
   font-style: italic;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .form-styles {
@@ -507,6 +508,24 @@ main {
   transition: all 0.15s ease-in-out;
 }
 
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-submit {
+  width: 50%;
+  align-self: center;
+  margin-top: 20px !important;
+}
+
+.login-encouragement {
+  color: var(--gray);
+  font-weight: 600;
+  font-size: 1.2em;
+  align-self: center;
+  margin: 10px 0 20px 0;
+}
 /* /////////////////////////////////////////////////////////////////PARK VIEW */
 
 .park-attributes {
@@ -537,6 +556,7 @@ main {
   margin: 8px 10px;
   display: inline-block;
   text-align: center;
+  border: none;
 }
 
 .trail-list-buttons {
@@ -749,6 +769,7 @@ main {
 .modal-header {
   background-color: var(--forest-green);
   color: var(--background-color) !important;
+  font-weight: 550;
 }
 
 .btn-close {
@@ -800,12 +821,30 @@ main {
   transition: all 0.15s ease-in-out;
 }
 
-/* input:checked[type='checkbox'] {
-  background-image: url(./../../../media/icons/check_black_24dp.svg);
-  font-size: 16px;
-  appearance: none;
-} */
+/* /////////////////////////////////////////////////////////////////TRIP FORM */
 
+.trip-form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
+.left, .right {
+  flex: 1;
+}
+
+.trip-form ul {
+  width: initial;
+}
+
+.trip-form form {
+  max-width: initial;
+}
+
+.right .form h3 {
+  margin-top: 10px;
+}
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {

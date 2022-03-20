@@ -22,6 +22,3 @@ yarn-debug.log*
 yarn-error.log*
 
 .NPS
-.check_black_24dp.svg
-.icons
-.vscode

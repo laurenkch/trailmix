@@ -141,7 +141,7 @@ function Home() {
                     {isSearching && resultsHtml}
                 </div>
             </div>
-            <MapContainer center={[34.7119067, -82.3037375]} zoom={9}>
+            <MapContainer center={[34.842798, -82.7640215]} zoom={9.2}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

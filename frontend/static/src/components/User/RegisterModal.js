@@ -66,7 +66,7 @@ function RegisterModal({ trailId, show, setShow, setAuth, navigate, setShowLogin
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>Create an account</Modal.Header>
             <Modal.Body>
-            <Form onSubmit={handleSubmit}>
+                <Form className='modal-form' onSubmit={handleSubmit}>
                 <Form.Label htmlFor='username'>
                     Username
                 </Form.Label>
@@ -119,7 +119,7 @@ function RegisterModal({ trailId, show, setShow, setAuth, navigate, setShowLogin
                     type='password'
 
                 />
-                <button type='submit'>Register</button>
+                    <button className='trail-list-button form-submit' type='submit'>Register</button>
                 </Form>
             </Modal.Body>
             <button type="button" value="login" onClick={() => switchView()} className="verification-redirect">Login to exisiting account</button>
