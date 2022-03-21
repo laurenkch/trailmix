@@ -185,7 +185,7 @@ function TrailDetail() {
                     <h3>
                         Elevation gain
                     </h3>
-                    {state.elevation_gain}ft
+                    {state.elevation_gain} ft
                 </li>
                 <li>
                     <h3>

@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Accordion from 'react-bootstrap/Accordion';
+import Fuse from 'fuse.js';
 
 function Home() {
 
@@ -106,18 +107,46 @@ function Home() {
 
     let resultsHtml;
 
+    const options = {
+        isCaseSensitive: false,
+        includeScore: true,
+        // shouldSort: true,
+        // includeMatches: false,
+        // findAllMatches: false,
+        // minMatchCharLength: 1,
+        // location: 0,
+        // threshold: 0.6,
+        // distance: 100,
+        // useExtendedSearch: false,
+        // ignoreLocation: false,
+        // ignoreFieldNorm: false,
+        // fieldNormWeight: 1,
+        keys: [
+            "name",
+        ]
+    };
+
+    const fuse = new Fuse([...trails,...parks], options);
+
     if (results.length > 0) {
-        resultsHtml = results.map((trail) => <div className='result' key={trail.id} onMouseDown={()=>navigate(`trail/${trail.id}`)}>{trail.name}</div>)
-    } else {
-        resultsHtml = <div>'No matching trails'</div>
-    }
+        resultsHtml = results.map((item, index) => item.latitude ? 
+                <div className='result' key={index} onMouseDown={() => navigate(`park/${item.id}`)}>{item.name}</div>
+            :
+                <div className='result' key={index} onMouseDown={() => navigate(`trail/${item.id}`)}>{item.name}</div>
+            )
+        } else {
+            resultsHtml = <div>'No matching trails'</div>
+        };
 
     const runSearch = (e) => {
         setSearchState(e.target.value);
-        const data = trails.filter((trail) => trail.name.toLowerCase().includes(e.target.value.toLowerCase()));
-        setResults(data)
-
+        const data = fuse.search(e.target.value)
+        const newData = data
+            .map((result) => ( result.item ));
+        setResults(newData)
     }
+
+    console.log(results);
 
     return (
         <div className='home wrapper'>

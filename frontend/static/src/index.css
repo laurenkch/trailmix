@@ -709,6 +709,11 @@ h3 {
  .description {
     margin-bottom: 20px;
   }
+  
+  .description-header {
+    background-color: var(--cranberry) !important;
+
+  }
 
   .stone .accordion-button:focus, .stone .accordion-button:hover {
   border-color: rgba(219	203	177	/ 25%)  !important;
