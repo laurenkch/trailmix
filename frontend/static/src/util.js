@@ -142,7 +142,7 @@ export function TimeInput({ setFormState, formState }) {
     return (
         <div>
             <label htmlFor="hour"></label>
-            <select name="hr" id="hour" onChange={handleInput} value={state.hr}>
+            <select className='time-select form-control' name="hr" id="hour" onChange={handleInput} value={state.hr}>
                 <option value="--">--</option>
                 <option value="01">1</option>
                 <option value="02">2</option>
@@ -158,17 +158,18 @@ export function TimeInput({ setFormState, formState }) {
                 <option value="12">12</option>
             </select>
             <label htmlFor="minute"></label>
-            <select name="min" id="minute" onChange={handleInput} value={state.min}>
+            <select className='time-select form-control' name="min" id="minute" onChange={handleInput} value={state.min}>
                 <option value="--">--</option>
                 <option value="00">00</option>
                 <option value="30">30</option>
             </select>
             <label htmlFor="Am/Pm"></label>
-            <select name="amPm" id="Am/Pm" onChange={handleInput} value={state.amPm}>
+            <select className='time-select form-control' name="amPm" id="Am/Pm" onChange={handleInput} value={state.amPm}>
                 <option value="--">--</option>
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
             </select>
+            <span className='optional'>optional</span>
         </div>
     )
 }

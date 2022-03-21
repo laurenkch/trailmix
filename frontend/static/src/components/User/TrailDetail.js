@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
+import Accordion from 'react-bootstrap/Accordion';
 
 
 function TrailDetail() {
@@ -118,16 +119,14 @@ function TrailDetail() {
                 data.push(displayValue);
             }
         }
-        return data;
+        if (data.length > 0) {
+            return data;
+        } else {
+            return null;
+        }
     }
 
     const radioFeedbackHtml = printRadioFeedback();
-
-    console.log(radioFeedbackHtml);
-    console.log(feedbackHtml);
-
-    console.log(state.weather);
-
     
     return (
         <div className='trail'>
@@ -198,6 +197,12 @@ function TrailDetail() {
                 </li>
                 }
             </ul>
+            <Accordion>
+                <Accordion.Header>Trail Description</Accordion.Header>
+                <Accordion.Body>
+                    {state.description}
+                </Accordion.Body>
+            </Accordion>
             {(feedbackHtml || radioFeedbackHtml) &&
                 <h3>Other hikers say this trail...</h3>
             }
@@ -226,12 +231,12 @@ function TrailDetail() {
                 {weatherHtml}
                 </div>
             </div>
-            <div className='description'>
+            {/* <div className='description'>
                 <h3>
                     Trail Description
                 </h3>
                 {state.description}
-            </div>
+            </div> */}
             {auth && <div className='feedback-prompt-wrapper'>
                 <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>
                 <button

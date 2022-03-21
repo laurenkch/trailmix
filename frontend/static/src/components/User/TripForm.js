@@ -41,7 +41,7 @@ function TripForm() {
     };
 
     useEffect(() => {
-        if(!trail)
+        if (!trail)
             getTrail();
     }, [trail])
 
@@ -93,11 +93,11 @@ function TripForm() {
                     <p>{segment.detailedForecast}</p>
                 </div>)
     }
-    
+
     // if (typeof(trail.weather) === typeof('string')) {
     //     console.log(`Weather error: ${trail.weather}`);
     // }
-    
+
     let feedbackHtml;
 
     if (Object.values(state).includes(true)) {
@@ -112,113 +112,166 @@ function TripForm() {
         let data = [];
 
         for (const [key, value] of Object.entries(RADIO_OPTIONS)) {
-            let variable = trail[key]
-            let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
-            data.push(displayValue);
+            let variable = state[key]
+
+            if (variable) {
+                let displayValue = <div className='feedback-badge' key={key}>{value[variable]}</div>
+                data.push(displayValue);
+            }
         }
-        return data;
+        if (data.length > 0) {
+            return data;
+        } else {
+            return null;
+        }
     }
 
     const radioFeedbackHtml = printRadioFeedback();
 
+    console.log(radioFeedbackHtml);
+
     return (
         <div className='wrapper'>
-            <div className='trip-form'>
-            <div className='left'>
             <h2>Trip to {trail.name}</h2>
-            <ul className='trail'>
-                <li>
-                    <h3>
-                        Elevation gain
-                    </h3>
-                    {trail.elevation_gain}ft
-                </li>
-                <li>
-                    <h3>
-                        Length
-                    </h3>
-                    {trail.length} miles
-                </li>
-                <li>
-                    <h3>
-                        Trail Type
-                    </h3>
-                    {TRAIL_TYPES[trail.trail_type]}
-                </li>
-                <li>
-                    <h3>
-                        Park
-                    </h3>
-                    {trail.park.name}
-                </li>
-            <li>{trail.park.address}</li>
-                <li>
-                    <h3>
-                        Address
-                    </h3>
-                    {trail.park.address}
-                </li>
-                {trail.park.hours && <li className='whitespace'>
-                    <h3>
-                        Hours
-                    </h3>
-                    {trail.park.hours.replaceAll(';', '\n')}
-                </li>
-                }
-                {trail.park.fee &&
-                    <li className='whitespace'>
-                        <h3>
-                            Fees
-                        </h3>
-                        {trail.park.fee.replaceAll(';', '\n')}
-                    </li>
-                }
-                </ul>
-            
-            {(feedbackHtml || radioFeedbackHtml) &&
-                <h3>Other hikers say this trail...</h3>
-            }
-            {(feedbackHtml || radioFeedbackHtml) &&
-                < div className='feedback-wrapper'>
-                    {feedbackHtml && feedbackHtml}
-                    {radioFeedbackHtml && radioFeedbackHtml}
-                </div>
-            }
-                {weatherHtml && <h3>Weather</h3>}
-                <div className='horizontal-scroll-wrapper'>
-            {weatherHtml}
+            <div className='trip-form'>
+            <div className='mobile'>
+                <Form className='form' onSubmit={submitTrip}>
+                    <Form.Label htmlFor='date'>
+                        <h3>Date</h3>
+                    </Form.Label>
+                    <Form.Control
+                        type='date'
+                        onChange={(e) => handleInput(e, setState)}
+                        required
+                        name='date'
+                        id='date'
+                        value={state.date}
+                    />
+                    <Form.Label htmlFor='time'>
+                            <h3>Time</h3>
+                    </Form.Label>
+                    <TimeInput setFormState={setState} formState={state} />
+                    <Form.Label htmlFor='notes'>
+                        <h3>Notes</h3>
+                    </Form.Label>
+                        <Form.Control
+                        className='notes'
+                        as='textarea'
+                        rows={5}
+                        name='notes'
+                        id='notes'
+                        value={state.notes}
+                        onChange={(e) => handleInput(e, setState)}
+                        placeholder='optional'
+                    />
+                    <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
+                </Form>
+            </div>
+                <div className='top'>
+                    <div className='left desktop'>
+                        <Form className='form desktop' onSubmit={submitTrip}>
+                            <Form.Label htmlFor='date'>
+                                <h3>Date</h3>
+                            </Form.Label>
+                            <Form.Control
+                                type='date'
+                                onChange={(e) => handleInput(e, setState)}
+                                required
+                                name='date'
+                                id='date'
+                                value={state.date}
+                            />
+                            <Form.Label htmlFor='time'>
+                                <h3>Time</h3>
+                            </Form.Label>
+                            <TimeInput setFormState={setState} formState={state} />
+                            <Form.Label htmlFor='notes'>
+                                <h3>Notes</h3>
+                            </Form.Label>
+                            <Form.Control
+                                className='notes'
+                                as='textarea'
+                                rows={5}
+                                name='notes'
+                                id='notes'
+                                value={state.notes}
+                                onChange={(e) => handleInput(e, setState)}
+                                placeholder='optional'
+                            />
+                            <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
+                        </Form>
+                    </div>
+                    <div className='right'>
+                        <ul className='trail'>
+                            <li>
+                                <h3>
+                                    Elevation gain
+                                </h3>
+                                {trail.elevation_gain}ft
+                            </li>
+                            <li>
+                                <h3>
+                                    Length
+                                </h3>
+                                {trail.length} miles
+                            </li>
+                            <li>
+                                <h3>
+                                    Trail Type
+                                </h3>
+                                {TRAIL_TYPES[trail.trail_type]}
+                            </li>
+                            <li>
+                                <h3>
+                                    Park
+                                </h3>
+                                {trail.park.name}
+                            </li>
+                            <li>
+                                <h3>
+                                    Address
+                                </h3>
+                                {trail.park.address}
+                            </li>
+
+                            {(feedbackHtml || radioFeedbackHtml) &&
+                                <li className='trip-feedback-wrapper'>
+                                    <div>
+                                        <h3 className='full-width'>Other hikers say this trail...</h3>
+                                    </div>
+                                    <div className='trip-badges-containter'>
+                                        {feedbackHtml && feedbackHtml}
+                                        {radioFeedbackHtml && radioFeedbackHtml}
+                                    </div>
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </div>
-            <div className='right'>
-            <Form className='form' onSubmit={submitTrip}>
-                <Form.Label htmlFor='date'>
-                    <h3>Calendar</h3>
-                </Form.Label>
-                <Form.Control
-                    type='date'
-                    onChange={(e)=> handleInput(e, setState)}
-                    required
-                    name='date'
-                    id='date'
-                    value={state.date}
-                />
-                <Form.Label htmlFor='time'>
-                            <h3>Time</h3>
-                </Form.Label>
-                <TimeInput setFormState={setState} formState={state} />
-                <Form.Label htmlFor='notes'>
-                            <h3>Notes</h3>
-                </Form.Label>
-                <Form.Control
-                    as='textarea'
-                    rows={5}
-                    name='notes'
-                    id='notes'
-                    value={state.notes}
-                    onChange={(e)=> handleInput(e, setState)}
-                />
-                <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
-                    </Form>
+
+                <div className='bottom'>
+
+                    <ul className='trail'>
+                        {trail.park.hours && <li className='whitespace'>
+                            <h3>
+                                Hours
+                            </h3>
+                            {trail.park.hours.replaceAll(';', '\n')}
+                        </li>
+                        }
+                        {trail.park.fee &&
+                            <li className='whitespace'>
+                                <h3>
+                                    Fees
+                                </h3>
+                                {trail.park.fee.replaceAll(';', '\n')}
+                            </li>
+                        }
+                    </ul>
+                    {(typeof (trail.weather) != typeof ('string')) && <h3>Weather</h3>}
+                    {(typeof (trail.weather) != typeof ('string')) && <div className='horizontal-scroll-wrapper'>
+                        {weatherHtml}
+                    </div>}
                 </div>
             </div>
             <Accordion>
