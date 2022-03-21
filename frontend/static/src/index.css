@@ -665,32 +665,13 @@ main {
   margin-bottom: 12px;
 }
 
-.plan-trip-prompt{
-  position: absolute;
-  border: none;
-  background-color: var(--gray);
-  color: var(--background-color);
-  width: 100vw;
-  left: 0;
-  font-size: 1.3em;
-  padding: 70px;
+.trail-buttons {
+  text-align: right;
+  margin-top: -55px;
 }
 
-.plan-trip-prompt-wrapper a {
-  color: var(--background-color) !important;
-}
-
-.plan-trip-prompt-wrapper a:focus, .plan-trip-prompt-wrapper a:hover {
-  color: rgb(200, 200, 200) !important;
-  transition: all 15ms ease-in-out;
-}
-
-.plan-trip-prompt-wrapper {
-  text-align: center;
-}
-
-.weather {
-  margin-top: 185px;
+.trail-buttons button, .trail-buttons a {
+  padding: 10px 10px;
 }
 
 .weather h3 {
@@ -946,6 +927,27 @@ main {
   font-style: italic;
   font-size: 0.85em;
 }
+/* /////////////////////////////////////////////////////////////////MAP MODAL */
+
+.modal-90w {
+  width: 90% !important;
+  max-width: none !important;
+  height: 90% !important;
+  max-height: none !important;
+}
+
+.modal-90w .modal-body {
+  padding: 0 5px !important;
+}
+
+.modal-90w .leaflet-container {
+  min-height: 77vh;
+}
+
+.modal-90w .close-modal {
+  padding: 0;
+}
+
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {
@@ -1043,12 +1045,14 @@ main {
   }
 
   .weather {
-  margin-top: 205px;
+  margin-top: 10px;
   min-height: 300px;
 }
 
   #button-tooltip > .tooltip-inner {
     max-width: 100%;
   }
+
+
 
 }

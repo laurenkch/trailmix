@@ -9,6 +9,7 @@ import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import Accordion from 'react-bootstrap/Accordion';
+import MapModal from './MapModal';
 
 
 function TrailDetail() {
@@ -22,9 +23,12 @@ function TrailDetail() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
+    const [showMap, setShowMap] = useState(false);
 
     const handleOpenFeedback = () => { setShowFeedback(true) };
     const handleOpenLogin = () => { setShowLogin(true) };
+    const handleOpenMap = () => { setShowMap(true) };
+
 
     ////////////////////////////////////////////////////LOAD TRAIL
 
@@ -131,6 +135,19 @@ function TrailDetail() {
     return (
         <div className='trail'>
             <h2>{state.name}</h2>
+            <div className='trail-buttons'>
+            <button className='trail-list-button' type='button' onClick={handleOpenMap}>Trail Map</button>
+                {auth && <Link className='trail-list-button'
+                    to={`/plan/${state.id}`}
+                >
+                    Plan a trip to {state.name}
+                </Link>}
+                {!auth && <button className='trail-list-button'
+                    type='button' onClick={handleOpenLogin}
+                >
+                    Plan a trip to {state.name}
+                </button>}
+            </div>
             <ul>
                 <li>
                     <h3>
@@ -212,18 +229,6 @@ function TrailDetail() {
             {radioFeedbackHtml && radioFeedbackHtml}
                 </div>
             }
-            <div className='plan-trip-prompt-wrapper'>
-            {auth && <Link className='plan-trip-prompt'
-                to={`/plan/${state.id}`}
-            >
-                Plan a trip to {state.name}
-            </Link>}
-            {!auth && <button className='plan-trip-prompt'
-                type='button' onClick={handleOpenLogin}
-            >
-                Plan a trip to {state.name}
-                </button>}
-            </div>
             <div className='weather'>
                 <h3>Weather</h3>
                 {state.weather.includes('error') && <div>Weather unavailable</div>}
@@ -231,18 +236,13 @@ function TrailDetail() {
                 {weatherHtml}
                 </div>
             </div>
-            {/* <div className='description'>
-                <h3>
-                    Trail Description
-                </h3>
-                {state.description}
-            </div> */}
             {auth && <div className='feedback-prompt-wrapper'>
                 <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>
                 <button
                     type='button' className='feedback-prompt' onClick={handleOpenFeedback}
                 >Let us know how it was!</button>
             </div>}
+            <MapModal latitude={state.park.latitude} longitude={state.park.longitude} show={showMap} setShow={setShowMap}/>
             <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
             <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
             <RegisterModal trailId={state.id} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin}/>
