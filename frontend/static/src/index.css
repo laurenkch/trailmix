@@ -7,7 +7,7 @@
  --dark-green: rgb(37	38	18);
   --buttons: rgba(148, 34, 103, 0.87);
   --links: rgb(148, 34, 103);
- --cranberry: rgb(249	92	131	);
+ --cranberry: rgb(175	66	134	);
  --stone: rgb(159	148	131	);
  --sand: rgb(219	203	177	);
   --forest-green: rgb(48	62	44	);
@@ -949,6 +949,26 @@ h3 {
 .modal-90w .close-modal {
   padding: 0;
 }
+
+.download-button {
+  background-color: rgb(175	66	134	);
+  color:var(--background-color) !important;
+  font-weight: 550;
+  padding: 10px 0;
+  min-width: 120px;
+  border-radius: 5px;
+  margin: 8px 10px;
+  display: inline-block;
+  text-align: center;
+  border: none;
+}
+
+.download-button:focus, .download-button:hover {
+  background-color: rgb(201, 75, 153);
+  box-shadow: 2px 6px 6px var(--opaque-gray);
+  transition: all 0.15s ease-in-out;
+}
+
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 

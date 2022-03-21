@@ -10,6 +10,7 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import Accordion from 'react-bootstrap/Accordion';
 import MapModal from './MapModal';
+// import html2canvas from 'html2canvas';
 
 
 function TrailDetail() {
@@ -159,7 +160,7 @@ function TrailDetail() {
     }
 
     const radioFeedbackHtml = printRadioFeedback();
-    
+
     return (
         <div className='trail'>
             <h2>{state.name}</h2>
@@ -233,7 +234,7 @@ function TrailDetail() {
                     <h3>
                         Fees
                     </h3>
-                    {state.park.fee.replaceAll(';', '\n')}
+                    {state.park.fee.replaceAll(';', '\n').replaceAll('/', ' ')}
                     </li>
                 }
                 {state.park.hours && <li className='whitespace'>
@@ -272,7 +273,8 @@ function TrailDetail() {
                     type='button' className='feedback-prompt' onClick={handleOpenFeedback}
                 >Let us know how it was!</button>
             </div>}
-            <MapModal latitude={state.park.latitude} longitude={state.park.longitude} show={showMap} setShow={setShowMap}/>
+
+            <MapModal trail={state.name} latitude={state.park.latitude} longitude={state.park.longitude} show={showMap} setShow={setShowMap}/>
             <FeedbackModal id={state.id} show={showFeedback} setShow={setShowFeedback} />
             <LoginModal trailId={state.id} show={showLogin} setShow={setShowLogin} navigate={navigate} setAuth={setAuth} setAdmin={setAdmin} setShowRegister={setShowRegister} />
             <RegisterModal trailId={state.id} show={showRegister} setShow={setShowRegister} navigate={navigate} setAuth={setAuth} setShowLogin={setShowLogin}/>
