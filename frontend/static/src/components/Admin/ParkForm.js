@@ -121,7 +121,7 @@ function ParkForm({ setParks, setIsAddingPark}) {
                     value={state.activities}
                     autoComplete='off'
                 />
-                <button type='submit'>Add park</button>
+                <button className='trail-list-button' type='submit'>Add park</button>
             </Form>
         </div>
     )

@@ -1,4 +1,5 @@
 import { useOutletContext, Link } from 'react-router-dom';
+import Accordion from 'react-bootstrap/Accordion';
 
 function AdminList() {
 
@@ -32,10 +33,20 @@ function AdminList() {
 
     return (
         <div className='admin-list'>
-            Parks
-            {parksHTML}
-            Trails
-            {trailsHTML}
+                <Accordion>
+                    <Accordion.Item eventKey='0'>
+                        <Accordion.Header>Parks</Accordion.Header>
+                        <Accordion.Body>
+                            <ul>{parksHTML}</ul>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey='1'>
+                        <Accordion.Header>Trails</Accordion.Header>
+                        <Accordion.Body>
+                            <ul>{trailsHTML}</ul>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
         </div>
     )
 }

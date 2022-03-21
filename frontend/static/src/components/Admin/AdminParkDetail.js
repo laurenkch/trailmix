@@ -1,8 +1,9 @@
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { handleError, handleInput } from './../../util';
+import { handleError, handleInput, TRAIL_TYPES } from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
+import Accordion from 'react-bootstrap/Accordion';
 
 function AdminParkDetail() {
 
@@ -102,6 +103,37 @@ function AdminParkDetail() {
         return 'Loading...'
     }
 
+    const trailHtml = state.trails.map((trail, index) => <Accordion.Item eventKey={index} key={index}>
+        <Accordion.Header>{trail.name}</Accordion.Header>
+        <Accordion.Body>
+            <ul>
+                <li>
+                    <h4>
+                        Length
+                    </h4>
+                    {trail.length.slice(-1) === '0' ? trail.length.slice(0, -1) : trail.length} miles
+                </li>
+                <li>
+                    <h4>
+                        Elevation gain
+                    </h4>
+                    {trail.elevation_gain} feet
+                </li>
+                <li>
+                    <h4>
+                        Trail type
+                    </h4>
+                    {TRAIL_TYPES[trail.trail_type]}
+                </li>
+            </ul>
+            <div className='trail-list-buttons'>
+                <Link className='trail-list-button' to={`/trail/${trail.id}`}>
+                    Go to Trail
+                </Link>
+            </div>
+        </Accordion.Body>
+    </Accordion.Item>)
+
     return (
     <div>
         {isEditing &&
@@ -184,15 +216,15 @@ function AdminParkDetail() {
                         value={state.activities}
                         autoComplete='off'
                     />
-                    <button type='submit'>Save changes</button>
+                    <button className='trail-list-button' type='submit'>Save changes</button>
                 </Form>
             </div>
-        };
+            }
 
         {!isEditing &&
             <div>
                 <h2>{state.name}</h2>
-                <ul>
+                    <ul>
                     <li>Address: {state.address}</li>
                     <li>Fee: {state.fee}</li>
                     <li>Hours: {state.hours}</li>
@@ -201,10 +233,13 @@ function AdminParkDetail() {
                     <li>Park code:{state.parkcode}</li>
                     <li>Activities: {state.activities}</li>
                 </ul>
-                <button type='button' onClick={() => setIsEditing(true)}>Edit Park</button>
-                    <button type='button' onClick={deletePark}>Delete Park</button>
+                    <button className='trail-list-button' type='button' onClick={() => setIsEditing(true)}>Edit Park</button>
+                    <button className='trail-list-button' type='button' onClick={deletePark}>Delete Park</button>
             </div>
-        }
+            }
+            <Accordion>
+                {trailHtml}
+            </Accordion>
     </div>
     )
 }

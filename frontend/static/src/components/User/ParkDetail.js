@@ -88,9 +88,6 @@ function ParkDetail() {
                 <Link className='trail-list-button' to={`/trail/${trail.id}`}>
                     See More
                 </Link>
-                {/* <Link className='trail-list-button' to={`/plan/${trail.id}`}>
-                    Plan a trip
-                </Link> */}
                 {auth && <Link className='trail-list-button'
                     to={`/plan/${trail.id}`}
                 >

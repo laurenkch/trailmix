@@ -6,7 +6,7 @@ import {
     MapContainer,
     TileLayer,
     Popup,
-    Marker
+    Marker,
 } from 'react-leaflet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';

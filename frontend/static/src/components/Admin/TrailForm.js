@@ -137,7 +137,7 @@ function TrailForm() {
         <div>
             {isAddingPark && <ParkForm setParks={setParks} setIsAddingPark={setIsAddingPark}/>}
             <Form onSubmit={submitTrail}>
-                <select id="park" className="park-input" onChange={handleSelect}>
+                <select id="park" className="park-input form-control" onChange={handleSelect}>
                     <option defaultValue>Select a park...</option>
                     {parkOptionsHTML}
                     <option value='newPark'>Add new park</option>
@@ -183,17 +183,18 @@ function TrailForm() {
                     value={state.description}
                     onChange={(e) => handleInput(e, setState)}
                 />
-                <select className='trail-type' id="trail-type" name="trail_type" onChange={((e) => setState((prevState) => ({
+                <Form.Label htmlFor='trail type'>Trail Type</Form.Label>
+                <select className='trail-type form-control' id="trail-type" name="trail_type" onChange={((e) => setState((prevState) => ({
                     ...prevState,
                     trail_type: e.target.value,
                 })))}>
-                    <option defaultValue>Trail Type</option>
+                    <option defaultValue>--</option>
                     <option value="oab">Out and Back</option>
                     <option value="loop">Loop</option>
                     <option value="seg">Point to point segment</option>
                 </select>
                 {!isAddingImage &&
-                    <button type='button' onClick={() => setIsAddingImage(true)}>Add Image
+                    <button className='trail-list-button' type='button' onClick={() => setIsAddingImage(true)}>Add Image
                     </button>
                 }
                 {isAddingImage &&
@@ -203,7 +204,7 @@ function TrailForm() {
                 />
                 }
                 {preview && isAddingImage && <div className='preview'><img src={preview} alt='preview' /></div>}
-                <button type='submit'>Save</button>
+                <button className='trail-list-button' type='submit'>Save</button>
             </Form>
         </div>
     )

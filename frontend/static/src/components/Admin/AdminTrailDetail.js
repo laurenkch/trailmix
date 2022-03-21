@@ -239,7 +239,7 @@ function AdminTrailDetail() {
             <div className='image-wrapper'>
                 <img src={image.image} alt='trail' />
             </div>
-            <button type='button' value={image.id} onClick={deleteImage}>Delete Image</button>
+            <button type='button' className='trail-list-button'  value={image.id} onClick={deleteImage}>Delete Image</button>
         </div>
     ));
 
@@ -268,9 +268,6 @@ function AdminTrailDetail() {
             {isEditing &&
                 <div>
                     <Form onSubmit={editTrail}>
-                        {/* <select id="park" className="park-input" onChange={handleSelect}>
-                            {parkOptionsHTML}
-                        </select> */}
                         <Form.Label htmlFor="trail name">Trail Name</Form.Label>
                         <Form.Control
                             id='trail name'
@@ -312,25 +309,26 @@ function AdminTrailDetail() {
                             value={state.description}
                             onChange={(e) => handleInput(e, setState)}
                         />
-                        <select className='trail-type' id="trail-type" name="trail_type" onChange={((e) => setState((prevState) => ({
+                        <Form.Label htmlFor='trail type'>Trail Type</Form.Label>
+                        <select className='trail-type form-control' id="trail-type" value={state.trail_type} name="trail_type" onChange={((e) => setState((prevState) => ({
                             ...prevState,
                             trail_type: e.target.value,
                         })))}>
-                            <option defaultValue>Trail Type</option>
+                            <option defaultValue>--</option>
                             <option value="oab">Out and Back</option>
                             <option value="loop">Loop</option>
                             <option value="seg">Point to point segment</option>
                         </select>
-                        <button type='submit'>Save</button>
+                        <button className='trail-list-button' type='submit'>Save</button>
                     </Form>
                 </div>
             }
             {!isEditing &&
                 <div>
                     <h2>{state.name}</h2>
-                    <button type='button' onClick={() => setIsEditing(true)}>Edit Trail</button>
+                    <button className='trail-list-button' type='button' onClick={() => setIsEditing(true)}>Edit Trail</button>
                     {!isAddingImage &&
-                        <button type='button' onClick={() => setIsAddingImage(true)}>Add Image
+                        <button className='trail-list-button' type='button' onClick={() => setIsAddingImage(true)}>Add Image
                         </button>
                     }
                     {isAddingImage &&
@@ -339,21 +337,75 @@ function AdminTrailDetail() {
                             previewImage={previewImage}
                         
                             />
-                        <button type='submit'>Save</button>
+                            <button className='trail-list-button' type='submit'>Save</button>
                         </Form>
                     }
                     {preview && isAddingImage && <div className='image-wrapper'><img src={preview} alt='preview' /></div>}
-                    <ul>
-                        <li>{state.elevation_gain}ft</li>
-                        <li>{state.length}miles</li>
-                        <li>{TRAIL_TYPES[state.trail_type]}</li>
-                        <li>{state.description}</li>
-                        <li>{state.park.name}</li>
-                        <li>{state.park.address}</li>
-                        <li>{state.park.fee}</li>
-                        <li>{state.park.hours}</li>
+                    <ul className='whitespace'>
+                        <li className='park-attributes'>
+                            <h3>
+                                Elevation Gain
+                            </h3>
+                            <div>
+                                {state.elevation_gain}ft
+                            </div>
+                        </li>
+                        <li>
+                            <h3>
+                                Length
+                            </h3>
+                            {state.length} miles
+                        </li>
+                        <li>
+                            <div className='difficulty-heading'>
+                                <h3>
+                                    Difficulty
+                                </h3>
+                                {state.difficulty}
+                            </div>
+                        </li>
+                        <li>
+                            <h3>
+                                Trail Type
+                            </h3>
+                            {TRAIL_TYPES[state.trail_type]}
+                        </li>
+
+                        <li>
+                            <h3>
+                                Description
+                            </h3>
+                            {state.description}
+                        </li>
+                        <li>
+                            <h3>
+                                Park
+                            </h3>
+                            {state.park.name}
+                        </li>
+                        <li>
+                            <h3>
+                                Address
+                            </h3>
+                            {state.park.address}
+                        </li>
+                        {state.park.fee &&
+                            <li className='whitespace'>
+                                <h3>
+                                    Fees
+                                </h3>
+                                {state.park.fee.replaceAll(';', '\n')}
+                            </li>
+                        }
+                        {state.park.hours && <li className='whitespace'>
+                            <h3>
+                                Hours
+                            </h3>
+                            {state.park.hours.replaceAll(';', '\n')}
+                        </li>
+                        }
                     </ul>
-                    <button type='button' onClick={deleteTrail}>Delete Trail</button>
+                    <button className='trail-list-button'  type='button' onClick={deleteTrail}>Delete Trail</button>
                     {imageHTML}
                 </div>
             }

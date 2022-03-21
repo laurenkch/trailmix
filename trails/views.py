@@ -16,7 +16,7 @@ class ParkListAdmin(generics.ListCreateAPIView):
 
 class ParkDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAdminUser,)
-    serializer_class = ParkCreateSerializer
+    serializer_class = ParkViewSerializer
 
     queryset = Park.objects.all()
 

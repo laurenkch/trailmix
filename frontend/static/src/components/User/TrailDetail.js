@@ -24,6 +24,7 @@ function TrailDetail() {
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [showMap, setShowMap] = useState(false);
+    const [imageList, setImageList] = useState(false);
 
     const handleOpenFeedback = () => { setShowFeedback(true) };
     const handleOpenLogin = () => { setShowLogin(true) };
@@ -32,10 +33,29 @@ function TrailDetail() {
 
     ////////////////////////////////////////////////////LOAD TRAIL
 
+    const getImages = async (id) => {
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+        };
+
+        const response = await fetch(`/api/v1/trails/photos/trailId/${id}/`, options).catch(handleError);
+
+        if (!response.ok) {
+            throw new Error("Network response not ok");
+        }
+        const data = await response.json();
+
+        setImageList(data);
+    };
+
 
     useEffect(() => {
 
-        const getPark = async () => {
+        const getTrail = async () => {
             const options = {
                 method: 'GET',
                 headers: {
@@ -48,10 +68,15 @@ function TrailDetail() {
             if (!response.ok) {
                 throw new Error("Network response not ok");
             }
-            const park = await response.json();
-            setState(park);
+            const trail = await response.json();
+
+            setState(trail);
+
+            if (trail) {
+                getImages(trail.id);
+            }
         };
-        getPark();
+        getTrail();
 
     }, [params.trailId]);
 
@@ -98,9 +123,9 @@ function TrailDetail() {
             </div>)
     } 
 
-    if (typeof (state.weather) === typeof ('string')) {
-        console.log(state.weather);
-    }
+    // if (typeof (state.weather) === typeof ('string')) {
+    //     console.log(state.weather);
+    // }
     
     let feedbackHtml;
 
@@ -130,6 +155,13 @@ function TrailDetail() {
         }
     }
 
+    let imageHtml;
+    if (imageList) {
+        imageHtml = imageList.map((image) => <div className='image-wrapper' key={image.id}>
+            <img src={image.image} alt='trail' />
+        </div>);
+    }
+
     const radioFeedbackHtml = printRadioFeedback();
     
     return (
@@ -147,6 +179,9 @@ function TrailDetail() {
                 >
                     Plan a trip to {state.name}
                 </button>}
+            </div>
+            <div className='horizontal-scroll-wrapper'>
+                {imageHtml}
             </div>
             <ul>
                 <li>
@@ -186,12 +221,11 @@ function TrailDetail() {
                     </h3>
                     {TRAIL_TYPES[state.trail_type]}
                 </li>
-                <li>
-                    <h3>
-                        Park
-                    </h3>
+                </ul>
+                    <h3 className='park-name-detail'>
                     {state.park.name}
-                </li>
+                    </h3>
+                <ul>
                 <li>
                     <h3>
                         Address
@@ -214,8 +248,8 @@ function TrailDetail() {
                 </li>
                 }
             </ul>
-            <Accordion>
-                <Accordion.Header>Trail Description</Accordion.Header>
+            <Accordion className='stone'>
+                <Accordion.Header className='stone'>Trail Description</Accordion.Header>
                 <Accordion.Body>
                     {state.description}
                 </Accordion.Body>
@@ -236,6 +270,7 @@ function TrailDetail() {
                 {weatherHtml}
                 </div>
             </div>
+
             {auth && <div className='feedback-prompt-wrapper'>
                 <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>
                 <button
