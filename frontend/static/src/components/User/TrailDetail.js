@@ -1,6 +1,6 @@
 import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { handleError, TRAIL_TYPES, DIFFICULTY_KEY, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
+import { handleError, TRAIL_TYPES, DIFFICULTY_KEY, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees } from './../../util';
 import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
@@ -109,23 +109,19 @@ function TrailDetail() {
     let weatherHtml;
 
     if (typeof(state.weather) != typeof('string')) {
-        weatherHtml = state.weather
-            .filter(segment => segment.isDaytime)
-            .map((segment) =>
-                <div key={segment.number} className='scroll-squares'>
-                <h4>{segment.name}</h4>
-                <div className='weather-image'>
-                    <img src={segment.icon} alt={segment.shortForecast} />
-                </div>
-                <p>{segment.temperature}{segment.temperatureUnit}</p>
-                <p>{segment.windSpeed}{segment.windDirection}</p>
-                <p>{segment.detailedForecast}</p>
+        weatherHtml = state.weather.daily
+            .map((day, index) =>
+                <div key={index} className='scroll-squares'>
+                <h4>{day.dt.slice(5,10)}</h4>
+                <p>{day.temp.day.toFixed(0)} F</p>
+                    <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
+                <p>{day.weather[0].description}</p>
             </div>)
     } 
 
-    // if (typeof (state.weather) === typeof ('string')) {
-    //     console.log(state.weather);
-    // }
+    if (typeof (state.weather) === typeof ('string')) {
+        console.log(state.weather);
+    }
     
     let feedbackHtml;
 
@@ -265,7 +261,6 @@ function TrailDetail() {
             }
             <div className='weather'>
                 <h3>Weather</h3>
-                {state.weather.includes('error') && <div>Weather unavailable</div>}
             <div className='horizontal-scroll-wrapper'>
                 {weatherHtml}
                 </div>

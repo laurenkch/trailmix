@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, convertWindDegrees } from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
 
@@ -117,16 +117,13 @@ function TripDetail() {
     let weatherHtml;
 
     if (trip.weather) {
-        const data = trip.weather[0]
+        const data = trip.weather.daily[0]
         weatherHtml =
             <div className='scroll-squares'>
-                <h4>{data.name}</h4>
-                <div className='weather-image'>
-                    <img src={data.icon} alt={data.shortForecast} />
-                </div>
-                <p>{data.temperature}{data.temperatureUnit}</p>
-                <p>{data.windSpeed}{data.windDirection}</p>
-                <p>{data.detailedForecast}</p>
+                <h4>{data.dt}</h4>
+                <p>{data.temp.day.toFixed(0)} F</p>
+                <p>{data.wind_speed.toFixed(0)} {convertWindDegrees(data.wind_deg)}</p>
+                <p>{data.weather[0].description}</p>
             </div>
     };
 

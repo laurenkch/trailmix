@@ -173,3 +173,44 @@ export function TimeInput({ setFormState, formState }) {
         </div>
     )
 }
+
+
+export const convertWindDegrees = (x) => {
+        if(348.75 < x || x < 11.25)
+            return 'N'
+        if( 11.25 < x && x < 33.75)
+            return 'NNE'
+        if( 33.75 < x && x < 56.25)
+            return 'NE'
+        if( 56.25 < x && x <  78.75)
+            return 'ENE'
+        if( 78.75 < x && x <  101.25)
+            return 'E'
+        if( 101.25 < x && x <  123.75)
+            return 'ESE'
+        if( 123.75 < x && x <  146.25)
+            return 'SE'
+        if( 146.25 < x && x < 168.75)
+            return 'SSE'
+        if( 168.75 < x && x < 191.25)
+            return 'S'
+        if( 191.25 < x && x < 213.75)
+            return 'SSW'
+        if( 213.75 < x && x <  236.25)
+            return 'SW'
+        if( 236.25 < x && x <  258.75)
+            return 'WSW'
+        if( 258.75 < x && x <  281.25)
+            return 'W'
+        if( 281.25 < x && x <  303.75)
+            return 'WNW'
+        if( 303.75 < x && x <  326.25)
+            return 'NW'
+        if( 326.25 < x && x <  348.75)
+            return 'NNW'
+        else
+            return 'incorrect value';
+    }
+
+
+

@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees } from './../../util';
 import Form from 'react-bootstrap/Form';
 import Accordion from 'react-bootstrap/Accordion';
 
@@ -80,23 +80,15 @@ function TripForm() {
     let weatherHtml;
 
     if (typeof (trail.weather) != typeof ('string')) {
-        weatherHtml = trail.weather
-            .filter(segment => segment.isDaytime)
-            .map((segment) =>
-                <div key={segment.number} className='scroll-squares'>
-                    <h4>{segment.name}</h4>
-                    <div className='weather-image'>
-                        <img src={segment.icon} alt={segment.shortForecast} />
-                    </div>
-                    <p>{segment.temperature}{segment.temperatureUnit}</p>
-                    <p>{segment.windSpeed}{segment.windDirection}</p>
-                    <p>{segment.detailedForecast}</p>
+        weatherHtml = trail.weather.daily
+            .map((day, index) =>
+                <div key={index} className='scroll-squares'>
+                    <h4>{day.dt.slice(5, 10)}</h4>
+                    <p>{day.temp.day.toFixed(0)} F</p>
+                    <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
+                    <p>{day.weather[0].description}</p>
                 </div>)
-    }
-
-    // if (typeof(trail.weather) === typeof('string')) {
-    //     console.log(`Weather error: ${trail.weather}`);
-    // }
+    }  
 
     let feedbackHtml;
 
