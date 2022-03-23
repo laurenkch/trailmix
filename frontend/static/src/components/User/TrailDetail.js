@@ -1,11 +1,11 @@
 import { useParams, Link, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { handleError, TRAIL_TYPES, DIFFICULTY_KEY, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees } from './../../util';
+import { handleError, TRAIL_TYPES, DIFFICULTY_KEY, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees, getWeatherIcons } from './../../util';
 import Cookies from 'js-cookie';
 import FeedbackModal from './FeedbackModal';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faMap } from '@fortawesome/free-solid-svg-icons';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import Accordion from 'react-bootstrap/Accordion';
@@ -108,21 +108,35 @@ function TrailDetail() {
 
     let weatherHtml;
 
-    if (typeof(state.weather) != typeof('string')) {
-        weatherHtml = state.weather.daily
-            .map((day, index) =>
-                <div key={index} className='scroll-squares'>
-                <h4>{day.dt.slice(5,10)}</h4>
-                <p>{day.temp.day.toFixed(0)} F</p>
-                    <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
-                <p>{day.weather[0].description}</p>
-            </div>)
-    } 
+    // if (typeof(state.weather) != typeof('string')) {
+    //     weatherHtml = state.weather.daily
+    //         .map((day, index) =>
+    //             <div key={index} className='scroll-squares'>
+    //             <h4>{day.dt.slice(5,10)}</h4>
+    //             <p>{day.temp.day.toFixed(0)} F</p>
+    //                 <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
+    //             <p>{day.weather[0].description}</p>
+    //         </div>)
+    // } 
 
-    // if (typeof (state.weather) === typeof ('string')) {
-    //     console.log(state.weather);
-    // }
-    
+    if (typeof (state.weather) != typeof ('string')) {
+        weatherHtml = state.weather.daily
+            .map((day, index) => {
+                let date = new Date(day.dt)
+                return (
+                    <div key={index} className='scroll-squares whitespace'>
+                        <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
+                        <div className='weather-icon'>
+                            {getWeatherIcons(day.weather[0].description)}
+                        </div>
+                        <p className='temp'>{day.temp.day.toFixed(0)} F</p>
+                        <p>{day.weather[0].description}</p>
+                        <p>Winds {'\n' + day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
+                    </div>)
+
+            })
+    }
+
     let feedbackHtml;
 
     if (Object.values(state).includes(true)) {
@@ -164,8 +178,7 @@ function TrailDetail() {
     return (
         <div className='trail'>
             <h2>{state.name}</h2>
-            <div className='trail-buttons'>
-            <button className='trail-list-button' type='button' onClick={handleOpenMap}>Trail Map</button>
+                <div className='desktop trail-buttons'>
                 {auth && <Link className='trail-list-button'
                     to={`/plan/${state.id}`}
                 >
@@ -175,8 +188,10 @@ function TrailDetail() {
                     type='button' onClick={handleOpenLogin}
                 >
                     Plan a trip to {state.name}
-                </button>}
-            </div>
+                    </button>}
+                    <button className='trail-list-button desktop-map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
+                </div>
+                <button className='mobile trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
             {imageList.length > 0 &&
                 <div className='horizontal-scroll-wrapper trail-images'>
                     {imageHtml}
@@ -262,6 +277,18 @@ function TrailDetail() {
             {radioFeedbackHtml && radioFeedbackHtml}
                 </div>
             }
+            <div className='mobile plan-trip-button'>
+                {auth && <Link className='trail-list-button'
+                    to={`/plan/${state.id}`}
+                >
+                    Plan a trip to {state.name}
+                </Link>}
+                {!auth && <button className='trail-list-button'
+                    type='button' onClick={handleOpenLogin}
+                >
+                    Plan a trip to {state.name}
+                </button>}
+            </div>
             <div className='weather'>
                 <h3>Weather</h3>
             <div className='horizontal-scroll-wrapper'>
