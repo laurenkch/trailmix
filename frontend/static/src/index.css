@@ -148,15 +148,16 @@ code {
   width: 90%;
 }
 
-.accordion-button:focus, .accordion-button:hover {
-  border-color: rgba(219	203	177	/ 25%)  !important;
-  box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
+.header .accordion-button:focus, .header .accordion-button:hover {
+  border-color: none  !important;
+  box-shadow: none !important;
 }
 
 .accordion-button:not(.collapsed), .accordion-button, .accordion-button:not(.collapsed), .accordion-button::after {
   color: white !important;
   font-weight: bold !important;
   background-color: var(--forest-green) !important;
+  border: none;
 }
 
 .accordion-button:not(.collapsed)::after {
@@ -167,9 +168,9 @@ code {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
+
 .accordion-body ul a:hover, .accordion-body ul a:focus {
   font-weight: 500;
-  color: var(--gray) !important;
   transition: all 0.1s ease-in-out;
 }
 
@@ -195,6 +196,10 @@ code {
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
 }
 
+.header .btn-check:focus+.btn, .header .btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
 /*///////////////////////////////////////////////// HEADER */
 
 .desktop {
@@ -291,6 +296,7 @@ main {
 
 .wrapper {
   width: 77vw;
+  position: relative;
   /* overflow:hidden; */
   /* height: 100vh; */
 }
@@ -310,6 +316,22 @@ main {
   width: 200px;
 }
 
+.temp {
+  font-size: 1.5em;
+}
+.scroll-squares {
+  text-align: center;
+}
+
+.scroll-squares h4 {
+  width: 165px;
+}
+
+.weather-icon {
+  font-size: 2em;
+  color: var(--gray);
+  margin: 5px 0px;
+}
 /*///////////////////////////////////////////////// HOME */
 
 .search {
@@ -738,10 +760,18 @@ h3 {
 }
 
 
-.accordion-body {
+.trail-description .accordion-body {
  background-color: white;
 }
 
+.accordion-button:focus, .accordion-button:hover {
+  border-color: rgba(219	203	177	/ 25%)  !important;
+  box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
+}
+
+.bottom-ul {
+  margin-bottom: 10px !important;
+}
 /* /////////////////////////////////////////////////////////////////FEEDBACK MODAL */
 
 .modal-content {
@@ -824,23 +854,26 @@ h3 {
 /* /////////////////////////////////////////////////////////////////TRIP FORM */
 
 
-
+.map-button {
+  position: absolute;
+  top: 43px;
+  right: 0px;
+  margin: 0;
+  padding: 10px 20px !important;
+  min-width: auto;
+  border-radius: 13px;
+}
 .trip-form {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
+  border-bottom: 2px solid rgb(217, 214, 208);
+  border-top: 2px solid rgb(217, 214, 208);
+  margin-bottom: 20px;
+  margin-top: 20px;
 
-.top {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
 }
-
-.left, .right {
-  flex: 1;
-}
-
+/* 
 .left {
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -858,6 +891,14 @@ h3 {
 .right {
   margin-left: 10px;
   display: flex;
+} */
+
+.trail-details {
+  margin-top: 10px;
+}
+
+.trip-title{
+    margin-bottom: 60px;
 }
 
 .trip-form ul {
@@ -872,10 +913,10 @@ h3 {
   margin-top: 0;
 }
 
-.trip-form .form {
+/* .trip-form .form {
   width: 100% !important;
   max-width: 100% !important;
-}
+} */
 
 .left .form h3 {
   font-size: 1.4em;
@@ -883,7 +924,7 @@ h3 {
   margin-bottom: 0;
 }
 
-.right {
+/* .right {
   display: flex;
   flex-wrap: wrap;
 }
@@ -892,9 +933,9 @@ h3 {
   flex: 1;
   max-width: initial !important;
   margin: 0;
-}
+} */
 
-.bottom {
+/* .bottom {
   display: flex;
   width: 100%;
   margin-bottom: 10px;
@@ -905,12 +946,12 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-}
+} */
 
-.bottom li {
+/* .bottom li {
   max-width: initial !important;
   flex: 1;
-}
+} */
 
 .full-width {
   width: 100%;
@@ -948,6 +989,27 @@ h3 {
   font-style: italic;
   font-size: 0.85em;
 }
+
+.trip-form-weather h3 {
+  background-color: var(--forest-green) ;
+  color: var(--background-color);
+  padding-left: 7px;
+}
+
+.trip-form-weather {
+  background-color: white;
+  border: 2px solid rgb(217, 214, 208);
+  border-radius: 5px;
+}
+
+.trip-form-submit {
+  width: 50% !important;
+}
+
+.trip-bottom {
+  margin-bottom: 5px;
+}
+
 /* /////////////////////////////////////////////////////////////////MAP MODAL */
 
 .modal-90w {
@@ -1082,10 +1144,6 @@ h3 {
     flex-direction: row;
   }
 
-  .trip-form form {
-    max-width: initial;
-  }
-
   .bottom li:nth-of-type(1n) {
     margin-left: 0;
     margin-right: 10px;
@@ -1168,15 +1226,22 @@ img.absolute {
   width: auto;
 }
 
-.trip-form-weather, .trip-form-segment {
-  flex: 1;
+.trip-bottom {
+  display: flex;
+  justify-content: space-between;
 }
-.trip-form-weather {
-  max-width: 50%;
+.trip-right, .trip-left {
+  flex: 1;
+  width: auto;
 }
 
-.trip .bottom {
-  flex-direction: column;
+.trip-left li {
+  max-width: none;
+  width: auto;
+}
+
+.map-button {
+  top: 0;
 }
 
 }

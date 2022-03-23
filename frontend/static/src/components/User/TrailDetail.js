@@ -119,9 +119,9 @@ function TrailDetail() {
             </div>)
     } 
 
-    if (typeof (state.weather) === typeof ('string')) {
-        console.log(state.weather);
-    }
+    // if (typeof (state.weather) === typeof ('string')) {
+    //     console.log(state.weather);
+    // }
     
     let feedbackHtml;
 
@@ -160,8 +160,6 @@ function TrailDetail() {
     }
 
     const radioFeedbackHtml = printRadioFeedback();
-
-    console.log(imageList);
 
     return (
         <div className='trail'>
@@ -226,7 +224,7 @@ function TrailDetail() {
                     <h3 className='park-name-detail'>
                     {state.park.name}
                     </h3>
-                <ul>
+                <ul className='bottom-ul'>
                 <li>
                     <h3>
                         Address

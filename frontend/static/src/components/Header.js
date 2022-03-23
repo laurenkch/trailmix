@@ -32,8 +32,8 @@ function Header({ auth, setAuth, navigate, admin, setAdmin }) {
 
     return (
                 
-        <div>
-            <Accordion className='mobile forest-green'>
+        <div className='header'>
+            <Accordion className='mobile forest-green header'>
                 <Accordion.Header>
                     <Link className='background-color-font nav-button' to='/'><h1>TrailMix</h1></Link>
                 </Accordion.Header>

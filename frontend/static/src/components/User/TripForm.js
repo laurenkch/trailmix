@@ -1,13 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, FEEDBACK_CHECKBOX_OPTIONS, RADIO_OPTIONS, convertWindDegrees, getWeatherIcons } from './../../util';
 import Form from 'react-bootstrap/Form';
 import Accordion from 'react-bootstrap/Accordion';
+import MapModal from './MapModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMap } from '@fortawesome/free-solid-svg-icons';
+
 
 function TripForm() {
 
     const navigate = useNavigate();
+    const [showMap, setShowMap] = useState(false);
+
+    const handleOpenMap = () => { setShowMap(true) };
 
     const INITIAL_STATE = {
         trail: '',
@@ -85,11 +92,14 @@ function TripForm() {
             .map((day, index) => {
                 let date = new Date(day.dt)
                     return (
-                <div key={index} className='scroll-squares'>
+                <div key={index} className='scroll-squares whitespace'>
                             <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
-                    <p>{day.temp.day.toFixed(0)} F</p>
-                    <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
-                    <p>{day.weather[0].description}</p>
+                            <div className='weather-icon'>
+                                {getWeatherIcons(day.weather[0].description)}
+                            </div>
+                            <p className='temp'>{day.temp.day.toFixed(0)} F</p>
+                            <p>{day.weather[0].description}</p>
+                    <p>Winds {'\n'+ day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
                         </div>)
 
     })
@@ -127,44 +137,13 @@ function TripForm() {
 
     return (
         <div className='wrapper'>
-            <h2>Trip to {trail.name}</h2>
-            <div className='trip-form'>
-            <div className='mobile'>
-                <Form className='form' onSubmit={submitTrip}>
-                    <Form.Label htmlFor='date'>
-                        <h3>Date</h3>
-                    </Form.Label>
-                    <Form.Control
-                        type='date'
-                        onChange={(e) => handleInput(e, setState)}
-                        required
-                        name='date'
-                        id='date'
-                        value={state.date}
-                    />
-                    <Form.Label htmlFor='time'>
-                            <h3>Time</h3>
-                    </Form.Label>
-                    <TimeInput setFormState={setState} formState={state} />
-                    <Form.Label htmlFor='notes'>
-                        <h3>Notes</h3>
-                    </Form.Label>
-                        <Form.Control
-                        className='notes'
-                        as='textarea'
-                        rows={5}
-                        name='notes'
-                        id='notes'
-                        value={state.notes}
-                        onChange={(e) => handleInput(e, setState)}
-                        placeholder='optional'
-                    />
-                    <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
-                </Form>
+            <h2 className='trip-title'>Trip to {trail.name}</h2>
+            <div className='trail-buttons'>
+                <button className='trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap}/></button>
             </div>
-                <div className='top'>
-                    <div className='left desktop'>
-                        <Form className='form desktop' onSubmit={submitTrip}>
+                <div className='trip-top'>
+                    <div className='trip-left'>
+                        <Form className='trip-form' onSubmit={submitTrip}>
                             <Form.Label htmlFor='date'>
                                 <h3>Date</h3>
                             </Form.Label>
@@ -193,11 +172,20 @@ function TripForm() {
                                 onChange={(e) => handleInput(e, setState)}
                                 placeholder='optional'
                             />
-                            <button className='trail-list-button form-submit' type='submit'>Save Trip</button>
+                            <button className='trip-form-submit trail-list-button form-submit' type='submit'>Save Trip</button>
                         </Form>
                     </div>
-                    <div className='right'>
-                        <ul className='trail'>
+                        {(typeof (trail.weather) != typeof ('string')) &&
+                            <div className='trip-form-weather'>
+                                <h3>Weather</h3>
+                                <div className='horizontal-scroll-wrapper'>
+                                    {weatherHtml}
+                                </div>
+                            </div>
+                    }
+                <h2 className='trail-details'>Trail Details</h2>
+                <div className='trip-bottom'>
+                    <ul className='trail trip-left'>
                             <li>
                                 <h3>
                                     Elevation gain
@@ -216,16 +204,11 @@ function TripForm() {
                                 </h3>
                                 {TRAIL_TYPES[trail.trail_type]}
                             </li>
-                            <li>
+                            <li className='whitespace'>
                                 <h3>
                                     Park
                                 </h3>
-                                {trail.park.name}
-                            </li>
-                            <li>
-                                <h3>
-                                    Address
-                                </h3>
+                                {trail.park.name+'\n'}
                                 {trail.park.address}
                             </li>
 
@@ -241,12 +224,9 @@ function TripForm() {
                                 </li>
                             }
                         </ul>
-                    </div>
-                </div>
+                <div>
 
-                <div className='bottom'>
-
-                    <ul className='trail trip-form-segment'>
+                    <ul className='trail trip-right'>
                         {trail.park.hours && <li className='whitespace'>
                             <h3>
                                 Hours
@@ -263,14 +243,7 @@ function TripForm() {
                             </li>
                         }
                     </ul>
-                    {(typeof (trail.weather) != typeof ('string')) &&
-                        <div className='trip-form-weather'>
-                        <h3>Weather</h3>
-                        <div className='horizontal-scroll-wrapper'>
-                            {weatherHtml}
-                        </div>
-                    </div>
-                    }
+                </div>
                 </div>
             </div>
             <Accordion>
@@ -279,6 +252,7 @@ function TripForm() {
                     {trail.description}
                 </Accordion.Body>
             </Accordion>
+            <MapModal trail={trail.name} latitude={trail.park.latitude} longitude={trail.park.longitude} show={showMap} setShow={setShowMap} />
         </div>
     )
 };

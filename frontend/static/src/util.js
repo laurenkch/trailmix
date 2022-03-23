@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloudSun, faCloudShowersHeavy, faCloud, faCloudSunRain, faSun, faSmog, faSnowflake, faWind } from '@fortawesome/free-solid-svg-icons';
 
 export const handleError = (err) => {
     console.warn(err);
@@ -229,4 +231,23 @@ export function convertTimeFormat(time) {
         return newTime
     } else
         return time
+}
+
+export function getWeatherIcons(description) {
+    if (description.includes('overcast clouds')) {
+        return <FontAwesomeIcon icon={faCloud}/>
+    } else if (description.includes('scattered clouds')) {
+        return <FontAwesomeIcon icon={faCloudSun} />
+    } else if (description.includes('rain')) {
+        return <FontAwesomeIcon icon={faCloudShowersHeavy} />
+    } else if (description.includes('windy')) {
+        return <FontAwesomeIcon icon={faWind} />
+    } else if (description.includes('snow')) {
+        return <FontAwesomeIcon icon={faSnowflake} />
+    } else if (description.includes('fog')) {
+        return <FontAwesomeIcon icon={faSmog} />
+    } else {
+        return <FontAwesomeIcon icon={faSun}/>
+    }
+
 }
