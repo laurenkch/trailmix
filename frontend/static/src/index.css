@@ -269,7 +269,14 @@ nav ul a:hover, nav ul a:focus {
 
 .admin-list {
   width: 100%;
+  margin-top: 30px;
 }
+
+.admin-list-wrapper {
+  width: 100%;
+  padding-top: 20px;
+}
+
 
 
 .image-wrapper img {

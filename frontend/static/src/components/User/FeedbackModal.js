@@ -147,8 +147,6 @@ function FeedbackModal({ id, show, setShow }) {
         }
     }
 
-    radioValues.forEach((obj, index) => (console.log(radioKey[index])));
-
     const radioHtml = radioValues.map((obj, index) => (
         <div className='set-wrapper' key={index}>
             <h3>{formatRadioHeader(radioKey[index])}</h3>

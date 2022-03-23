@@ -1,6 +1,9 @@
 from django.urls import path, include
 
-from .views import ParkListAdmin, TrailListAdmin, ImageList, TrailDetailAdmin, ParkDetailAdmin, ImageDetail, ImageTrailList, UserTrailList, UserParkList, UserTrailDetail, UserParkDetail, UserFeedback, UserTrailList, TripList, TripDetail
+from .views import *
+
+
+# ParkListAdmin, TrailListAdmin, ImageList, TrailDetailAdmin, ParkDetailAdmin, ImageDetail, ImageTrailList, UserTrailList, UserParkList, UserTrailDetail, UserParkDetail, UserFeedback, UserTrailList, TripList, TripDetail,
 
 app_name = 'trails'
 
@@ -27,4 +30,5 @@ urlpatterns = [
     path('feedback/', UserFeedback.as_view(), name='trail_feedback'),
     path('trips/', TripList.as_view(), name='trips'),
     path('trip/<int:pk>/', TripDetail.as_view(), name='trip_detail'),
+    # path('trip/recent/', name='recent_trip')
 ]

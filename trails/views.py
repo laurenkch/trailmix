@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import serializers
+from rest_framework.decorators import api_view
 
 from .models import Trail, UserFeedback, Trip, TrailImage, Park, TrailImage
 from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripShallowSerializer, UserFeedbackSerializer, ImageSerializer, ParkCreateSerializer, ParkViewSerializer, TripDeepSerializer
@@ -11,7 +12,7 @@ class ParkListAdmin(generics.ListCreateAPIView):
     permission_classes=(IsAdminUser,)
     serializer_class = ParkCreateSerializer
 
-    queryset= Park.objects.all()
+    queryset = Park.objects.order_by('name')
 
 
 class ParkDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
@@ -25,7 +26,7 @@ class TrailListAdmin(generics.ListCreateAPIView):
     serializer_class = ShallowTrailSerializer
     permission_classes = (IsAdminUser,)
 
-    queryset = Trail.objects.all()
+    queryset = Trail.objects.order_by('name')
 
 
 class TrailDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
@@ -38,7 +39,8 @@ class TrailDetailAdmin(generics.RetrieveUpdateDestroyAPIView):
 class UserTrailList(generics.ListAPIView):
     serializer_class = ShallowTrailSerializer
 
-    queryset = Trail.objects.all()
+    queryset = Trail.objects.order_by('name')
+
 
 class UserTrailDetail(generics.RetrieveAPIView):
     serializer_class = DeepTrailSerializer
@@ -48,7 +50,7 @@ class UserTrailDetail(generics.RetrieveAPIView):
 class UserParkList(generics.ListAPIView):
     serializer_class = ParkViewSerializer
 
-    queryset = Park.objects.all()
+    queryset = Park.objects.order_by('name')
 
 class UserParkDetail(generics.RetrieveAPIView):
     serializer_class = ParkViewSerializer
@@ -100,6 +102,24 @@ class TripList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+# class MostRecentTripDetail(generics.ListAPIView):
+#     serializer_class = TripShallowSerializer
+
+
+#     def get_queryset(self):
+
+#         """
+#         returns most recent trip to a trail
+#         """
+#         queryset = Trip.objects.filter(user=self.request.user)
+#         trailID = self.request.query_params.get('trail', None)
+#         if trailID is not None:
+#             queryset = Trip.objects.filter(trail=trailID)
+#             queryset.order_by('date')[:1]
+
+#         return queryset
 
 
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
