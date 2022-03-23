@@ -166,7 +166,7 @@ function TrailDetail() {
 
     return (
         <div className='trail'>
-            <h2>{state.name}</h2>
+            <h2 className='top-h2'>{state.name}</h2>
                 <div className='desktop trail-buttons'>
                 {auth && <Link className='trail-list-button'
                     to={`/plan/${state.id}`}
@@ -178,9 +178,8 @@ function TrailDetail() {
                 >
                     Plan a trip to {state.name}
                     </button>}
-                    <button className='trail-list-button desktop-map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
                 </div>
-                <button className='mobile trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
+                <button className='trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
             {imageList.length > 0 &&
                 <div className='horizontal-scroll-wrapper trail-images'>
                     {imageHtml}
@@ -267,7 +266,7 @@ function TrailDetail() {
                 </div>
             }
             <div className='mobile plan-trip-button'>
-                {auth && <Link className='trail-list-button'
+                {auth && <Link
                     to={`/plan/${state.id}`}
                 >
                     Plan a trip to {state.name}

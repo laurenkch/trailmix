@@ -258,10 +258,9 @@ nav ul a:hover, nav ul a:focus {
   transform: scale(1.05);
   transition: all 0.05s ease-in-out;
   font-weight: 500;
-  color: rgb(200, 200, 200) !important;
 }
 
-.mobile .accordion-button:focus {
+.nav-button:hover,.nav-button:focus, .mobile .accordion-body ul a:hover , .mobile .accordion-body ul a:focus {
     border-color: none !important;
     box-shadow: none !important;
 }
@@ -592,6 +591,10 @@ h3 {
   margin-left: 0;
 }
 
+.top-h2 {
+  max-width: 75%;
+}
+
 .trail div{
   white-space: break-spaces;
 }
@@ -600,24 +603,27 @@ h3 {
   padding: 1px !important;
   background-color: inherit !important;
   border: none !important;
-  color: var(--green) !important;
+  color: var(--yellow) !important;
   margin-left: 5px; 
 }
 
 .btn-success:focus, .btn-success:hover {
-  color: rgb(87 117 43 / 75%) !important;
+  color: rgb(251,196,117 / 75%) !important;
   transition: all 0.15s ease-in-out;
   box-shadow: none !important;
   border: none !important;
 }
 #button-tooltip > .tooltip-inner {
-  background-color: var(--forest-green) !important;
+  background-color: rgb(248, 225, 193) !important;
+  color: var(--gray);
+  border: 1px solid var(--yellow);
+  box-shadow: 0px 0px 1px 1px inset var(--yellow);;
   max-width: 80%;
 }
 
 
 .tooltip-arrow::before {
-  border-right: 5px solid var(--forest-green) !important;
+  border-right: 5px solid rgb(248, 225, 193)!important;
 }
 
 .tip button  {
@@ -672,6 +678,25 @@ h3 {
 }
 .plan-trip-button {
   text-align: center;
+  background-color: var(--green);
+  font-weight: 550;
+  padding: 10px 5px;
+  min-width: 120px;
+  border-radius: 5px;
+  margin: 8px 10px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.plan-trip-button a {
+  color:white !important;
+}
+
+.plan-trip-button:focus, .plan-trip-button:hover {
+  background-color: rgba(87, 117, 43, 0.84);
+  box-shadow: 2px 6px 6px var(--light-stone);
+  transition: all 0.15s ease-in-out;
 }
 
 .trail-buttons {
@@ -749,7 +774,7 @@ h3 {
 
 .trail-description {
     border: 2px solid rgb(217, 214, 208) !important;
-
+    margin-bottom: 30px;
 }
 
 .trail-description .accordion-button:not(.collapsed)::after {
@@ -793,16 +818,43 @@ img.absolute {
   flex-wrap: wrap;
 }
 
+.radio-buttons {
+  margin: 10px 0;
+  background-color: white;
+}
+
+.feedback-form-image-input label {
+  display: none;
+}
+
+.feedback-form-image-input input {
+  margin-bottom: 15px;
+}
+
+
 .set {
   margin: 5px;
 }
 
+.set-wrapper h3 {
+  font-size: 1.1em;
+}
+
 .checkbox {
+  display: flex;
   margin: 5px;
 }
 
 .checkbox input, .checkbox label .radio-buttons input, .radio-buttons label {
-  margin: 0 5px;
+  margin: 0 10px;
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checkbox label {
+  text-transform: capitalize;
 }
 
 .modal-header {
@@ -847,19 +899,60 @@ img.absolute {
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
 }
-/* 
-.close-modal:focus, .close-modal:hover {
-  background-color: rgb(138, 127, 112);
-  box-shadow: 2px 6px 6px var(--light-stone) !important;
-  transition: all 0.15s ease-in-out;
-} */
-
 
 .close-modal:focus, .close-modal:hover {
   color: rgb(46, 44, 33) !important;
   transition: all 0.15s ease-in-out;
 }
 
+
+input.checkbox + label {
+  border: 2px solid var(--cranberry);
+  color: var(--gray);
+  font-weight: 550;
+  background: white;
+  padding: 5px 8px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+input.checkbox:not(:checked) + label:hover {
+  box-shadow: 0px 1px 3px rgba(148, 34, 103, 0.75);
+  border: 2px solid rgba(148, 34, 103, 0.75)
+}
+input.checkbox + label:active,
+input.checkbox:checked + label {
+  box-shadow: 0px 0px 3px inset rgba(148, 34, 103, 0.75);
+  background: rgba(148, 34, 103, 0.75);
+  color: white;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -4px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -4px;
+    left: -1px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
 
 /* /////////////////////////////////////////////////////////////////TRIP FORM */
 

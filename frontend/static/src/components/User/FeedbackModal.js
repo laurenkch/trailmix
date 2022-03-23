@@ -27,7 +27,7 @@ function FeedbackModal({ id, show, setShow }) {
     const [radioState, setRadioState] = useState(INITIAL_RADIO_OPTIONS);
 
     // ////////////////////////////////////////////////HANDLE FORM INPUT
-    
+
     const handleFeedback = (e) => {
         const key = e.target.name
         const value = e.target.checked
@@ -59,34 +59,6 @@ function FeedbackModal({ id, show, setShow }) {
         }
         reader.readAsDataURL(file);
     }
-    ///////////////////////////////////////////////////ADD IMAGE
-
-    // const addImage = async (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData();
-    //     formData.append('trail', id)
-    //     formData.append('image', image);
-
-    //     const options = {
-    //         method: 'POST',
-    //         headers: {
-    //             'X-CSRFToken': Cookies.get('csrftoken'),
-    //         },
-    //         body: formData,
-    //     }
-
-    //     const response = await fetch('/api/v1/trails/photos/', options).catch(handleError);
-
-    //     if (!response.ok) {
-    //         throw new Error("Network response not ok");
-    //     }
-    //     const data = await response.json();
-
-    //     setImageList((prevlist) => [...prevlist, data])
-
-    //     setPreview(null);
-    //     setImage(null);
-    // }
 
     // //////////////////////////////////////////////// SUBMIT INPUT
 
@@ -133,7 +105,7 @@ function FeedbackModal({ id, show, setShow }) {
             setPreview(null);
             setImage(null);
             handleClose();
-            
+
         }
     }
 
@@ -145,11 +117,11 @@ function FeedbackModal({ id, show, setShow }) {
         let displayValue = option.replaceAll('_', ' ')
         return (
             <div className='checkbox' key={index} >
-                <input onClick={handleFeedback} type="checkbox" id={option} name={option} checked={checkedState.option} />
+                <input onClick={handleFeedback} className='checkbox' type="checkbox" id={option} name={option} checked={checkedState.option} />
                 <label htmlFor={option}>{displayValue}</label>
             </div>
         );
-});
+    });
 
     const printButtons = (obj, index) => {
 
@@ -166,34 +138,50 @@ function FeedbackModal({ id, show, setShow }) {
         return data;
     }
 
+    function formatRadioHeader(title) {
+        if (title === 'pet_stance') {
+            return 'Pets'
+        } else {
+            let formattedTitle = title[0].toUpperCase() + title.slice(1);
+            return formattedTitle.replace('_', ' ')
+        }
+    }
+
+    radioValues.forEach((obj, index) => (console.log(radioKey[index])));
+
     const radioHtml = radioValues.map((obj, index) => (
-        <div className='radio-buttons' key={index}>
-            {printButtons(obj, index)}
+        <div className='set-wrapper' key={index}>
+            <h3>{formatRadioHeader(radioKey[index])}</h3>
+            <div className='radio-buttons'>
+                {printButtons(obj, index)}
+            </div>
         </div>
     ));
 
-    return(
+    return (
 
-    <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>Select any that apply</Modal.Header>
-        <Modal.Body>
-            <Form onSubmit={submitFeedback}>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+                <p>Any feedback or photos you'd like to provide helps other hikers know what to expect.</p>
+                <Form onSubmit={submitFeedback}>
+                    <h2>Select any that apply</h2>
                     <div className='checkboxes'>
                         {checkboxHtml}
                     </div>
                     {radioHtml}
-                    <Form.Label htmlFor='photo field'>Share a photo from your hike</Form.Label>
-                    <ImageForm
-
-                        previewImage={previewImage}
-
-                    />
+                    <h3 className=''>Share a photo of the trail</h3>
+                    <div className='feedback-form-image-input'>
+                        <ImageForm
+                            previewImage={previewImage}
+                        />
+                    </div>
                     {preview && <div className='image-wrapper'><img src={preview} alt='preview' /></div>}
-                <button className='feedback-button' type='submit'>Submit</button>
-            </Form>
+                    <button className='feedback-button' type='submit'>Submit</button>
+                </Form>
             </Modal.Body>
-        
-        <button className='close-modal' type='button' onClick={handleClose}>Close</button>
+
+            <button className='close-modal' type='button' onClick={handleClose}>Close</button>
 
         </Modal>
     )
