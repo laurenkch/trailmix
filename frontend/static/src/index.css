@@ -310,12 +310,6 @@ main {
   width: 200px;
 }
 
-/*///////////////////////////////////////////////// TRIP */
-
-.form {
-  max-width: 50%;
-}
-
 /*///////////////////////////////////////////////// HOME */
 
 .search {
@@ -636,14 +630,16 @@ h3 {
 }
 
 .feedback-badge {
-  background-color: var(--buttons);
-  color: var(--background-color);
+  color: var(--cranberry);
+  font-weight: 550;
+  background-color: var(--background-color);
+  border: 2px solid var(--cranberry);
   font-size: 1.2em;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
   margin: 4px;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .feedback-wrapper {
@@ -715,16 +711,32 @@ h3 {
 
   }
 
-  .stone .accordion-button:focus, .stone .accordion-button:hover {
+.trail-description .accordion-button:focus, .trail-description .accordion-button:hover {
   border-color: rgba(219	203	177	/ 25%)  !important;
   box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
 }
 
-.stone .accordion-button:not(.collapsed), .stone .accordion-button, .stone .accordion-button:not(.collapsed), .stone .accordion-button::after {
-  color: white !important;
+.trail-description .accordion-button:not(.collapsed), .trail-description .accordion-button, .trail-description .accordion-button:not(.collapsed), .trail-description .accordion-button::after {
+  color: var(--gray) !important;
   font-weight: bold !important;
-  background-color: var(--stone) !important;
+  background-color: rgb(242	239	233	) !important;
 }
+
+.trail-description {
+    border: 2px solid rgb(217, 214, 208) !important;
+
+}
+
+.trail-description .accordion-button:not(.collapsed)::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%39383b'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+/* #39383b --gray */
+
+.trail-description .accordion-button.collapsed::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%39383b'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
 
 .accordion-body {
  background-color: white;
@@ -810,6 +822,8 @@ h3 {
 }
 
 /* /////////////////////////////////////////////////////////////////TRIP FORM */
+
+
 
 .trip-form {
   display: flex;
@@ -973,7 +987,62 @@ h3 {
   box-shadow: 2px 6px 6px var(--opaque-gray);
   transition: all 0.15s ease-in-out;
 }
+/* /////////////////////////////////////////////////////////////////TRIP DETAILS */
 
+
+.form {
+  max-width: 50%;
+}
+
+
+.icon-button {
+    color: var(--forest-greeng);
+    background-color: var(--background-color);
+    font-weight: 500;
+    border: none;
+    margin: 2px 10px;
+
+}
+
+.icon-button:focus, .icon-button:hover  {
+  color: var(--cranberry);
+  transform: scale(1.1);
+  transition: all 15ms ease-in-out;
+}
+
+.trail-top {
+  display: flex;
+  justify-content: space-around;
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  position: relative;
+}
+
+.trip-weather {
+  flex: 1;
+}
+
+.absolute-end {
+  position: absolute;
+  right: 35px;
+}
+
+.trip-detail {
+  padding: 4px 0px;
+  font-size: 1.1em;
+}
+
+.trip-link a:visited, .trip-link a:link {
+    color: var(--gray) !important;
+}
+.trip-link h3:hover, .trip-link h3:hover:focus {
+  color: var(--cranberry) !important;
+}
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
@@ -1008,6 +1077,7 @@ h3 {
     justify-content: space-between;
   }
 
+  
   .bottom ul {
     flex-direction: row;
   }
@@ -1084,6 +1154,29 @@ h3 {
     max-width: 100%;
   }
 
+  .trail-images {
+    height: 500px;
+  }
+  .trail-image-wrapper {
+  margin: 10px auto;
+  max-height: 500px;
 
+}
+
+img.absolute {
+  height: 100%;
+  width: auto;
+}
+
+.trip-form-weather, .trip-form-segment {
+  flex: 1;
+}
+.trip-form-weather {
+  max-width: 50%;
+}
+
+.trip .bottom {
+  flex-direction: column;
+}
 
 }

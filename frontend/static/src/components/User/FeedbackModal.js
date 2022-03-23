@@ -3,10 +3,13 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import ImageForm from './../ImageForm';
 
 function FeedbackModal({ id, show, setShow }) {
 
     const handleClose = () => { setShow(false) };
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState(null);
 
     const INITIAL_FEEDBACK = FEEDBACK_CHECKBOX_OPTIONS.reduce((prevValue, currentValue) => (
         { ...prevValue, [currentValue]: false })
@@ -43,6 +46,48 @@ function FeedbackModal({ id, show, setShow }) {
         }));
     };
 
+    ///////////////////////////////////////////////// HANDLE IMAGE FILE
+
+
+    const previewImage = e => {
+        const file = e.target.files[0];
+        setImage(file)
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreview(reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+    ///////////////////////////////////////////////////ADD IMAGE
+
+    // const addImage = async (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData();
+    //     formData.append('trail', id)
+    //     formData.append('image', image);
+
+    //     const options = {
+    //         method: 'POST',
+    //         headers: {
+    //             'X-CSRFToken': Cookies.get('csrftoken'),
+    //         },
+    //         body: formData,
+    //     }
+
+    //     const response = await fetch('/api/v1/trails/photos/', options).catch(handleError);
+
+    //     if (!response.ok) {
+    //         throw new Error("Network response not ok");
+    //     }
+    //     const data = await response.json();
+
+    //     setImageList((prevlist) => [...prevlist, data])
+
+    //     setPreview(null);
+    //     setImage(null);
+    // }
+
     // //////////////////////////////////////////////// SUBMIT INPUT
 
     const submitFeedback = async (e) => {
@@ -65,9 +110,33 @@ function FeedbackModal({ id, show, setShow }) {
             throw new Error("Network response not ok");
         }
 
-        handleClose();
+        if (image && response) {
 
+            const formData = new FormData();
+            formData.append('trail', id)
+            formData.append('image', image);
+
+            const options2 = {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': Cookies.get('csrftoken'),
+                },
+                body: formData,
+            }
+
+            const response2 = await fetch('/api/v1/trails/photos/', options2).catch(handleError);
+
+            if (!response2.ok) {
+                throw new Error("Network response not ok");
+            }
+
+            setPreview(null);
+            setImage(null);
+            handleClose();
+            
+        }
     }
+
 
     // ////////////////////////////////////////////////CREATE MODAL HTML
 
@@ -113,9 +182,17 @@ function FeedbackModal({ id, show, setShow }) {
                         {checkboxHtml}
                     </div>
                     {radioHtml}
+                    <Form.Label htmlFor='photo field'>Share a photo from your hike</Form.Label>
+                    <ImageForm
+
+                        previewImage={previewImage}
+
+                    />
+                    {preview && <div className='image-wrapper'><img src={preview} alt='preview' /></div>}
                 <button className='feedback-button' type='submit'>Submit</button>
             </Form>
-        </Modal.Body>
+            </Modal.Body>
+        
         <button className='close-modal' type='button' onClick={handleClose}>Close</button>
 
         </Modal>
@@ -123,4 +200,4 @@ function FeedbackModal({ id, show, setShow }) {
 
 };
 
-export default FeedbackModal;
+export default FeedbackModal

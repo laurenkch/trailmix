@@ -213,4 +213,20 @@ export const convertWindDegrees = (x) => {
     }
 
 
+export function convertDateFormat(date) {
+    if (date.length === 10) {
+        let year = date.slice(0, 4);
+        date = date.slice(6, 10) + '-' + year;
+    } else if (date.length === 5) {
+        date.replace('-', '/')
+    }
+    return date
+}
 
+export function convertTimeFormat(time) {
+    if(time && time[0] === '0') {
+        let newTime = time.slice(1)
+        return newTime
+    } else
+        return time
+}

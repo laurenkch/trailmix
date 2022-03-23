@@ -10,7 +10,6 @@ import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import Accordion from 'react-bootstrap/Accordion';
 import MapModal from './MapModal';
-// import html2canvas from 'html2canvas';
 
 
 function TrailDetail() {
@@ -154,12 +153,15 @@ function TrailDetail() {
 
     let imageHtml;
     if (imageList) {
-        imageHtml = imageList.map((image) => <div className='image-wrapper' key={image.id}>
-            <img src={image.image} alt='trail' />
+        imageHtml = imageList.map((image) =>
+            <div className='trail-image-wrapper' key={image.id}>
+            <img className='absolute' src={image.image} alt='trail' />
         </div>);
     }
 
     const radioFeedbackHtml = printRadioFeedback();
+
+    console.log(imageList);
 
     return (
         <div className='trail'>
@@ -177,9 +179,11 @@ function TrailDetail() {
                     Plan a trip to {state.name}
                 </button>}
             </div>
-            <div className='horizontal-scroll-wrapper'>
-                {imageHtml}
-            </div>
+            {imageList.length > 0 &&
+                <div className='horizontal-scroll-wrapper trail-images'>
+                    {imageHtml}
+                </div>
+            }
             <ul>
                 <li>
                     <h3>
@@ -245,8 +249,8 @@ function TrailDetail() {
                 </li>
                 }
             </ul>
-            <Accordion className='stone'>
-                <Accordion.Header className='stone'>Trail Description</Accordion.Header>
+            <Accordion className='trail-description'>
+                <Accordion.Header className='trail-description'>Trail Description</Accordion.Header>
                 <Accordion.Body>
                     {state.description}
                 </Accordion.Body>
@@ -268,7 +272,7 @@ function TrailDetail() {
             </div>
 
             {auth && <div className='feedback-prompt-wrapper'>
-                <div className='question-wrapper'><h3>Have you hiked this trail?</h3></div>
+                <div className='question-wrapper'><h3>Have you hiked {state.name}?</h3></div>
                 <button
                     type='button' className='feedback-prompt' onClick={handleOpenFeedback}
                 >Let us know how it was!</button>

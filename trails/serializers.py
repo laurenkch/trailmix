@@ -326,11 +326,16 @@ class TripDeepSerializer(serializers.ModelSerializer):
     weather = serializers.SerializerMethodField()
     time = serializers.TimeField(allow_null=True,
                                  format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
+    fee = serializers.ReadOnlyField(source='trail.park.fee')
+    difficulty = serializers.ReadOnlyField(source='trail.difficulty')
+    length = serializers.ReadOnlyField(source='trail.length')
+    elevation_gain = serializers.ReadOnlyField(source='trail.elevation_gain')
+    trail_type = serializers.ReadOnlyField(source='trail.trail_type')
 
     class Meta:
         model = Trip
         fields = ('date', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time', 'notes')
+                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time', 'notes', 'fee', 'difficulty','length','elevation_gain','trail_type')
         depth = 1
 
     def get_weather(self, obj):
@@ -394,6 +399,7 @@ class TripShallowSerializer(serializers.ModelSerializer):
     address = serializers.ReadOnlyField(source='trail.park.address')
     time = serializers.TimeField(allow_null=True, format=settings.TIME_INPUT_FORMATS, input_formats=[
                                  settings.TIME_INPUT_FORMATS, ],)
+
 
     class Meta:
         model = Trip

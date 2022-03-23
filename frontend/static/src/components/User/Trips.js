@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { handleError } from './../../util';
+import { handleError, convertDateFormat, convertTimeFormat } from './../../util';
 import { Link } from 'react-router-dom';
 import Accordion from 'react-bootstrap/Accordion';
 
@@ -36,11 +36,19 @@ function Trips() {
     const upcomingTripsHtml = trips
         .filter((trip) => new Date(trip.date) > currentTime)
         .map((trip, index) => (
-            <Link to={`/trip/${trip.id}`} key={index}>
-                <h3>{trip.trailname}</h3>
-                {trip.date}
-                {trip.time}
-            </Link>
+            <div>
+            <Link className='trip-link' to={`/trip/${trip.id}`} key={index}>
+                    <h3>{trip.trailname}</h3>
+                </Link>
+                <div>
+                <div>
+                    {convertDateFormat(trip.date)}
+                </div>
+                <div>
+                        {convertTimeFormat(trip.time)}
+                    </div>
+                </div>
+            </div>
         ));
     
     const pastTripsHtml = trips
@@ -48,8 +56,7 @@ function Trips() {
         .map((trip, index) => (
             <li key={index}>
                 <h3>{trip.trailname}</h3>
-                {trip.date}
-                {trip.time}
+                <div>{convertDateFormat(trip.date)}</div>
             </li>
         ));
 

@@ -20,6 +20,7 @@ function TripForm() {
     const [trail, setTrail] = useState(null);
     const [state, setState] = useState(INITIAL_STATE);
 
+
     ////////////////////////////////////////////////////LOAD TRAIL
 
     const getTrail = async () => {
@@ -81,14 +82,18 @@ function TripForm() {
 
     if (typeof (trail.weather) != typeof ('string')) {
         weatherHtml = trail.weather.daily
-            .map((day, index) =>
+            .map((day, index) => {
+                let date = new Date(day.dt)
+                    return (
                 <div key={index} className='scroll-squares'>
-                    <h4>{day.dt.slice(5, 10)}</h4>
+                            <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
                     <p>{day.temp.day.toFixed(0)} F</p>
                     <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
                     <p>{day.weather[0].description}</p>
-                </div>)
-    }  
+                        </div>)
+
+    })
+}
 
     let feedbackHtml;
 
@@ -119,8 +124,6 @@ function TripForm() {
     }
 
     const radioFeedbackHtml = printRadioFeedback();
-
-    console.log(radioFeedbackHtml);
 
     return (
         <div className='wrapper'>
@@ -243,7 +246,7 @@ function TripForm() {
 
                 <div className='bottom'>
 
-                    <ul className='trail'>
+                    <ul className='trail trip-form-segment'>
                         {trail.park.hours && <li className='whitespace'>
                             <h3>
                                 Hours
@@ -252,18 +255,22 @@ function TripForm() {
                         </li>
                         }
                         {trail.park.fee &&
-                            <li className='whitespace'>
+                            <li className='whitespace trip-form-segment'>
                                 <h3>
                                     Fees
                                 </h3>
-                                {trail.park.fee.replaceAll(';', '\n')}
+                                {trail.park.fee.replaceAll(';', '\n').replaceAll('/', ' ')}
                             </li>
                         }
                     </ul>
-                    {(typeof (trail.weather) != typeof ('string')) && <h3>Weather</h3>}
-                    {(typeof (trail.weather) != typeof ('string')) && <div className='horizontal-scroll-wrapper'>
-                        {weatherHtml}
-                    </div>}
+                    {(typeof (trail.weather) != typeof ('string')) &&
+                        <div className='trip-form-weather'>
+                        <h3>Weather</h3>
+                        <div className='horizontal-scroll-wrapper'>
+                            {weatherHtml}
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
             <Accordion>

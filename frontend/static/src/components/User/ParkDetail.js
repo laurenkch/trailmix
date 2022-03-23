@@ -144,7 +144,7 @@ function ParkDetail() {
                             Fees
                         </h3>
                         <div>
-                            {state.fee.replaceAll(';', '\n')}
+                            {state.fee.replaceAll(';', '\n').replaceAll('/', ' ')}
                         </div>
                     </li>}
                 {state.activities &&
