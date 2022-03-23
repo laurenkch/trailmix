@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { handleError, TRAIL_TYPES, handleInput, TimeInput, convertWindDegrees } from './../../util';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, convertWindDegrees, getWeatherIcons, convertTimeFormat } from './../../util';
 import Cookies from 'js-cookie';
 import Form from 'react-bootstrap/Form';
 import MapModal from './MapModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faMap } from '@fortawesome/free-solid-svg-icons';
 
 function TripDetail() {
 
@@ -125,28 +125,36 @@ function TripDetail() {
 
     if (trip.weather) {
         const data = trip.weather.daily[0]
+        let date = new Date(data.dt)
         weatherHtml =
-            <div className='scroll-squares'>
-                <h4>{data.dt}</h4>
-                <p>{data.temp.day.toFixed(0)} F</p>
-                <p>{data.wind_speed.toFixed(0)} {convertWindDegrees(data.wind_deg)}</p>
+            <div className='scroll-squares whitespace'>
+                <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
+                <div className='weather-icon'>
+                    {getWeatherIcons(data.weather[0].description)}
+                </div>
+                <p className='temp'>{data.temp.day.toFixed(0)} F</p>
+                <p>Winds {'\n' + data.wind_speed.toFixed(0)} {convertWindDegrees(data.wind_deg)}</p>
                 <p>{data.weather[0].description}</p>
             </div>
     };
 
     return (
         <div className='wrapper'>
-            <Link className='link' to={`/trail/${trip.trail.id}/`}><h2>{trip.trailname}</h2></Link>
+
+            <Link className='link' to={`/trail/${trip.trail.id}/`}><h2>Trip to {trip.trailname}</h2></Link>
             <div className='trail-buttons'>
-                <button className='trail-list-button' type='button' onClick={handleOpenMap}>Trail Map</button>
+                <button className='mobile trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
+                <button className='trail-list-button desktop map-button trip-detail-map' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
             </div>
             <div className='trail-top'>
                 <div className='trip-details'>
-                    <h2>Date</h2>
                     {!isEditingDate &&
                         <div className='trip-detail'>
+                            <div className='flex'>
+                                <h2>Date</h2>
+                            <button type='button' className='icon-button' onClick={() => setIsEditingDate(true)}>< FontAwesomeIcon icon={faPencil} /></button>
+                            </div>
                             {trip.date}
-                            <button type='button' className='icon-button absolute-end' onClick={() => setIsEditingDate(true)}>< FontAwesomeIcon icon={faPencil} /></button>
                         </div>
                     }
                     {isEditingDate &&
@@ -167,21 +175,26 @@ function TripDetail() {
                             </Form>
                         </div>
                     }
-                    <h2>Time</h2>
                     {!isEditingTime && trip.time === null &&
                         <div>
-                            {trip.time}
+                            <h2>Time</h2>
+                            {convertTimeFormat(trip.time)}
                             < button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}>Add Time</button>
                         </div>
                     }
                     {!isEditingTime && trip.time !== null &&
                         <div>
-                            {trip.time}
-                            < button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}> < FontAwesomeIcon icon={faPencil} />
+                            <div className='flex'>
+                            <h2>Time</h2>
+                            <button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}> < FontAwesomeIcon icon={faPencil} />
                             </button>
+                            </div>
+                            {convertTimeFormat(trip.time)}
                         </div>
                     }
                     {isEditingTime &&
+                        <div>
+                        <h2>Time</h2>
                         <Form onSubmit={editTrip}>
                             <TimeInput setFormState={setState} formState={state} />
                             <button type='submit'>Save</button>
@@ -193,20 +206,26 @@ function TripDetail() {
                             }}
                             >Delete Time</button>
                         </Form>
+                        </div>
                     }
-                    <h2>Notes</h2>
                     {!isEditingNotes && !trip.notes &&
                         <div>
+                            <h2>Notes</h2>
                             {trip.notes}
-                            < button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}>Add Notes</button>
+                            <button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}>Add Notes</button>
                         </div>
                     }
                     {!isEditingNotes && trip.notes &&
                         <div>
+                            <div className='flex'>
+                                <h2>Notes</h2>
+                                <button type='button' className='icon-button' onClick={() => setIsEditingNotes(true)}>< FontAwesomeIcon icon={faPencil} /></button>
+                            </div>
                             {trip.notes}
-                            <button type='button' className='icon-button' onClick={() => setIsEditingNotes(true)}>< FontAwesomeIcon icon={faPencil} /></button>
                         </div>}
                     {isEditingNotes &&
+                        <div>
+                            <h2>Notes</h2>
                         <Form onSubmit={editTrip}>
                             <Form.Control
                                 as='textarea'
@@ -218,24 +237,25 @@ function TripDetail() {
                             />
                             <button type='submit' className='trail-list-button'>Save</button>
                         </Form>
+                        </div>
                     }
-                    <button button='type' className='close-modal' onClick={deleteTrip}>Cancel Trip</button>
 
                 </div>
                 <div className='trip-weather'>
                     {trip.weather &&
-                        <div>
-                            <h3>Weather</h3>
+                        <div className='scroll-squares flex center column'>
+                            <h3 className='center'>Weather</h3>
                             {weatherHtml}
                         </div>}
                 </div>
             </div>
-
-            <ul>
-
-                <h3 className='park-name-detail'>
+            <ul className='trip-detail-trail-info'>
+                <li>
+                <h3>
                     {trip.parkname}
                 </h3>
+                    {trip.address}
+                </li>
                 <li>
                     <h3>
                         Length
@@ -264,12 +284,6 @@ function TripDetail() {
                     </h3>
                     {TRAIL_TYPES[trip.trail_type]}
                 </li>
-                <li>
-                    <h3>
-                        Address
-                    </h3>
-                    {trip.address}
-                </li>
                 {trip.fee &&
                     <li className='whitespace'>
                         <h3>
@@ -279,6 +293,7 @@ function TripDetail() {
                     </li>
                 }
             </ul>
+            <button button='type' className='cancel-trip' onClick={deleteTrip}>Cancel Trip</button>
             <MapModal trail={trip.trail} latitude={trip.latitude} longitude={trip.longitude} show={showMap} setShow={setShowMap} />
         </div>
 

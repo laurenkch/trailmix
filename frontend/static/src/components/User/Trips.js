@@ -66,7 +66,7 @@ function Trips() {
             <ul>
                 {upcomingTripsHtml.length > 0 ? upcomingTripsHtml: 'No upcoming trips'}
             </ul>
-
+            <div className='past-trips'>
             <Accordion>
                 <Accordion.Item eventKey='0'>
                     <Accordion.Header>Past Trips</Accordion.Header>
@@ -77,6 +77,7 @@ function Trips() {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
+            </div>
         </div>
     )
 }

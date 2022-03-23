@@ -108,17 +108,6 @@ function TrailDetail() {
 
     let weatherHtml;
 
-    // if (typeof(state.weather) != typeof('string')) {
-    //     weatherHtml = state.weather.daily
-    //         .map((day, index) =>
-    //             <div key={index} className='scroll-squares'>
-    //             <h4>{day.dt.slice(5,10)}</h4>
-    //             <p>{day.temp.day.toFixed(0)} F</p>
-    //                 <p>{day.wind_speed.toFixed(0)} {convertWindDegrees(day.wind_deg)}</p>
-    //             <p>{day.weather[0].description}</p>
-    //         </div>)
-    // } 
-
     if (typeof (state.weather) != typeof ('string')) {
         weatherHtml = state.weather.daily
             .map((day, index) => {

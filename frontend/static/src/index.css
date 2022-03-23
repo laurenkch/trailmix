@@ -550,7 +550,7 @@ main {
   min-width: 120px;
   border-radius: 5px;
   margin: 8px 10px;
-  display: inline-block;
+  /* display: inline-block; */
   text-align: center;
   border: none;
 }
@@ -866,12 +866,16 @@ img.absolute {
 
 .map-button {
   position: absolute;
-  top: 43px;
+  top: -5px;
   right: 0px;
   margin: 0;
   padding: 10px 20px !important;
   min-width: auto;
   border-radius: 13px;
+}
+.form-map-button {
+  top: 43px;
+  right: 0px;
 }
 .trip-form {
   display: flex;
@@ -883,25 +887,6 @@ img.absolute {
   margin-top: 20px;
 
 }
-/* 
-.left {
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 0.25rem;
-}
-.right {
-  margin-left: 10px;
-  display: flex;
-} */
 
 .trail-details {
   margin-top: 10px;
@@ -923,45 +908,11 @@ img.absolute {
   margin-top: 0;
 }
 
-/* .trip-form .form {
-  width: 100% !important;
-  max-width: 100% !important;
-} */
-
 .left .form h3 {
   font-size: 1.4em;
   padding-top: 12px;
   margin-bottom: 0;
 }
-
-/* .right {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.right ul li {
-  flex: 1;
-  max-width: initial !important;
-  margin: 0;
-} */
-
-/* .bottom {
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.bottom ul {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-} */
-
-/* .bottom li {
-  max-width: initial !important;
-  flex: 1;
-} */
 
 .full-width {
   width: 100%;
@@ -1061,6 +1012,9 @@ img.absolute {
 }
 /* /////////////////////////////////////////////////////////////////TRIP DETAILS */
 
+.past-trips {
+  margin-top: 16px;
+}
 
 .form {
   max-width: 50%;
@@ -1069,10 +1023,11 @@ img.absolute {
 
 .icon-button {
     color: var(--forest-greeng);
-    background-color: var(--background-color);
+    background-color: white;
     font-weight: 500;
     border: none;
-    margin: 2px 10px;
+    margin: -5px 0px 0px 3px;
+    font-size: 0.8em;
 
 }
 
@@ -1084,7 +1039,7 @@ img.absolute {
 
 .trail-top {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 }
 
 .trip-details {
@@ -1093,6 +1048,32 @@ img.absolute {
   justify-content: space-between;
   flex: 1;
   position: relative;
+  background-color: white;
+  border: 2px solid rgb(217, 214, 208);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.trip-details h2 {
+  font-size: 1.4em;
+}
+
+.trip-weather, .trip-details {
+  margin: 20px;
+}
+
+.trip-weather {
+  background-color: white;
+  border: 2px solid rgb(217, 214, 208);
+  border-radius: 5px;
+}
+
+.trip-weather h3 {
+  background-color: var(--forest-green) ;
+  color: var(--background-color);
+  padding-left: 7px;
+  width: 100%;
+  padding-bottom: 3px;
 }
 
 .trip-weather {
@@ -1115,6 +1096,61 @@ img.absolute {
 .trip-link h3:hover, .trip-link h3:hover:focus {
   color: var(--cranberry) !important;
 }
+
+.flex {
+  display: flex;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.trip-detail-trail-info {
+  border-top: 2px solid rgb(217, 214, 208);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.trip-detail-trail-info li {
+  margin: 5px;
+  padding: 5px;
+}
+
+.trip-detail-trail-info h3 {
+  font-size: 1.5em;
+}
+
+.cancel-trip {
+    background-color: var(--cranberry);
+    color: white !important;
+    font-weight: 700;
+    padding: 10px 0;
+    min-width: 120px;
+    border-radius: 5px;
+    margin: 8px 10px;
+    display: inline-block;
+    text-align: center;
+    border: none;
+    align-self: flex-end;
+    width: 100%;
+}
+
+.cancel-trip:hover, .cancel-trip:focus {
+  background-color: rgb(189, 75, 146) !important;
+  box-shadow: 2px 6px 6px var(--light-stone);
+  transition: all 0.15s ease-in-out;
+}
+
+/* .trail-list-button:focus, .trail-list-button:hover {
+  background-color: rgba(87, 117, 43, 0.84);
+  box-shadow: 2px 6px 6px var(--light-stone);
+  transition: all 0.15s ease-in-out;
+} */
 
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
@@ -1263,12 +1299,28 @@ img.absolute {
 
 .desktop-map-button {
   margin: 0;
-  padding: 2px 9px !important;
+  padding: 2px 5px !important;
   min-width: auto;
   border-radius: 18px;
   max-height: 3em;
   margin-top: 5px;
 
+}
+
+.trip-detail-map svg {
+  margin: 1px 5px;
+}
+.trip-detail-map {
+  max-height: 3em;
+  padding: 9px 10px !important;
+}
+
+.trail-top {
+  flex-direction: row;
+}
+
+.cancel-trip {
+    width: auto;
 }
 
 }

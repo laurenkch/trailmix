@@ -139,7 +139,7 @@ function TripForm() {
         <div className='wrapper'>
             <h2 className='trip-title'>Trip to {trail.name}</h2>
             <div className='trail-buttons'>
-                <button className='trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap}/></button>
+                <button className='trail-list-button map-button form-map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap}/></button>
             </div>
                 <div className='trip-top'>
                     <div className='trip-left'>
