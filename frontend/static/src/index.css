@@ -698,8 +698,6 @@ h3 {
   text-align: center;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
 }
 
 .plan-trip-button {
@@ -716,7 +714,10 @@ h3 {
 }
 
 .plan-trip-link-container a {
-  padding: 20px 0px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  padding: 30px 0;
 }
 
 .plan-trip-link-container a, .plan-trip-link-container button {
@@ -1102,13 +1103,6 @@ input[type='radio']:checked:after {
 
 /* /////////////////////////////////////////////////////////////////MAP MODAL */
 
-.modal-90w {
-  width: 90% !important;
-  max-width: none !important;
-  height: 90% !important;
-  max-height: none !important;
-}
-
 .modal-90w .modal-body {
   padding: 0 5px !important;
 }
@@ -1450,6 +1444,13 @@ img.absolute {
 
 .cancel-trip {
     width: auto;
+}
+
+.modal-90w {
+  width: 90% !important;
+  max-width: none !important;
+  height: 90% !important;
+  max-height: none !important;
 }
 
 }

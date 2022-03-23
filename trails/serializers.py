@@ -327,15 +327,14 @@ class TripDeepSerializer(serializers.ModelSerializer):
     time = serializers.TimeField(allow_null=True,
                                  format=settings.TIME_INPUT_FORMATS, input_formats=[settings.TIME_INPUT_FORMATS, ])
     fee = serializers.ReadOnlyField(source='trail.park.fee')
-    difficulty = serializers.ReadOnlyField(source='trail.difficulty')
     length = serializers.ReadOnlyField(source='trail.length')
     elevation_gain = serializers.ReadOnlyField(source='trail.elevation_gain')
     trail_type = serializers.ReadOnlyField(source='trail.trail_type')
+    difficulty = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
-        fields = ('date', 'trail', 'username',
-                  'trailname', 'id', 'parkname', 'latitude', 'longitude', 'fees', 'address', 'weather', 'time', 'notes', 'fee', 'difficulty','length','elevation_gain','trail_type')
+        fields = '__all__'
         depth = 1
 
     def get_weather(self, obj):
@@ -387,6 +386,22 @@ class TripDeepSerializer(serializers.ModelSerializer):
 
         else:
             return False
+
+    def get_difficulty(self, obj):
+        if obj.trail.length < 3 and obj.trail.elevation_gain < 500:
+            return 1
+        if obj.trail.length < 5 and obj.trail.elevation_gain < 1000:
+            return 2
+        if obj.trail.length < 7 and obj.trail.elevation_gain < 1500:
+            return 3
+        if obj.trail.length < 9 and obj.trail.elevation_gain < 2000:
+            return 4
+        if obj.trail.length < 11 and obj.trail.elevation_gain < 2500:
+            return 5
+        if obj.trail.length > 11 or obj.trail.elevation_gain > 2500:
+            return 6
+        else:
+            return 0
 
 
 class TripShallowSerializer(serializers.ModelSerializer):

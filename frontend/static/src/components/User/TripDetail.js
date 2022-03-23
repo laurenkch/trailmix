@@ -112,9 +112,6 @@ function TripDetail() {
         navigate('/trips')
     };
 
-    console.log(trip);
-
-
     ///////////////////////////////////////////////// DISPLAY LOGIC
 
     if (!trip) {
