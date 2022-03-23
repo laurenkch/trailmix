@@ -265,14 +265,14 @@ function TrailDetail() {
             {radioFeedbackHtml && radioFeedbackHtml}
                 </div>
             }
-            <div className='mobile plan-trip-button'>
-                {auth && <Link
+            <div className='mobile plan-trip-container'>
+                {auth && <div className='plan-trip-link-container'><Link
                     to={`/plan/${state.id}`}
                 >
                     Plan a trip to {state.name}
-                </Link>}
-                {!auth && <button className='trail-list-button'
-                    type='button' onClick={handleOpenLogin}
+                </Link></div>}
+                {!auth && <button
+                    type='button' className='plan-trip-button' onClick={handleOpenLogin}
                 >
                     Plan a trip to {state.name}
                 </button>}
