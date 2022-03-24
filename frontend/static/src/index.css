@@ -468,12 +468,49 @@ main {
 
 .verification-redirect {
   background-color: inherit;
+  font-weight: 450;
   border: none;
   margin: 0px;
   color: var(--darkgrey);
   font-style: italic;
   cursor: pointer;
   margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  position: relative;
+}
+
+.verification-redirect:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 0;
+  height: 1px;
+  /* border-bottom: 0.5px solid rgba(57, 56, 59, 75%); */
+  width: 75%;
+  content: '';
+  background-color: rgba(57, 56, 59, 75%);
+}
+
+.verification-redirect:after {
+  color: black;
+  /* transition: all 10s ease-in-out; */
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+
+.verification-redirect:hover:after {
+  width: 90%;
+  /* transition: all 10s ease-in-out; */
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
 }
 
 .form-styles {
@@ -1157,6 +1194,9 @@ input[type='radio']:checked:after {
 }
 /* /////////////////////////////////////////////////////////////////TRIP DETAILS */
 
+.max-75 {
+  max-width: 75%;
+}
 .past-trips {
   margin-top: 16px;
 }
@@ -1200,11 +1240,18 @@ input[type='radio']:checked:after {
   background-color: white;
   border: 2px solid rgb(217, 214, 208);
   border-radius: 5px;
-  padding: 10px;
 }
 
-.trip-details h2 {
+.trip-details h4 {
   font-size: 1.4em;
+}
+
+.trip-details h3 {
+    background-color: var(--forest-green);
+    color: var(--background-color);
+    padding-left: 7px;
+    width: 100%;
+    padding-bottom: 3px;
 }
 
 .trip-weather, .trip-details {
@@ -1223,6 +1270,8 @@ input[type='radio']:checked:after {
   padding-left: 7px;
   width: 100%;
   padding-bottom: 3px;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .trip-weather {
@@ -1235,9 +1284,13 @@ input[type='radio']:checked:after {
 }
 
 .trip-detail {
-  padding: 4px 0px;
+  padding: 10px;
   font-size: 1.1em;
 }
+
+/* .trip-detail h4 {
+
+} */
 
 .trip-link a:visited, .trip-link a:link {
     color: var(--gray) !important;
@@ -1268,10 +1321,11 @@ input[type='radio']:checked:after {
 .trip-detail-trail-info li {
   margin: 5px;
   padding: 5px;
+  font-size: 1.13em;
 }
 
 .trip-detail-trail-info h3 {
-  font-size: 1.5em;
+  font-size: 1.41em;
 }
 
 .cancel-trip {
@@ -1293,6 +1347,16 @@ input[type='radio']:checked:after {
   background-color: rgb(189, 75, 146) !important;
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
+}
+
+.no-weather-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.no-weather {
+  margin: 10px;
+  font-size: 1.15em;
 }
 
 /* .trail-list-button:focus, .trail-list-button:hover {

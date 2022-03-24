@@ -141,25 +141,26 @@ function TripDetail() {
 
     return (
         <div className='wrapper'>
-
-            <Link className='link' to={`/trail/${trip.trail.id}/`}><h2>Trip to {trip.trailname}</h2></Link>
+            
+            <Link className='link' to={`/trail/${trip.trail.id}/`}><h2 className='max-75'>Trip to {trip.trailname}</h2></Link>
             <div className='trail-buttons'>
                 <button className='mobile trail-list-button map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
                 <button className='trail-list-button desktop map-button trip-detail-map' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap} /></button>
             </div>
             <div className='trail-top'>
                 <div className='trip-details'>
+                    <h3>Trip Details</h3>
                     {!isEditingDate &&
                         <div className='trip-detail'>
                             <div className='flex'>
-                                <h2>Date</h2>
+                                <h4>Date</h4>
                             <button type='button' className='icon-button' onClick={() => setIsEditingDate(true)}>< FontAwesomeIcon icon={faPencil} /></button>
                             </div>
                             {trip.date}
                         </div>
                     }
                     {isEditingDate &&
-                        <div>
+                        <div className='trip-detail'>
                             <Form onSubmit={editTrip}>
                                 <Form.Label htmlFor='date'>
                                     Calendar
@@ -177,16 +178,16 @@ function TripDetail() {
                         </div>
                     }
                     {!isEditingTime && trip.time === null &&
-                        <div>
-                            <h2>Time</h2>
+                        <div className='trip-detail'>
+                            <h4>Time</h4>
                             {convertTimeFormat(trip.time)}
                             < button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}>Add Time</button>
                         </div>
                     }
                     {!isEditingTime && trip.time !== null &&
-                        <div>
+                <div className='trip-detail'>
                             <div className='flex'>
-                            <h2>Time</h2>
+                            <h4>Time</h4>
                             <button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}> < FontAwesomeIcon icon={faPencil} />
                             </button>
                             </div>
@@ -194,8 +195,8 @@ function TripDetail() {
                         </div>
                     }
                     {isEditingTime && trip.time === null &&
-                        <div>
-                            <h2>Time</h2>
+    <div className='trip-detail'>
+                            <h4>Time</h4>
                             <Form onSubmit={editTrip}>
                                 <TimeInput setFormState={setState} formState={state} />
                                 <button type='submit' className='trail-list-button'>Save</button>
@@ -203,8 +204,8 @@ function TripDetail() {
                         </div>
                     }
                     {isEditingTime && trip.time != null &&
-                        <div>
-                        <h2>Time</h2>
+                        <div className='trip-detail'>
+                        <h4>Time</h4>
                         <Form onSubmit={editTrip}>
                             <TimeInput setFormState={setState} formState={state} />
                             <button type='submit' className='trail-list-button'>Save</button>
@@ -216,23 +217,23 @@ function TripDetail() {
                         </div>
                     }
                     {!isEditingNotes && !trip.notes &&
-                        <div>
-                            <h2>Notes</h2>
+                        <div className='trip-detail'>
+                            <h4>Notes</h4>
                             {trip.notes}
                             <button type='button' className='icon-button' onClick={() => setIsEditingNotes(true)}>Add Notes</button>
                         </div>
                     }
                     {!isEditingNotes && trip.notes &&
-                        <div>
+                        <div className='trip-detail'>
                             <div className='flex'>
-                                <h2>Notes</h2>
+                                <h4>Notes</h4>
                                 <button type='button' className='icon-button' onClick={() => setIsEditingNotes(true)}>< FontAwesomeIcon icon={faPencil} /></button>
                             </div>
                             {trip.notes}
                         </div>}
                     {isEditingNotes &&
-                        <div>
-                            <h2>Notes</h2>
+                        <div className='trip-detail'>
+                            <h4>Notes</h4>
                         <Form onSubmit={editTrip}>
                             <Form.Control
                                 as='textarea'
@@ -254,48 +255,55 @@ function TripDetail() {
                             <h3 className='center'>Weather</h3>
                             {weatherHtml}
                         </div>}
+                    {!trip.weather &&
+                        <div className='scroll-squares flex center column no-weather-wrapper'>
+                            <h3 className='center'>Weather</h3>
+                            <div className='no-weather-wrapper flex center'>
+                                <p className='no-weather'>Weather is available 7 days out. Check back closer to your trip to view the weather forecast!</p>
+                            </div>
+                        </div>}
                 </div>
             </div>
             <ul className='trip-detail-trail-info'>
                 <li>
-                <h3>
+                <h4>
                     {trip.parkname}
-                </h3>
+                </h4>
                     {trip.address}
                 </li>
                 <li>
-                    <h3>
+                    <h4>
                         Length
-                    </h3>
+                    </h4>
                     {trip.length} miles
                 </li>
                 <li>
-                    <h3>
+                    <h4>
                         Elevation gain
-                    </h3>
+                    </h4>
                     {trip.elevation_gain} ft
                 </li>
                 <li>
                     <div className='difficulty-heading'>
-                        <h3>
+                        <h4>
                             Difficulty
-                        </h3>
+                        </h4>
                     </div>
                     <div>
                         {trip.difficulty}
                     </div>
                 </li>
                 <li>
-                    <h3>
+                    <h4>
                         Trail Type
-                    </h3>
+                    </h4>
                     {TRAIL_TYPES[trip.trail_type]}
                 </li>
                 {trip.fee &&
                     <li className='whitespace'>
-                        <h3>
+                        <h4>
                             Fees
-                        </h3>
+                        </h4>
                         {trip.fee.replaceAll(';', '\n').replaceAll('/', ' ')}
                     </li>
                 }

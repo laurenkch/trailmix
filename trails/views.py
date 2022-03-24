@@ -97,8 +97,7 @@ class TripList(generics.ListCreateAPIView):
         """
         filters list to return trips associated with the current user
         """
-        queryset = Trip.objects.filter(user=self.request.user)
-        queryset.order_by('date')
+        queryset = Trip.objects.filter(user=self.request.user).order_by('date')
 
         return queryset
 

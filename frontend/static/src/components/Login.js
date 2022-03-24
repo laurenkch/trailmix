@@ -86,7 +86,7 @@ function Login() {
             </Form>
 
             <div className='button-wrapper footnote'>
-                <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect link">I need to make an account</button>
+                <button type="button" value="registration" onClick={() => navigate('register/')} className="verification-redirect">I need to make an account</button>
             </div>
         </div>
     )
