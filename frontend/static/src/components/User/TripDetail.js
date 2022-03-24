@@ -45,6 +45,7 @@ function TripDetail() {
                 id: trip.id,
                 date: trip.date,
                 time: trip.time,
+                notes: trip.notes,
             })
 
         }
@@ -62,7 +63,7 @@ function TripDetail() {
         e.preventDefault();
 
         let data = state
-        if (data.time && data.time.includes('-')) {
+        if ((data.time && data.time.includes('-')) || ((e.target.name === 'time') && (e.target.id === 'delete'))) {
             data.time = null
         }
 
@@ -125,7 +126,10 @@ function TripDetail() {
         let date = new Date(data.dt)
         weatherHtml =
             <div className='scroll-squares whitespace'>
-                <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
+                <h4>{date.toLocaleDateString(undefined, {
+                    weekday: 'long', month: 'numeric',
+                    day: 'numeric'
+                }).replace(',', '\n')}</h4>
                 <div className='weather-icon'>
                     {getWeatherIcons(data.weather[0].description)}
                 </div>
@@ -189,16 +193,22 @@ function TripDetail() {
                             {convertTimeFormat(trip.time)}
                         </div>
                     }
-                    {isEditingTime &&
+                    {isEditingTime && trip.time === null &&
+                        <div>
+                            <h2>Time</h2>
+                            <Form onSubmit={editTrip}>
+                                <TimeInput setFormState={setState} formState={state} />
+                                <button type='submit' className='trail-list-button'>Save</button>
+                            </Form>
+                        </div>
+                    }
+                    {isEditingTime && trip.time != null &&
                         <div>
                         <h2>Time</h2>
                         <Form onSubmit={editTrip}>
                             <TimeInput setFormState={setState} formState={state} />
-                            <button type='submit'>Save</button>
-                            <button type='button' className='trail-list-button' onClick={(e) => {
-                                const newState = state
-                                newState.time = null
-                                setTrip(newState)
+                            <button type='submit' className='trail-list-button'>Save</button>
+                            <button type='button' className='trail-list-button' id='delete' name='time' onClick={(e) => {
                                 editTrip(e)
                             }}
                             >Delete Time</button>
@@ -209,7 +219,7 @@ function TripDetail() {
                         <div>
                             <h2>Notes</h2>
                             {trip.notes}
-                            <button type='button' className='icon-button' onClick={() => setIsEditingTime(true)}>Add Notes</button>
+                            <button type='button' className='icon-button' onClick={() => setIsEditingNotes(true)}>Add Notes</button>
                         </div>
                     }
                     {!isEditingNotes && trip.notes &&
@@ -230,7 +240,7 @@ function TripDetail() {
                                 onChange={(e) => handleInput(e, setState)}
                                 name='notes'
                                 id='notes'
-                                value={trip.notes}
+                                value={state.notes}
                             />
                             <button type='submit' className='trail-list-button'>Save</button>
                         </Form>

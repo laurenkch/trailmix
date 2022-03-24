@@ -216,13 +216,23 @@ export const convertWindDegrees = (x) => {
 
 
 export function convertDateFormat(date) {
-    if (date.length === 10) {
-        let year = date.slice(0, 4);
-        date = date.slice(6, 10) + '-' + year;
-    } else if (date.length === 5) {
-        date.replace('-', '/')
-    }
-    return date
+
+    let data = new Date(date);
+    let formattedDate = data.toLocaleDateString(undefined, {
+        weekday: 'long', month: 'long',
+        day: 'numeric'
+    });
+    return formattedDate
+}
+
+export function convertDateFormatWithYear(date) {
+
+    let data = new Date(date);
+    let formattedDate = data.toLocaleDateString(undefined, {
+        weekday: 'long', month: 'long',
+        day: 'numeric', year: 'numeric'
+    });
+    return formattedDate
 }
 
 export function convertTimeFormat(time) {

@@ -75,6 +75,7 @@ function TrailDetail() {
             if (trail) {
                 getImages(trail.id);
             }
+
         };
         getTrail();
 
@@ -114,7 +115,9 @@ function TrailDetail() {
                 let date = new Date(day.dt)
                 return (
                     <div key={index} className='scroll-squares whitespace'>
-                        <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
+                        <h4>{date.toLocaleDateString(undefined, {
+                            weekday: 'long', month: 'numeric',
+                            day: 'numeric' }).replace(',','\n')}</h4>
                         <div className='weather-icon'>
                             {getWeatherIcons(day.weather[0].description)}
                         </div>
@@ -277,7 +280,7 @@ function TrailDetail() {
                     Plan a trip to {state.name}
                 </button>}
             </div>
-            <div className='weather'>
+            <div className='weather trip-form-weather'>
                 <h3>Weather</h3>
             <div className='horizontal-scroll-wrapper'>
                 {weatherHtml}

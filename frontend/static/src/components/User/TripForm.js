@@ -93,7 +93,10 @@ function TripForm() {
                 let date = new Date(day.dt)
                     return (
                 <div key={index} className='scroll-squares whitespace'>
-                            <h4>{date.toLocaleDateString(undefined, { weekday: 'long' })}</h4>
+                            <h4>{date.toLocaleDateString(undefined, {
+                                weekday: 'long', month: 'numeric',
+                                day: 'numeric'
+                            }).replace(',', '\n')}</h4>
                             <div className='weather-icon'>
                                 {getWeatherIcons(day.weather[0].description)}
                             </div>
@@ -141,8 +144,17 @@ function TripForm() {
             <div className='trail-buttons'>
                 <button className='trail-list-button map-button form-map-button' type='button' onClick={handleOpenMap}>Map <FontAwesomeIcon icon={faMap}/></button>
             </div>
-                <div className='trip-top'>
-                    <div className='trip-left'>
+            <div className='trip-top'>
+                {(typeof (trail.weather) != typeof ('string')) &&
+                    <div className='trip-form-weather'>
+                        <h3>Weather</h3>
+                        <div className='horizontal-scroll-wrapper'>
+                            {weatherHtml}
+                        </div>
+                    </div>
+                }
+                <div className='trip-left'>
+                    
                         <Form className='trip-form' onSubmit={submitTrip}>
                             <Form.Label htmlFor='date'>
                                 <h3>Date</h3>
@@ -175,14 +187,6 @@ function TripForm() {
                             <button className='trip-form-submit trail-list-button form-submit' type='submit'>Save Trip</button>
                         </Form>
                     </div>
-                        {(typeof (trail.weather) != typeof ('string')) &&
-                            <div className='trip-form-weather'>
-                                <h3>Weather</h3>
-                                <div className='horizontal-scroll-wrapper'>
-                                    {weatherHtml}
-                                </div>
-                            </div>
-                    }
                 <h2 className='trail-details'>Trail Details</h2>
                 <div className='trip-bottom'>
                     <ul className='trail trip-left'>

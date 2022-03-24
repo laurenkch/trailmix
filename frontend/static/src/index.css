@@ -312,10 +312,23 @@ main {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
+  overflow: scroll;
 }
 
 .horizontal-scroll-wrapper > div {
   margin: 5px;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 5px;
+  height: 7px;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
 .weather-image {
@@ -686,9 +699,7 @@ h3 {
 .plan-trip-container {
   text-align: center;
   font-weight: 550;
-  min-width: 120px;
-  height: 89px;
-  margin: 8px 10px;
+  margin: 23px 10px;
   text-align: center;
   border: none;
 }
@@ -698,8 +709,6 @@ h3 {
   background-color: var(--green);
   color: white;
   font-weight: 550;
-  min-width: 120px;
-  height: 89px;
   border-radius: 5px;
   margin: 8px 10px;
   text-align: center;
@@ -718,13 +727,14 @@ h3 {
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  padding: 15px 10px;
 }
 
 .plan-trip-link-container a {
   display: inline-block;
   height: 100%;
   width: 100%;
-  padding: 30px 0;
+  padding: 15px 15px;
 }
 
 .plan-trip-link-container a, .plan-trip-link-container button {
@@ -818,7 +828,7 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
 
 .trail-description {
     border: 2px solid rgb(217, 214, 208) !important;
-    margin-bottom: 30px;
+    margin-bottom: 6px;
 }
 
 .trail-description .accordion-button:not(.collapsed)::after {
@@ -1010,9 +1020,10 @@ input[type='radio']:checked:after {
   min-width: auto;
   border-radius: 13px;
 }
+
 .form-map-button {
-  top: 43px;
-  right: 0px;
+    top: -2px;
+    right: 0px;
 }
 .trip-form {
   display: flex;
@@ -1022,16 +1033,18 @@ input[type='radio']:checked:after {
   border-top: 2px solid rgb(217, 214, 208);
   margin-bottom: 20px;
   margin-top: 20px;
-
+  padding-bottom: 10px
 }
 
 .trail-details {
   margin-top: 10px;
 }
 
-.trip-title{
-    margin-bottom: 60px;
+.trip-title {
+  margin-bottom: 21px;
+  max-width: 75%;
 }
+
 
 .trip-form ul {
   width: 100%;
@@ -1092,12 +1105,14 @@ input[type='radio']:checked:after {
   background-color: var(--forest-green) ;
   color: var(--background-color);
   padding-left: 7px;
+  padding-bottom: 7px;
 }
 
 .trip-form-weather {
   background-color: white;
   border: 2px solid rgb(217, 214, 208);
   border-radius: 5px;
+  margin-bottom: 23px;
 }
 
 .trip-form-submit {
@@ -1150,6 +1165,10 @@ input[type='radio']:checked:after {
   max-width: 50%;
 }
 
+
+.trip-top {
+  margin-bottom: 12px;
+}
 
 .icon-button {
     color: var(--forest-greeng);
@@ -1459,5 +1478,10 @@ img.absolute {
   height: 90% !important;
   max-height: none !important;
 }
+
+.trail-description {
+    margin-bottom: 30px;
+}
+
 
 }

@@ -2,7 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import serializers
 from rest_framework.decorators import api_view
-
+import json
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Trail, UserFeedback, Trip, TrailImage, Park, TrailImage
 from .serializers import DeepTrailSerializer, ShallowTrailSerializer, TripShallowSerializer, UserFeedbackSerializer, ImageSerializer, ParkCreateSerializer, ParkViewSerializer, TripDeepSerializer
 
@@ -121,6 +123,36 @@ class TripList(generics.ListCreateAPIView):
 
 #         return queryset
 
+# recent_trail.order_by('date')[:1]
+
+# @ api_view(('GET',))
+# def mostRecentTripDetail(request):
+#     dump_data = json.dumps(request.data)
+#     load_data = json.loads(dump_data)
+#     recent_trail = Trip.objects.filter(user=request.user)
+#     trailId = load_data['trail']
+#     trips = Trip.objects.filter(trail=trailId)
+#     serializer = TripDeepSerializer
+#     if trips:
+#         trip = trips.order_by('date')[:1]
+#         if serializer.is_valid():
+#             return_data = serializer.save(trip)
+#             return Response(return_data, status=status.HTTP_200_OK)
+#     else: 
+#         return None
+
+
+
+# @ api_view(('POST',))
+# def PostListByUserView(request):
+#     post_dump_data = json.dumps(request.data)
+#     post_data = json.loads(post_dump_data)
+#     user = post_data['user']
+#     post_list = Post.objects.filter(user=user)
+#     return response.Response(post_list)
+
+
+# 1: 47
 
 class TripDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TripDeepSerializer
