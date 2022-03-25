@@ -67,8 +67,10 @@ function Home() {
                 setResults(data);
             }
         }
-        getParkList();
-        getTrailList();
+        if (!admin) {
+            getParkList();
+            getTrailList();
+        }
         
     }, [admin, navigate])
 

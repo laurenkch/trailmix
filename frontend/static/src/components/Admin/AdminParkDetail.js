@@ -127,7 +127,7 @@ function AdminParkDetail() {
                 </li>
             </ul>
             <div className='trail-list-buttons'>
-                <Link className='trail-list-button' to={`/trail/${trail.id}`}>
+                <Link className='trail-list-button' to={`/administrator/trail/${trail.id}`}>
                     Go to Trail
                 </Link>
             </div>

@@ -7,6 +7,7 @@ import MapModal from './MapModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faMap } from '@fortawesome/free-solid-svg-icons';
 
+
 function TripDetail() {
 
     const params = useParams();
@@ -20,7 +21,7 @@ function TripDetail() {
 
     const [showMap, setShowMap] = useState(false);
 
-    const handleOpenMap = () => { setShowMap(true) };
+    const handleOpenMap = () => {setShowMap(true) };
 
     useEffect(() => {
 
