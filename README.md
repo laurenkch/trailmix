@@ -2,37 +2,37 @@ Trailmix is a centralized site where you can find all the information you'd need
 
 This site uses:
 
-OpenWeatherAPI__
-https://openweathermap.org/api __
+OpenWeatherAPI < br>
+https://openweathermap.org/api
 for 7 day weather forecasts
 
-React Leaflet__
-https://react-leaflet.js.org/ __
+React Leaflet
+https://react-leaflet.js.org/ 
 for map rendering
 
-Fuse.js__
-https://fusejs.io/ __
+Fuse.js
+https://fusejs.io/ 
 for fuzzy search capabilities
 
-html2canvas__
-https://html2canvas.hertzen.com/ __
+html2canvas
+https://html2canvas.hertzen.com/ 
 for map downloads
 
 It also uses
 
-React Router Dom__
-Font Awesome__
-js-cookie__
-Jest__
-pillow__
-requests__
-gunicorn__
-whitenoise__
-Django__
-React__
-djangorestframework__
-django-rest-auth__
-django-allauth__
-django-cleanup__
+React Router Dom
+Font Awesome
+js-cookie
+Jest
+pillow
+requests
+gunicorn
+whitenoise
+Django
+React
+djangorestframework
+django-rest-auth
+django-allauth
+django-cleanup
 
 This project is deployed on Heroku at https://trailmix-lkoch.herokuapp.com/
