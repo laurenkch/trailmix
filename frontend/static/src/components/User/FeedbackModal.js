@@ -104,9 +104,8 @@ function FeedbackModal({ id, show, setShow }) {
 
             setPreview(null);
             setImage(null);
-            handleClose();
-
         }
+        handleClose();
     }
 
 
