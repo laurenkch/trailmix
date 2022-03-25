@@ -1,5 +1,5 @@
 import { render, unmountComponentAtNode } from 'react-dom';
-import Home from './Home';
+import Home from '../Home';
 import ReactTestUtils from 'react-dom/test-utils';
 import {BrowserRouter, Routes, Route, Outlet, MemoryRouter} from 'react-router-dom';
 import React from 'react';
@@ -13,7 +13,10 @@ import { createMemoryHistory } from 'history';
 //     useNavigate: () => mockedUsedNavigate,
 // }));
 
+// These tests do not currently work, as I was unable to simulate a fetch request. Keeping here to revisit in the future. Working tests are in the TripForm.test.js file.
+
 describe.skip('Home', () => {
+
 
     let container = null;
 

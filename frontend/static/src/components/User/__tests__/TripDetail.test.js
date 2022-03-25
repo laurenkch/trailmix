@@ -1,13 +1,17 @@
 import { render, unmountComponentAtNode } from 'react-dom';
-import TripDetail from './TripDetail';
+import TripDetail from '../TripDetail';
 import ReactTestUtils from 'react-dom/test-utils';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, MemoryRouter } from 'react-router-dom';
+import App from '../../App/App';
+import { handleError, TRAIL_TYPES, handleInput, TimeInput, convertWindDegrees, getWeatherIcons, convertTimeFormat } from '../../../util';
 
-// const mockedUsedNavigate = jest.fn();
-// jest.mock('react-router-dom', () => ({
-//     ...jest.requireActual('react-router-dom'),
-//     useNavigate: () => mockedUsedNavigate,
-// }));
+// These tests do not currently work, as I was unable to simulate a fetch request. Keeping here to revisit in the future. Working tests are in the TripForm.test.js file.
+
+const mockedUsedNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockedUsedNavigate,
+}));
 
 describe.skip('TripDetail', () => {
 
@@ -39,13 +43,22 @@ describe.skip('TripDetail', () => {
             Promise.resolve({
                 json: () => Promise.resolve(fakeData),
             })
+            Promise.catch(handleError)  
         });
         render(
-            <BrowserRouter>
+
+            <MemoryRouter initialEntries={["/trip/10000"]}>
                 <Routes>
-                    <Route path='trip/:tripId' element={<TripDetail />}/>
-            </Routes>
-            </BrowserRouter>, container);
+                    <Route path='/' element={<App />}>
+                        <Route path='trip/:tripId' element={<TripDetail />} />
+                    </Route>
+                </Routes>
+            </MemoryRouter>, container);
+            // <BrowserRouter>
+            //     <Routes>
+            //         <Route path='trip/:tripId' element={<TripDetail />}/>
+            // </Routes>
+            // </BrowserRouter>, container);
 
         const details = container.querySelector(".trail-detail");
         
