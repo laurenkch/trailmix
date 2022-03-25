@@ -30,5 +30,4 @@ urlpatterns = [
     path('feedback/', UserFeedback.as_view(), name='trail_feedback'),
     path('trips/', TripList.as_view(), name='trips'),
     path('trip/<int:pk>/', TripDetail.as_view(), name='trip_detail'),
-    # path('trip/recent/', mostRecentTripDetail, name='recent_trip')
 ]

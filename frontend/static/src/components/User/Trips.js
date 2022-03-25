@@ -53,6 +53,7 @@ function Trips() {
     
     const pastTripsHtml = trips
         .filter((trip) => new Date(trip.date) < currentTime)
+        .sort((item1, item2) => new Date(item2.date).setHours(0, 0, 0, 0) - new Date(item1.date).setHours(0, 0, 0, 0))
         .map((trip, index) => (
             <li key={trip.id}>
                 <h3>{trip.trailname}</h3>

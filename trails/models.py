@@ -44,6 +44,9 @@ class TrailImage(models.Model):
     trail = models.ForeignKey(Trail, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='trails/', blank=True, null=True)
 
+    def __str__(self):
+        return f'{self.trail} {self.image}'
+
 class UserFeedback(models.Model):
     trail = models.ForeignKey(Trail, related_name='feedback', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -116,3 +119,5 @@ class Trip(models.Model):
         Trail, related_name='trail', on_delete=models.CASCADE)
     notes = models.TextField(null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.date} {self.trail}'

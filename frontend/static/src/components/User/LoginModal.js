@@ -93,7 +93,7 @@ function LoginModal({ trailId, show, setShow, setAdmin, setAuth, navigate, setSh
             </Form>
             </Modal.Body>
 
-            <button type="button" value="registration" onClick={() => switchView()} className="verification-redirect">I need to make an account</button>
+            <button type="button" value="registration" onClick={() => switchView()} className="verification-redirect-modal">I need to make an account</button>
         </Modal>
     )
 }

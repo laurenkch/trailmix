@@ -480,6 +480,21 @@ main {
   position: relative;
 }
 
+.verification-redirect-modal {
+  background-color: inherit;
+  font-weight: 450;
+  border: none;
+  margin: 0px;
+  color: var(--darkgrey);
+  font-style: italic;
+  cursor: pointer;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+  word-spacing: 1px;
+  position: relative;
+}
+
+
 .verification-redirect:after {
   position: absolute;
   left: 0;
@@ -487,15 +502,26 @@ main {
   margin: 0 auto;
   bottom: 0;
   height: 1px;
-  /* border-bottom: 0.5px solid rgba(57, 56, 59, 75%); */
   width: 75%;
   content: '';
   background-color: rgba(57, 56, 59, 75%);
 }
 
-.verification-redirect:after {
+.verification-redirect-modal:after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 0;
+  height: 1px;
+  width: 35%;
+  content: '';
+  background-color: rgba(57, 56, 59, 75%);
+}
+
+
+.verification-redirect:after, verification-redirect:hover:after {
   color: black;
-  /* transition: all 10s ease-in-out; */
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;
@@ -505,7 +531,14 @@ main {
 
 .verification-redirect:hover:after {
   width: 90%;
-  /* transition: all 10s ease-in-out; */
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+.verification-redirect-modal:hover:after {
+  width: 40%;
   -o-transition:.5s;
   -ms-transition:.5s;
   -moz-transition:.5s;

@@ -122,7 +122,7 @@ function RegisterModal({ trailId, show, setShow, setAuth, navigate, setShowLogin
                     <button className='trail-list-button form-submit' type='submit'>Register</button>
                 </Form>
             </Modal.Body>
-            <button type="button" value="login" onClick={() => switchView()} className="verification-redirect">Login to exisiting account</button>
+            <button type="button" value="login" onClick={() => switchView()} className="verification-redirect-modal">Login to exisiting account</button>
         </Modal>
     )
 }
