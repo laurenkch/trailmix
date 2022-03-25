@@ -2,8 +2,8 @@ Trailmix is a centralized site where you can find all the information you'd need
 
 This site uses:
 
-OpenWeatherAPI < br>
-https://openweathermap.org/api
+OpenWeatherAPI  
+https://openweathermap.org/api  
 for 7 day weather forecasts
 
 React Leaflet
