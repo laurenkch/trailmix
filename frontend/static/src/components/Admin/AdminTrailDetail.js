@@ -137,7 +137,6 @@ function AdminTrailDetail() {
 
         e.preventDefault();
 
-        console.log(state.id)
         const options = {
             method: 'DELETE',
             headers: {
@@ -163,7 +162,6 @@ function AdminTrailDetail() {
     ///////////////////////////////////////////////////ADD IMAGE
 
     const addImage = async (e) => {
-        console.log('add')
         e.preventDefault();
         const formData = new FormData();
         formData.append('trail', state.id)
