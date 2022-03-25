@@ -6,33 +6,33 @@ OpenWeatherAPI
 https://openweathermap.org/api  
 for 7 day weather forecasts
 
-React Leaflet
-https://react-leaflet.js.org/ 
+React Leaflet  
+https://react-leaflet.js.org/  
 for map rendering
 
-Fuse.js
-https://fusejs.io/ 
+Fuse.js  
+https://fusejs.io/   
 for fuzzy search capabilities
 
-html2canvas
-https://html2canvas.hertzen.com/ 
+html2canvas  
+https://html2canvas.hertzen.com/  
 for map downloads
 
 It also uses
 
-React Router Dom
-Font Awesome
-js-cookie
-Jest
-pillow
-requests
-gunicorn
-whitenoise
-Django
-React
-djangorestframework
-django-rest-auth
-django-allauth
-django-cleanup
+React Router Dom  
+Font Awesome  
+js-cookie  
+Jest  
+pillow  
+requests  
+gunicorn  
+whitenoise  
+Django  
+React  
+djangorestframework  
+django-rest-auth  
+django-allauth  
+django-cleanup  
 
 This project is deployed on Heroku at https://trailmix-lkoch.herokuapp.com/
