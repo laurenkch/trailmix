@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudSun, faCloudShowersHeavy, faCloud, faCloudSunRain, faSun, faSmog, faSnowflake, faWind } from '@fortawesome/free-solid-svg-icons';
+import { faCloudSun, faCloudShowersHeavy, faCloud, faSun, faSmog, faSnowflake, faWind } from '@fortawesome/free-solid-svg-icons';
 
 export const handleError = (err) => {
     console.warn(err);
@@ -22,27 +22,27 @@ export const TRAIL_TYPES = {
 };
 
 export const RADIO_OPTIONS = {
-        pet_stance: {
-            df: 'Dog friendly',
-            npa: 'No pets allowed',
-        }
-    , 
-        parking: {
-            lpark: 'Limited parking',
-            apark: 'Ample parking',
-        }
-    , 
-        cell_strength: {
-            ncell: 'No cell service',
-            wcell: 'Weak signal',
-            scell: 'Strong signal'
-        }
-    , 
-        bathrooms: {
-            nbath: 'No bathrooms',
-            cbath: 'Clean bathrooms',
-            dbath: 'Dirty bathrooms',
-        }
+    pet_stance: {
+        df: 'Dog friendly',
+        npa: 'No pets allowed',
+    }
+    ,
+    parking: {
+        lpark: 'Limited parking',
+        apark: 'Ample parking',
+    }
+    ,
+    cell_strength: {
+        ncell: 'No cell service',
+        wcell: 'Weak signal',
+        scell: 'Strong signal'
+    }
+    ,
+    bathrooms: {
+        nbath: 'No bathrooms',
+        cbath: 'Clean bathrooms',
+        dbath: 'Dirty bathrooms',
+    }
 }
 
 export const DIFFICULTY_KEY = [
@@ -178,41 +178,41 @@ export function TimeInput({ setFormState, formState }) {
 
 
 export const convertWindDegrees = (x) => {
-        if(348.75 < x || x < 11.25)
-            return 'N'
-        if( 11.25 < x && x < 33.75)
-            return 'NNE'
-        if( 33.75 < x && x < 56.25)
-            return 'NE'
-        if( 56.25 < x && x <  78.75)
-            return 'ENE'
-        if( 78.75 < x && x <  101.25)
-            return 'E'
-        if( 101.25 < x && x <  123.75)
-            return 'ESE'
-        if( 123.75 < x && x <  146.25)
-            return 'SE'
-        if( 146.25 < x && x < 168.75)
-            return 'SSE'
-        if( 168.75 < x && x < 191.25)
-            return 'S'
-        if( 191.25 < x && x < 213.75)
-            return 'SSW'
-        if( 213.75 < x && x <  236.25)
-            return 'SW'
-        if( 236.25 < x && x <  258.75)
-            return 'WSW'
-        if( 258.75 < x && x <  281.25)
-            return 'W'
-        if( 281.25 < x && x <  303.75)
-            return 'WNW'
-        if( 303.75 < x && x <  326.25)
-            return 'NW'
-        if( 326.25 < x && x <  348.75)
-            return 'NNW'
-        else
-            return 'incorrect value';
-    }
+    if (348.75 < x || x < 11.25)
+        return 'N'
+    if (11.25 < x && x < 33.75)
+        return 'NNE'
+    if (33.75 < x && x < 56.25)
+        return 'NE'
+    if (56.25 < x && x < 78.75)
+        return 'ENE'
+    if (78.75 < x && x < 101.25)
+        return 'E'
+    if (101.25 < x && x < 123.75)
+        return 'ESE'
+    if (123.75 < x && x < 146.25)
+        return 'SE'
+    if (146.25 < x && x < 168.75)
+        return 'SSE'
+    if (168.75 < x && x < 191.25)
+        return 'S'
+    if (191.25 < x && x < 213.75)
+        return 'SSW'
+    if (213.75 < x && x < 236.25)
+        return 'SW'
+    if (236.25 < x && x < 258.75)
+        return 'WSW'
+    if (258.75 < x && x < 281.25)
+        return 'W'
+    if (281.25 < x && x < 303.75)
+        return 'WNW'
+    if (303.75 < x && x < 326.25)
+        return 'NW'
+    if (326.25 < x && x < 348.75)
+        return 'NNW'
+    else
+        return 'incorrect value';
+}
 
 
 export function convertDateFormat(date) {
@@ -236,7 +236,7 @@ export function convertDateFormatWithYear(date) {
 }
 
 export function convertTimeFormat(time) {
-    if(time && time[0] === '0') {
+    if (time && time[0] === '0') {
         let newTime = time.slice(1)
         return newTime
     } else
@@ -245,7 +245,7 @@ export function convertTimeFormat(time) {
 
 export function getWeatherIcons(description) {
     if (description.includes('overcast clouds')) {
-        return <FontAwesomeIcon icon={faCloud}/>
+        return <FontAwesomeIcon icon={faCloud} />
     } else if (description.includes('scattered clouds')) {
         return <FontAwesomeIcon icon={faCloudSun} />
     } else if (description.includes('rain')) {
@@ -257,7 +257,7 @@ export function getWeatherIcons(description) {
     } else if (description.includes('fog')) {
         return <FontAwesomeIcon icon={faSmog} />
     } else {
-        return <FontAwesomeIcon icon={faSun}/>
+        return <FontAwesomeIcon icon={faSun} />
     }
 
 }
