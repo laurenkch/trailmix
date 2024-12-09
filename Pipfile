@@ -17,5 +17,3 @@ requests = "~=2.27.1"
 [dev-packages]
 autopep8 = "*"
 
-[requires]
-python_version = "3.9"
