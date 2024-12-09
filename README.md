@@ -1,6 +1,6 @@
-Trailmix is a centralized site where you can find all the information you'd need for a hike local to the Upstate South Carolina area. It lets you view trails, find the weather for that area, provide feedback about the trail, and download a map for your trip. 
+Trailmix is a centralized site where you can find all the information you'd need for a hike local to the Upstate South Carolina area. It lets you view trails, find the weather for that area, provide feedback about the trail, and download a map for your trip.
 
-This project is deployed on Heroku at https://trailmix-lkoch.herokuapp.com/  
+This project is deployed on Heroku at https://trailmix-lkoch.herokuapp.com/
 
 This site uses:
 
@@ -13,7 +13,7 @@ https://react-leaflet.js.org/
 for map rendering
 
 Fuse.js  
-https://fusejs.io/   
+https://fusejs.io/  
 for fuzzy search capabilities
 
 html2canvas  
@@ -35,6 +35,4 @@ React
 djangorestframework  
 django-rest-auth  
 django-allauth  
-django-cleanup  
-
-
+django-cleanup

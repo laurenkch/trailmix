@@ -1,22 +1,22 @@
 /*//////////////////////////////////////////COLORS*/
 
 :root {
- --gray: rgb(57	56	59);
- --opaque-gray: rgba(57,	56,	59, 0.5);
- --dark-green: rgb(37	38	18);
+  --gray: rgb(57 56 59);
+  --opaque-gray: rgba(57, 56, 59, 0.5);
+  --dark-green: rgb(37 38 18);
   --buttons: rgba(148, 34, 103, 0.87);
   --links: rgb(148, 34, 103);
- --cranberry: rgb(175	66	134	);
- --stone: rgb(159	148	131	);
- --sand: rgb(219	203	177	);
-  --forest-green: rgb(48	62	44	);
+  --cranberry: rgb(175 66 134);
+  --stone: rgb(159 148 131);
+  --sand: rgb(219 203 177);
+  --forest-green: rgb(48 62 44);
   --green: #58752b;
   --brown: #4a4735;
   --ecru: #e6e5ce;
   --light-stone: #d0d4c9;
-  --background-color: rgb(250	250	249	);
+  --background-color: rgb(250 250 249);
   --middle-stone: rgb(222, 232, 204);
-  --yellow: rgb(251,196,117);
+  --yellow: rgb(251, 196, 117);
 }
 
 .cranberry-font {
@@ -39,7 +39,6 @@
   background-color: var(--dark-green) !important;
 }
 
-
 .dark-green-font {
   color: var(--dark-green) !important;
 }
@@ -53,7 +52,7 @@
 }
 
 .stone {
-  background-color: var(--stone)!important;
+  background-color: var(--stone) !important;
 }
 
 .stone-font {
@@ -64,23 +63,23 @@
   background-color: var(--green) !important;
 }
 .green-font {
-  color: var(--green)!important;
+  color: var(--green) !important;
 }
 
 .forest-green {
-  background-color: var(--forest-green)!important;
+  background-color: var(--forest-green) !important;
 }
 
 .forest-green-font {
-  color: var(--forest-green)!important;
+  color: var(--forest-green) !important;
 }
 
 .dark-cranberry {
-  background-color: var(--dark-cranberry)!important;
+  background-color: var(--dark-cranberry) !important;
 }
 
 .dark-cranberry-font {
-  color: var(--dark-cranberry)!important;
+  color: var(--dark-cranberry) !important;
 }
 
 .background-color-font {
@@ -104,35 +103,39 @@ ul {
 }
 
 li {
-   text-indent: 0;
+  text-indent: 0;
 }
 
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
-a, a:hover, a:active, a:visited, a:link {
+a,
+a:hover,
+a:active,
+a:visited,
+a:link {
   text-decoration: none;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(208, 212, 201, 0.1) !important;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -144,12 +147,16 @@ code {
   width: 90%;
 }
 
-.header .accordion-button:focus, .header .accordion-button:hover {
-  border-color: none  !important;
+.header .accordion-button:focus,
+.header .accordion-button:hover {
+  border-color: none !important;
   box-shadow: none !important;
 }
 
-.accordion-button:not(.collapsed), .accordion-button, .accordion-button:not(.collapsed), .accordion-button::after {
+.accordion-button:not(.collapsed),
+.accordion-button,
+.accordion-button:not(.collapsed),
+.accordion-button::after {
   color: white !important;
   font-weight: bold !important;
   background-color: var(--forest-green) !important;
@@ -164,13 +171,17 @@ code {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-
-.accordion-body ul a:hover, .accordion-body ul a:focus {
+.accordion-body ul a:hover,
+.accordion-body ul a:focus {
   font-weight: 500;
   transition: all 0.1s ease-in-out;
 }
 
-.accordion-body ul a, a:visited, a:link, a:hover , a:focus{
+.accordion-body ul a,
+a:visited,
+a:link,
+a:hover,
+a:focus {
   color: var(--gray);
 }
 
@@ -183,16 +194,21 @@ code {
 }
 
 .form-control {
-  transition: var(--yellow) .15s ease-in-out,box-shadow .15s ease-in-out !important;
+  transition:
+    var(--yellow) 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !important;
 }
 
 .form-control:focus {
   border-color: var(--yellow) !important;
   box-shadow: 0 0 0 0.25rem rgb(251 196 117 / 25%) !important;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !important;
 }
 
-.header .btn-check:focus+.btn, .header .btn:focus {
+.header .btn-check:focus + .btn,
+.header .btn:focus {
   outline: 0;
   box-shadow: none;
 }
@@ -209,8 +225,8 @@ nav {
   margin-bottom: 10px;
 }
 
-nav ul{
-  display:flex;
+nav ul {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -225,9 +241,10 @@ nav ul{
 
 nav h1 {
   margin-bottom: 0;
-} 
+}
 
-nav ul a:hover, nav ul a:focus {
+nav ul a:hover,
+nav ul a:focus {
   font-weight: 500;
   transition: all 0.05s ease-in-out;
   transform: scale(1.05);
@@ -238,26 +255,34 @@ nav ul a:hover, nav ul a:focus {
   flex-direction: column;
 }
 
-.login-logout-button a:hover, .login-logout-button a:focus {
+.login-logout-button a:hover,
+.login-logout-button a:focus {
   font-weight: normal !important;
   transform: scale(1.05);
   transition: all 0.05s ease-in-out;
   font-weight: 500;
 }
 
-.login-logout-button:focus, .login-logout-button:hover {
+.login-logout-button:focus,
+.login-logout-button:hover {
   transform: scale(1.1);
   transition: all 0.05s ease-in-out;
 }
 
-.nav-button:hover,.nav-button:focus, .mobile .accordion-body ul a:hover , .mobile .accordion-body ul a:focus {
+.nav-button:hover,
+.nav-button:focus,
+.mobile .accordion-body ul a:hover,
+.mobile .accordion-body ul a:focus {
   font-weight: normal !important;
   transform: scale(1.05);
   transition: all 0.05s ease-in-out;
   font-weight: 500;
 }
 
-.nav-button:hover,.nav-button:focus, .mobile .accordion-body ul a:hover , .mobile .accordion-body ul a:focus {
+.nav-button:hover,
+.nav-button:focus,
+.mobile .accordion-body ul a:hover,
+.mobile .accordion-body ul a:focus {
   border-color: none !important;
   box-shadow: none !important;
 }
@@ -275,8 +300,8 @@ nav ul a:hover, nav ul a:focus {
 }
 
 .image-wrapper img {
-  max-width:100%;
-  max-height:100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /*///////////////////////////////////////////////// MAIN */
@@ -293,14 +318,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: 100%; */
 }
 
 .wrapper {
   width: 77vw;
   position: relative;
-  /* overflow:hidden; */
-  /* height: 100vh; */
 }
 
 /*///////////////////////////////////////////////// WEATHER */
@@ -324,8 +346,8 @@ main {
 
 .horizontal-scroll-wrapper::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0,0,0,.5);
-  box-shadow: 0 0 1px rgba(255,255,255,.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .weather-image {
@@ -383,7 +405,7 @@ main {
   background-color: white;
   right: -2px;
   left: -2px;
-  border-top: 1.5px solid rgba(57,	56,	59, 0.3);
+  border-top: 1.5px solid rgba(57, 56, 59, 0.3);
   border-left: 2px solid var(--opaque-gray);
   border-bottom: 2px solid var(--opaque-gray);
   border-right: 2px solid var(--opaque-gray);
@@ -409,14 +431,15 @@ main {
   cursor: pointer;
 }
 
-.result:focus, .result:hover {
+.result:focus,
+.result:hover {
   font-weight: 1.1em;
 }
 
 /*///////////////////////////////////////////////// MAP */
 
-.leaflet-container { 
-  height: 400px; 
+.leaflet-container {
+  height: 400px;
   width: 100%;
   margin: 15px 0px;
   z-index: 0;
@@ -432,19 +455,20 @@ main {
   text-align: center;
 }
 
-.leaflet-popup-content a:hover, .leaflet-popup-content a:focus {
+.leaflet-popup-content a:hover,
+.leaflet-popup-content a:focus {
   color: var(--links) !important;
-  transition: all 0.10s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 /* original color of marker */
 /* rbg(0	122	205)	 */
 /* hsl 204 100 40.2*/
 
-/* goal color */ 
+/* goal color */
 /* rgb  (249	92	131)*/
 /* hsl 345 92.9 66.9*/
- 
+
 /* difference between the two, a.k.a. filter values  */
 /* h: -249% */
 
@@ -501,7 +525,7 @@ main {
   bottom: 0;
   height: 1px;
   width: 75%;
-  content: '';
+  content: "";
   background-color: rgba(57, 56, 59, 75%);
 }
 
@@ -513,35 +537,36 @@ main {
   bottom: 0;
   height: 1px;
   width: 35%;
-  content: '';
+  content: "";
   background-color: rgba(57, 56, 59, 75%);
 }
 
-.verification-redirect:after, verification-redirect:hover:after {
+.verification-redirect:after,
+verification-redirect:hover:after {
   color: black;
-  -o-transition:.5s;
-  -ms-transition:.5s;
-  -moz-transition:.5s;
-  -webkit-transition:.5s;
-  transition:.5s;
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .verification-redirect:hover:after {
   width: 90%;
-  -o-transition:.5s;
-  -ms-transition:.5s;
-  -moz-transition:.5s;
-  -webkit-transition:.5s;
-  transition:.5s;
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .verification-redirect-modal:hover:after {
   width: 40%;
-  -o-transition:.5s;
-  -ms-transition:.5s;
-  -moz-transition:.5s;
-  -webkit-transition:.5s;
-  transition:.5s;
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .form-styles {
@@ -554,8 +579,8 @@ main {
   color: var(--background-color);
   margin: 5px;
   padding: 10px 30px;
-  border: 2px solid rgba(148, 34, 103, 0.75)  !important;
-  border-radius: 4px; 
+  border: 2px solid rgba(148, 34, 103, 0.75) !important;
+  border-radius: 4px;
   font-size: 1.3em;
   font-weight: 600;
 }
@@ -568,24 +593,28 @@ main {
 
 /*///////////////////////////////////////////////// HOVER EFFECTS */
 
-.scale:focus, .scale:hover {
+.scale:focus,
+.scale:hover {
   transform: scale(1.05);
   transition: all 0.15s;
 }
 
-.invert-color:focus, .invert-color:hover {
-  background-color:var(--background);
-  color:var(--buttons);
+.invert-color:focus,
+.invert-color:hover {
+  background-color: var(--background);
+  color: var(--buttons);
   border: 3px solid var(--links) !important;
   transition: all 0.15s ease-in-out;
 }
 
-.link:focus, .link:hover {
+.link:focus,
+.link:hover {
   color: var(--forest-green) !important;
-  transition: all 0.10s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
-.fade-button:focus, .fade-button:hover {
+.fade-button:focus,
+.fade-button:hover {
   background-color: rgba(148, 34, 103, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -632,7 +661,7 @@ main {
 
 .trail-list-button {
   background-color: var(--green);
-  color:white !important;
+  color: white !important;
   font-weight: 550;
   padding: 10px 5px;
   min-width: 120px;
@@ -650,7 +679,8 @@ main {
   width: 100%;
 }
 
-.trail-list-button:focus, .trail-list-button:hover {
+.trail-list-button:focus,
+.trail-list-button:hover {
   background-color: rgba(87, 117, 43, 0.84);
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -684,7 +714,7 @@ h3 {
   max-width: 75%;
 }
 
-.trail div{
+.trail div {
   white-space: break-spaces;
 }
 
@@ -693,11 +723,12 @@ h3 {
   background-color: inherit !important;
   border: none !important;
   color: var(--yellow) !important;
-  margin-left: 5px; 
+  margin-left: 5px;
 }
 
-.btn-success:focus, .btn-success:hover {
-  color: rgb(251,196,117 / 75%) !important;
+.btn-success:focus,
+.btn-success:hover {
+  color: rgb(251, 196, 117 / 75%) !important;
   transition: all 0.15s ease-in-out;
   box-shadow: none !important;
   border: none !important;
@@ -707,15 +738,15 @@ h3 {
   background-color: rgb(248, 225, 193) !important;
   color: var(--gray);
   border: 1px solid var(--yellow);
-  box-shadow: 0px 0px 1px 1px inset var(--yellow);;
+  box-shadow: 0px 0px 1px 1px inset var(--yellow);
   max-width: 80%;
 }
 
 .tooltip-arrow::before {
-  border-right: 5px solid rgb(248, 225, 193)!important;
+  border-right: 5px solid rgb(248, 225, 193) !important;
 }
 
-.tip button  {
+.tip button {
   background-color: inherit;
   border: none;
   color: var(--yellow);
@@ -737,7 +768,7 @@ h3 {
 }
 .levels {
   text-align: left;
-  margin-bottom: 6px; 
+  margin-bottom: 6px;
   max-width: 500px;
 }
 
@@ -807,17 +838,20 @@ h3 {
   padding: 15px 15px;
 }
 
-.plan-trip-link-container a, .plan-trip-link-container button {
-  color:white !important;
+.plan-trip-link-container a,
+.plan-trip-link-container button {
+  color: white !important;
 }
 
-button.plan-trip-button:hover, button.plan-trip-button:focus {
+button.plan-trip-button:hover,
+button.plan-trip-button:focus {
   background-color: rgba(87, 117, 43, 0.84) !important;
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
 }
 
-.plan-trip-link-container:hover, .plan-trip-link-container:focus {
+.plan-trip-link-container:hover,
+.plan-trip-link-container:focus {
   background-color: rgba(87, 117, 43, 0.84) !important;
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -827,7 +861,8 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
   text-align: right;
 }
 
-.trail-buttons button, .trail-buttons a {
+.trail-buttons button,
+.trail-buttons a {
   padding: 10px 10px;
 }
 
@@ -847,7 +882,7 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
   height: 250px;
 }
 
-.question-wrapper{
+.question-wrapper {
   display: flex;
   height: 100px;
   justify-content: center;
@@ -856,12 +891,12 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
   margin-top: 7px;
 }
 
-.question-wrapper h3  {
+.question-wrapper h3 {
   padding-top: 0;
   text-align: center;
 }
 
-.feedback-prompt  {
+.feedback-prompt {
   border: none;
   font-weight: 550;
   font-size: 1.4em;
@@ -883,15 +918,19 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
   background-color: var(--cranberry) !important;
 }
 
-.trail-description .accordion-button:focus, .trail-description .accordion-button:hover {
-  border-color: rgba(219	203	177	/ 25%)  !important;
-  box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
+.trail-description .accordion-button:focus,
+.trail-description .accordion-button:hover {
+  border-color: rgba(219 203 177 / 25%) !important;
+  box-shadow: 0 0 0 0.25rem rgba(219 203 177 / 25%) !important;
 }
 
-.trail-description .accordion-button:not(.collapsed), .trail-description .accordion-button, .trail-description .accordion-button:not(.collapsed), .trail-description .accordion-button::after {
+.trail-description .accordion-button:not(.collapsed),
+.trail-description .accordion-button,
+.trail-description .accordion-button:not(.collapsed),
+.trail-description .accordion-button::after {
   color: var(--gray) !important;
   font-weight: bold !important;
-  background-color: rgb(242	239	233	) !important;
+  background-color: rgb(242 239 233) !important;
 }
 
 .trail-description {
@@ -910,12 +949,13 @@ button.plan-trip-button:hover, button.plan-trip-button:focus {
 }
 
 .trail-description .accordion-body {
- background-color: white;
+  background-color: white;
 }
 
-.accordion-button:focus, .accordion-button:hover {
-  border-color: rgba(219	203	177	/ 25%)  !important;
-  box-shadow: 0 0 0 0.25rem rgba(219	203	177	/ 25%) !important;
+.accordion-button:focus,
+.accordion-button:hover {
+  border-color: rgba(219 203 177 / 25%) !important;
+  box-shadow: 0 0 0 0.25rem rgba(219 203 177 / 25%) !important;
 }
 
 .bottom-ul {
@@ -933,7 +973,8 @@ img.absolute {
   background-color: var(--background-color) !important;
 }
 
-.checkboxes, .radio-buttons {
+.checkboxes,
+.radio-buttons {
   display: flex;
   flex-wrap: wrap;
 }
@@ -964,7 +1005,9 @@ img.absolute {
   margin: 5px;
 }
 
-.checkbox input, .checkbox label .radio-buttons input, .radio-buttons label {
+.checkbox input,
+.checkbox label .radio-buttons input,
+.radio-buttons label {
   margin: 0 10px;
 }
 
@@ -983,12 +1026,14 @@ img.absolute {
 }
 
 .btn-close {
-  background: transparent url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill='%23fff'%3e%3cpath d=%27M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z%27/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+  background: transparent
+    url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill='%23fff'%3e%3cpath d=%27M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z%27/%3e%3c/svg%3e")
+    center/1em auto no-repeat !important;
 }
 
 .feedback-button {
   background-color: var(--green);
-  color:white !important;
+  color: white !important;
   font-weight: 550;
   padding: 10px 0;
   min-width: 120px;
@@ -1020,7 +1065,8 @@ img.absolute {
   transition: all 0.15s ease-in-out;
 }
 
-.close-modal:focus, .close-modal:hover {
+.close-modal:focus,
+.close-modal:hover {
   color: rgb(46, 44, 33) !important;
   transition: all 0.15s ease-in-out;
 }
@@ -1037,7 +1083,7 @@ input.checkbox + label {
 
 input.checkbox:not(:checked) + label:hover {
   box-shadow: 0px 1px 3px rgba(148, 34, 103, 0.75);
-  border: 2px solid rgba(148, 34, 103, 0.75)
+  border: 2px solid rgba(148, 34, 103, 0.75);
 }
 
 input.checkbox + label:active,
@@ -1047,7 +1093,7 @@ input.checkbox:checked + label {
   color: white;
 }
 
-input[type='radio']:after {
+input[type="radio"]:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -1055,13 +1101,13 @@ input[type='radio']:after {
   left: -1px;
   position: relative;
   background-color: #d1d3d1;
-  content: '';
+  content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
 }
 
-input[type='radio']:checked:after {
+input[type="radio"]:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -1069,14 +1115,13 @@ input[type='radio']:checked:after {
   left: -1px;
   position: relative;
   background-color: #ffa500;
-  content: '';
+  content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
 }
 
 /* /////////////////////////////////////////////////////////////////TRIP FORM */
-
 
 .map-button {
   position: absolute;
@@ -1101,7 +1146,7 @@ input[type='radio']:checked:after {
   border-top: 2px solid rgb(217, 214, 208);
   margin-bottom: 20px;
   margin-top: 20px;
-  padding-bottom: 10px
+  padding-bottom: 10px;
 }
 
 .trail-details {
@@ -1168,7 +1213,7 @@ input[type='radio']:checked:after {
 }
 
 .trip-form-weather h3 {
-  background-color: var(--forest-green) ;
+  background-color: var(--forest-green);
   color: var(--background-color);
   padding-left: 7px;
   padding-bottom: 7px;
@@ -1204,8 +1249,8 @@ input[type='radio']:checked:after {
 }
 
 .download-button {
-  background-color: rgb(175	66	134	);
-  color:var(--background-color) !important;
+  background-color: rgb(175 66 134);
+  color: var(--background-color) !important;
   font-weight: 550;
   padding: 10px 0;
   min-width: 120px;
@@ -1216,7 +1261,8 @@ input[type='radio']:checked:after {
   border: none;
 }
 
-.download-button:focus, .download-button:hover {
+.download-button:focus,
+.download-button:hover {
   background-color: rgb(201, 75, 153);
   box-shadow: 2px 6px 6px var(--opaque-gray);
   transition: all 0.15s ease-in-out;
@@ -1249,7 +1295,8 @@ input[type='radio']:checked:after {
   font-size: 0.8em;
 }
 
-.icon-button:focus, .icon-button:hover  {
+.icon-button:focus,
+.icon-button:hover {
   color: var(--cranberry);
   transform: scale(1.1);
   transition: all 15ms ease-in-out;
@@ -1283,7 +1330,8 @@ input[type='radio']:checked:after {
   padding-bottom: 3px;
 }
 
-.trip-weather, .trip-details {
+.trip-weather,
+.trip-details {
   margin: 20px;
 }
 
@@ -1294,7 +1342,7 @@ input[type='radio']:checked:after {
 }
 
 .trip-weather h3 {
-  background-color: var(--forest-green) ;
+  background-color: var(--forest-green);
   color: var(--background-color);
   padding-left: 7px;
   width: 100%;
@@ -1317,10 +1365,12 @@ input[type='radio']:checked:after {
   font-size: 1.1em;
 }
 
-.trip-link a:visited, .trip-link a:link {
+.trip-link a:visited,
+.trip-link a:link {
   color: var(--gray) !important;
 }
-.trip-link h3:hover, .trip-link h3:hover:focus {
+.trip-link h3:hover,
+.trip-link h3:hover:focus {
   color: var(--cranberry) !important;
 }
 
@@ -1368,7 +1418,8 @@ input[type='radio']:checked:after {
   width: 100%;
 }
 
-.cancel-trip:hover, .cancel-trip:focus {
+.cancel-trip:hover,
+.cancel-trip:focus {
   background-color: rgb(189, 75, 146) !important;
   box-shadow: 2px 6px 6px var(--light-stone);
   transition: all 0.15s ease-in-out;
@@ -1393,7 +1444,6 @@ input[type='radio']:checked:after {
 /* /////////////////////////////////////////////////////////////////DESKTOP */
 
 @media (min-width: 768px) {
-
   nav ul {
     flex-direction: row;
   }
@@ -1410,7 +1460,7 @@ input[type='radio']:checked:after {
     display: inherit;
   }
 
-  .left { 
+  .left {
     display: block;
   }
   .right {
@@ -1422,7 +1472,7 @@ input[type='radio']:checked:after {
     flex-direction: column;
     justify-content: space-between;
   }
-  
+
   .bottom ul {
     flex-direction: row;
   }
@@ -1438,11 +1488,10 @@ input[type='radio']:checked:after {
     margin-left: 10px;
   }
 
-
   .wrapper {
     display: flex;
     width: 60vw;
-    flex-direction: column; 
+    flex-direction: column;
   }
 
   .trail {
@@ -1473,7 +1522,8 @@ input[type='radio']:checked:after {
     margin-left: -33.33%;
   }
 
-  .feedback-prompt, .question-wrapper {
+  .feedback-prompt,
+  .question-wrapper {
     margin-top: 0;
   }
 
@@ -1509,7 +1559,8 @@ input[type='radio']:checked:after {
     display: flex;
     justify-content: space-between;
   }
-  .trip-right, .trip-left {
+  .trip-right,
+  .trip-left {
     flex: 1;
     width: auto;
   }
@@ -1540,7 +1591,6 @@ input[type='radio']:checked:after {
     border-radius: 18px;
     max-height: 3em;
     margin-top: 5px;
-
   }
 
   .trip-detail-map svg {
@@ -1569,5 +1619,4 @@ input[type='radio']:checked:after {
   .trail-description {
     margin-bottom: 30px;
   }
-
 }
