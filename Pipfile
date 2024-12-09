@@ -10,10 +10,13 @@ gunicorn = "~=20.1.0"
 whitenoise = "~=6.0.0"
 djangorestframework = "~=3.13.1"
 django-rest-auth = "~=0.9.5"
-django-allauth = "~=0.49.0"
+django-allauth = "~=0.50.0"
 django-cleanup = "~=6.0.0"
 requests = "~=2.27.1"
 
 [dev-packages]
 autopep8 = "*"
+
+[requires]
+python_version = "3.9"
 
